@@ -9,7 +9,7 @@ import { plugin as markdown } from 'vite-plugin-markdown';
 export default defineConfig({
   plugins: [
     react(),
-    markdown({ mode: 'react' })
+    markdown({ mode: ['react'] })  // Changed from string to array
   ],
   resolve: {
     alias: {
