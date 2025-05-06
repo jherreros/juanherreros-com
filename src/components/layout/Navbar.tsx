@@ -3,6 +3,8 @@ import { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { cn } from "@/lib/utils";
 import { ThemeToggle } from "./ThemeToggle";
+import { Github, Linkedin } from "lucide-react";
+import { Button } from "@/components/ui/button";
 
 const navItems = [
   { name: "Home", path: "/" },
@@ -45,8 +47,32 @@ export function Navbar() {
             </div>
           </div>
 
-          {/* Theme toggle + mobile menu button */}
+          {/* Social icons + Theme toggle + mobile menu button */}
           <div className="flex items-center">
+            {/* Social icons */}
+            <div className="hidden sm:flex space-x-2 mr-2">
+              <Button 
+                variant="ghost" 
+                size="icon" 
+                asChild 
+                className="text-foreground hover:text-primary transition-colors"
+              >
+                <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
+                  <Linkedin size={20} />
+                </a>
+              </Button>
+              <Button 
+                variant="ghost" 
+                size="icon" 
+                asChild 
+                className="text-foreground hover:text-primary transition-colors"
+              >
+                <a href="https://github.com" target="_blank" rel="noopener noreferrer" aria-label="GitHub">
+                  <Github size={20} />
+                </a>
+              </Button>
+            </div>
+            
             <ThemeToggle />
             
             {/* Mobile menu button */}
@@ -118,6 +144,28 @@ export function Navbar() {
               {item.name}
             </Link>
           ))}
+          
+          {/* Social icons in mobile menu */}
+          <div className="flex space-x-4 px-3 py-2">
+            <a 
+              href="https://linkedin.com" 
+              target="_blank" 
+              rel="noopener noreferrer" 
+              aria-label="LinkedIn"
+              className="text-foreground hover:text-primary transition-colors"
+            >
+              <Linkedin size={20} />
+            </a>
+            <a 
+              href="https://github.com" 
+              target="_blank" 
+              rel="noopener noreferrer" 
+              aria-label="GitHub"
+              className="text-foreground hover:text-primary transition-colors"
+            >
+              <Github size={20} />
+            </a>
+          </div>
         </div>
       </div>
     </nav>

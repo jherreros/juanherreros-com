@@ -8,7 +8,7 @@ function ResumeItem({ item }: { item: ResumeItemType }) {
   return (
     <div className="mb-8">
       <div className="flex flex-col md:flex-row md:items-center md:justify-between mb-2">
-        <h3 className="text-lg font-semibold">{item.title}</h3>
+        <h3 className="text-lg font-semibold text-primary">{item.title}</h3>
         <div className="text-muted-foreground text-sm">
           {new Date(item.startDate).getFullYear()} - 
           {item.current ? " Present" : item.endDate ? ` ${new Date(item.endDate).getFullYear()}` : ""}
@@ -23,12 +23,12 @@ function ResumeItem({ item }: { item: ResumeItemType }) {
         </div>
       )}
       
-      <p className="mb-3 text-muted-foreground">{item.description}</p>
+      <p className="mb-3 text-foreground">{item.description}</p>
       
       {item.bullets && item.bullets.length > 0 && (
         <ul className="list-disc pl-5 mb-4 text-sm space-y-1">
           {item.bullets.map((bullet, index) => (
-            <li key={index} className="text-muted-foreground">{bullet}</li>
+            <li key={index} className="text-foreground">{bullet}</li>
           ))}
         </ul>
       )}
@@ -56,15 +56,15 @@ const Resume = () => {
     <div className="min-h-screen py-12 px-4 sm:px-6 lg:px-8 max-w-4xl mx-auto">
       <div className="mb-8 flex flex-col sm:flex-row sm:justify-between sm:items-center gap-4">
         <div>
-          <h1 className="text-3xl font-bold mb-2">Juan Herreros</h1>
-          <p className="text-muted-foreground">Engineering Manager & Platform Engineer</p>
+          <h1 className="text-3xl font-bold mb-2 text-primary">Juan Herreros</h1>
+          <p className="text-foreground">Engineering Manager & Platform Engineer</p>
         </div>
         <Button onClick={handleDownloadPDF}>Download PDF</Button>
       </div>
       
       {resumeSections.map((section, index) => (
         <section key={index} className="mb-12">
-          <h2 className="text-xl font-bold mb-6 pb-2 border-b">{section.title}</h2>
+          <h2 className="text-xl font-bold mb-6 pb-2 border-b text-primary">{section.title}</h2>
           {section.items.map((item) => (
             <ResumeItem key={item.id} item={item} />
           ))}
