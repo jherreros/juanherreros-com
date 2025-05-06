@@ -5,6 +5,7 @@ import { Input } from "@/components/ui/input";
 import { Search } from "lucide-react";
 import { BlogPost } from "@/lib/types";
 import { getAllPosts } from "@/lib/blog";
+import { toast } from "@/components/ui/sonner";
 
 const Blog = () => {
   const [searchQuery, setSearchQuery] = useState("");
@@ -15,9 +16,10 @@ const Blog = () => {
     async function loadPosts() {
       try {
         const allPosts = await getAllPosts();
-        setPosts(allPosts);
+        setPosts(allPosts || []); // Ensure we always have an array even if getAllPosts returns null
       } catch (error) {
         console.error("Failed to load posts:", error);
+        toast.error("Failed to load blog posts");
       } finally {
         setIsLoading(false);
       }
@@ -26,12 +28,12 @@ const Blog = () => {
     loadPosts();
   }, []);
   
-  // Filter posts based on search query
+  // Filter posts based on search query - add null checks to prevent errors
   const filteredPosts = posts.filter(post => 
-    post.title.toLowerCase().includes(searchQuery.toLowerCase()) || 
-    post.tags.some(tag => tag.toLowerCase().includes(searchQuery.toLowerCase())) ||
-    post.excerpt.toLowerCase().includes(searchQuery.toLowerCase()) ||
-    post.author.toLowerCase().includes(searchQuery.toLowerCase())
+    post && post.title?.toLowerCase().includes(searchQuery.toLowerCase()) || 
+    post?.tags?.some(tag => tag.toLowerCase().includes(searchQuery.toLowerCase())) ||
+    post?.excerpt?.toLowerCase().includes(searchQuery.toLowerCase()) ||
+    post?.author?.toLowerCase().includes(searchQuery.toLowerCase())
   );
 
   return (

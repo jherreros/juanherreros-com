@@ -10,7 +10,7 @@ import { componentTagger } from 'lovable-tagger';
 export default defineConfig(({ mode }) => ({
   plugins: [
     react(),
-    markdown({ mode: [Mode.React] }),  // Using the enum Mode.React instead of string
+    markdown({ mode: [Mode.REACT] }),  // Using the enum Mode.REACT instead of Mode.React
     mode === 'development' && componentTagger(),
   ].filter(Boolean),
   resolve: {
