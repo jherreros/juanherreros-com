@@ -7,6 +7,7 @@ export const blogPosts: BlogPost[] = [
     title: "The Evolution of Platform Engineering",
     slug: "evolution-platform-engineering",
     date: "2023-12-10",
+    author: "Juan Herreros",
     excerpt:
       "A look at how platform engineering has evolved over the years and where it's headed.",
     content: `
@@ -43,6 +44,7 @@ What are your thoughts on the future of platform engineering? I'd love to hear y
     title: "Leading Technical Teams: Lessons Learned",
     slug: "leading-technical-teams",
     date: "2024-02-15",
+    author: "Juan Herreros",
     excerpt:
       "Reflections on my journey from platform engineer to engineering manager.",
     content: `
@@ -93,6 +95,7 @@ What lessons have you learned in your leadership journey? I'd love to hear from 
     title: "Building a Modern Cloud Infrastructure",
     slug: "modern-cloud-infrastructure",
     date: "2024-04-01",
+    author: "Juan Herreros",
     excerpt:
       "Best practices for designing and implementing cloud-native infrastructure.",
     content: `
