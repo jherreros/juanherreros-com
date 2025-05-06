@@ -15,7 +15,7 @@ export function TalkCard({ talk }: TalkCardProps) {
   return (
     <Card className="h-full flex flex-col hover:shadow-md transition-shadow">
       <CardHeader>
-        <CardTitle className="text-xl">{talk.title}</CardTitle>
+        <CardTitle className="text-xl text-primary">{talk.title}</CardTitle>
         <CardDescription>
           {talk.event} | {formattedDate}
         </CardDescription>
@@ -40,7 +40,7 @@ export function TalkCard({ talk }: TalkCardProps) {
             ) : null}
           </div>
         )}
-        <p className="text-muted-foreground">{talk.description}</p>
+        <p className="text-foreground">{talk.description}</p>
       </CardContent>
       <CardFooter className="flex flex-col items-start gap-4">
         <div className="flex flex-wrap gap-2">

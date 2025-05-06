@@ -73,7 +73,7 @@ const BlogPost = () => {
       
       <article>
         <header className="mb-8">
-          <h1 className="text-3xl md:text-4xl font-bold mb-4">{post.title}</h1>
+          <h1 className="text-3xl md:text-4xl font-bold mb-4 text-primary">{post.title}</h1>
           <div className="flex flex-wrap items-center gap-4 text-sm text-muted-foreground">
             <div className="flex items-center">
               <span className="font-medium text-foreground">By {post.author}</span>
@@ -89,7 +89,12 @@ const BlogPost = () => {
         </header>
         
         <div className="prose dark:prose-invert max-w-none">
-          <ReactMarkdown>{post.content}</ReactMarkdown>
+          <ReactMarkdown components={{
+            // Remove h1 as it would duplicate the title
+            h1: () => null
+          }}>
+            {post.content}
+          </ReactMarkdown>
         </div>
       </article>
     </div>

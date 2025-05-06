@@ -47,6 +47,17 @@ p, li, span:not(.text-primary) {
   color: var(--foreground);
 }
 
-h1, h2, h3, h4, h5, h6 {
+/* Light mode: Titles should be green */
+:root h1, :root h2, :root h3, :root h4, :root h5, :root h6 {
   color: var(--primary);
+}
+
+/* Dark mode: Titles should be white */
+.dark h1, .dark h2, .dark h3, .dark h4, .dark h5, .dark h6 {
+  color: var(--foreground);
+}
+
+/* Fix for blog title text in dark mode - ensure it's the primary color */
+.dark .text-primary {
+  color: var(--foreground);
 }
