@@ -39,8 +39,8 @@ const Blog = () => {
   return (
     <div className="min-h-screen py-12 px-4 sm:px-6 lg:px-8 max-w-6xl mx-auto">
       <div className="mb-10">
-        <h1 className="text-3xl font-bold mb-6">Blog</h1>
-        <p className="text-muted-foreground mb-6">
+        <h1 className="text-3xl font-bold mb-6 text-primary">Blog</h1>
+        <p className="text-foreground mb-6">
           Thoughts, insights, and experiences from my journey in platform engineering and leadership.
         </p>
         
@@ -72,7 +72,7 @@ const Blog = () => {
         <BlogList posts={filteredPosts} />
       ) : (
         <div className="text-center py-12">
-          <p className="text-muted-foreground">No posts found matching your search criteria.</p>
+          <p className="text-foreground">No posts found matching your search criteria.</p>
         </div>
       )}
     </div>

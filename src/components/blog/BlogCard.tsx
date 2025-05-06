@@ -18,7 +18,7 @@ export function BlogCard({ post }: BlogCardProps) {
         <CardTitle className="text-xl">
           <Link
             to={`/blog/${post.slug}`}
-            className="hover:text-primary transition-colors"
+            className="text-primary hover:text-primary/80 transition-colors"
           >
             {post.title}
           </Link>
@@ -29,7 +29,7 @@ export function BlogCard({ post }: BlogCardProps) {
         </div>
       </CardHeader>
       <CardContent className="flex-grow">
-        <p className="text-muted-foreground">{post.excerpt}</p>
+        <p className="text-foreground">{post.excerpt}</p>
       </CardContent>
       <CardFooter>
         <div className="flex flex-wrap gap-2">

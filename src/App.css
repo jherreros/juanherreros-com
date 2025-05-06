@@ -1,3 +1,4 @@
+
 #root {
   max-width: 1280px;
   margin: 0 auto;
@@ -39,4 +40,13 @@
 
 .read-the-docs {
   color: #888;
+}
+
+/* Improved text contrast */
+p, li, span:not(.text-primary) {
+  color: var(--foreground);
+}
+
+h1, h2, h3, h4, h5, h6 {
+  color: var(--primary);
 }
