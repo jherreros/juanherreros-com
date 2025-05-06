@@ -8,6 +8,7 @@ import { useEffect, useState } from "react";
 import ReactMarkdown from "react-markdown";
 import { BlogPost as BlogPostType } from "@/lib/types";
 import { getPostBySlug } from "@/lib/blog";
+import { toast } from "@/components/ui/sonner";
 
 const BlogPost = () => {
   const { slug } = useParams<{ slug: string }>();
@@ -22,6 +23,7 @@ const BlogPost = () => {
           setPost(foundPost || null);
         } catch (error) {
           console.error("Failed to load post:", error);
+          toast.error("Failed to load blog post");
         } finally {
           setIsLoading(false);
         }
