@@ -1,18 +1,37 @@
 
 import { BlogList } from "@/components/blog/BlogList";
-import { blogPosts } from "@/data/blogPosts";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Input } from "@/components/ui/input";
 import { Search } from "lucide-react";
+import { BlogPost } from "@/lib/types";
+import { getAllPosts } from "@/lib/blog";
 
 const Blog = () => {
   const [searchQuery, setSearchQuery] = useState("");
+  const [posts, setPosts] = useState<BlogPost[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
+  
+  useEffect(() => {
+    async function loadPosts() {
+      try {
+        const allPosts = await getAllPosts();
+        setPosts(allPosts);
+      } catch (error) {
+        console.error("Failed to load posts:", error);
+      } finally {
+        setIsLoading(false);
+      }
+    }
+    
+    loadPosts();
+  }, []);
   
   // Filter posts based on search query
-  const filteredPosts = blogPosts.filter(post => 
+  const filteredPosts = posts.filter(post => 
     post.title.toLowerCase().includes(searchQuery.toLowerCase()) || 
     post.tags.some(tag => tag.toLowerCase().includes(searchQuery.toLowerCase())) ||
-    post.excerpt.toLowerCase().includes(searchQuery.toLowerCase())
+    post.excerpt.toLowerCase().includes(searchQuery.toLowerCase()) ||
+    post.author.toLowerCase().includes(searchQuery.toLowerCase())
   );
 
   return (
@@ -27,7 +46,7 @@ const Blog = () => {
           <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground" size={18} />
           <Input
             type="text"
-            placeholder="Search posts by title, tag, or content..."
+            placeholder="Search posts by title, tag, content, or author..."
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
             className="pl-10"
@@ -35,7 +54,19 @@ const Blog = () => {
         </div>
       </div>
       
-      {filteredPosts.length > 0 ? (
+      {isLoading ? (
+        <div className="grid gap-6 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
+          {[1, 2, 3].map((i) => (
+            <div key={i} className="border rounded-lg p-6 animate-pulse">
+              <div className="h-6 bg-muted rounded w-3/4 mb-4"></div>
+              <div className="h-4 bg-muted rounded w-1/4 mb-6"></div>
+              <div className="h-4 bg-muted rounded w-full mb-2"></div>
+              <div className="h-4 bg-muted rounded w-full mb-2"></div>
+              <div className="h-4 bg-muted rounded w-2/3"></div>
+            </div>
+          ))}
+        </div>
+      ) : filteredPosts.length > 0 ? (
         <BlogList posts={filteredPosts} />
       ) : (
         <div className="text-center py-12">

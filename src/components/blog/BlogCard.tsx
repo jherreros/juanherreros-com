@@ -13,8 +13,8 @@ export function BlogCard({ post }: BlogCardProps) {
   const formattedDate = format(new Date(post.date), "MMMM dd, yyyy");
 
   return (
-    <Card className="h-full flex flex-col hover:shadow-md transition-shadow">
-      <CardHeader>
+    <Card className="h-full flex flex-col hover:shadow-md transition-shadow border-corporate-100">
+      <CardHeader className="pb-4">
         <CardTitle className="text-xl">
           <Link
             to={`/blog/${post.slug}`}
@@ -23,7 +23,10 @@ export function BlogCard({ post }: BlogCardProps) {
             {post.title}
           </Link>
         </CardTitle>
-        <p className="text-sm text-muted-foreground">{formattedDate}</p>
+        <div className="flex flex-col space-y-1 text-sm">
+          <p className="text-foreground font-medium">By {post.author}</p>
+          <p className="text-sm text-muted-foreground">{formattedDate}</p>
+        </div>
       </CardHeader>
       <CardContent className="flex-grow">
         <p className="text-muted-foreground">{post.excerpt}</p>

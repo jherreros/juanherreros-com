@@ -1,19 +1,47 @@
 
 import { useParams, Link } from "react-router-dom";
-import { blogPosts } from "@/data/blogPosts";
 import { format } from "date-fns";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { ArrowLeft } from "lucide-react";
-import { useMemo } from "react";
+import { useEffect, useState } from "react";
 import ReactMarkdown from "react-markdown";
+import { BlogPost as BlogPostType } from "@/lib/types";
+import { getPostBySlug } from "@/lib/blog";
 
 const BlogPost = () => {
   const { slug } = useParams<{ slug: string }>();
+  const [post, setPost] = useState<BlogPostType | null>(null);
+  const [isLoading, setIsLoading] = useState(true);
   
-  const post = useMemo(() => {
-    return blogPosts.find(post => post.slug === slug);
+  useEffect(() => {
+    async function loadPost() {
+      if (slug) {
+        try {
+          const foundPost = await getPostBySlug(slug);
+          setPost(foundPost || null);
+        } catch (error) {
+          console.error("Failed to load post:", error);
+        } finally {
+          setIsLoading(false);
+        }
+      }
+    }
+    
+    loadPost();
   }, [slug]);
+
+  // Show loading state
+  if (isLoading) {
+    return (
+      <div className="min-h-screen flex flex-col items-center justify-center">
+        <div className="animate-pulse">
+          <div className="h-8 w-64 bg-muted rounded mb-4"></div>
+          <div className="h-4 w-40 bg-muted rounded"></div>
+        </div>
+      </div>
+    );
+  }
 
   // Redirect if post not found
   if (!post) {
@@ -45,6 +73,10 @@ const BlogPost = () => {
         <header className="mb-8">
           <h1 className="text-3xl md:text-4xl font-bold mb-4">{post.title}</h1>
           <div className="flex flex-wrap items-center gap-4 text-sm text-muted-foreground">
+            <div className="flex items-center">
+              <span className="font-medium text-foreground">By {post.author}</span>
+            </div>
+            <span className="text-muted-foreground">•</span>
             <time dateTime={post.date}>{formattedDate}</time>
             <div className="flex flex-wrap gap-2">
               {post.tags.map((tag, i) => (
