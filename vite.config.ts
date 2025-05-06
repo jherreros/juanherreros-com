@@ -10,7 +10,7 @@ import { componentTagger } from 'lovable-tagger';
 export default defineConfig(({ mode }) => ({
   plugins: [
     react(),
-    markdown({ mode: 'react' }),
+    markdown({ mode: ['react'] }),  // Changed from string to array
     mode === 'development' && componentTagger(),
   ].filter(Boolean),
   resolve: {
