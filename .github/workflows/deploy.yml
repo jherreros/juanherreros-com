@@ -20,17 +20,10 @@ jobs:
       - name: Copy index.html to 404.html
         run: cp dist/index.html dist/404.html
 
-      - name: Debug build output
-        run: |
-          echo "Listing contents of the root directory..."
-          ls -la
-          echo "Listing contents of the dist directory..."
-          ls -R dist
-
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v4
         with:
           github_token: ${{ secrets.GH_PAT }}
-          publish_dir: ./test
-          publish_branch: gh-pages
+          publish_dir: ./dist
+          cname: test.juanherreros.com
           force_orphan: true
