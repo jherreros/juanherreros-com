@@ -9,7 +9,7 @@ export function Hero() {
         <div className="flex flex-col md:flex-row md:items-center md:justify-between">
           <div className="mb-10 md:mb-0 md:max-w-xl">
             <h1 className="text-4xl font-bold tracking-tight text-foreground sm:text-5xl mb-6">
-              Hi, I'm Juan Herreros
+              Hi, I'm Juan
             </h1>
             <p className="text-xl text-muted-foreground">
               Platform Engineering Manager with a passion for building high-performing teams 
