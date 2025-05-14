@@ -7,7 +7,7 @@ async function loadMarkdownFiles() {
   try {
     console.log("Attempting to load markdown files...");
     
-    // Use import.meta.glob with { eager: true } to load all markdown files
+    // Use import.meta.glob to load all markdown files
     const modules = import.meta.glob('/src/content/blog/*.md', { eager: true });
     console.log("Found markdown files:", Object.keys(modules).length);
     
@@ -19,8 +19,7 @@ async function loadMarkdownFiles() {
     const posts: BlogPost[] = Object.entries(modules).map(([path, module]: [string, any]) => {
       console.log("Processing file:", path);
       
-      // Different markdown loaders might have different output formats
-      // Try to handle various formats
+      // Handle different markdown loader output formats
       const attributes = module.attributes || module.frontmatter || module.meta || {};
       const content = module.html || module.content || module.default || '';
       
@@ -44,7 +43,6 @@ async function loadMarkdownFiles() {
   } catch (error) {
     console.error("Error loading markdown files:", error);
     console.error("Error details:", error instanceof Error ? error.message : String(error));
-    // Return empty array on error, we'll combine with static posts later
     return [];
   }
 }
@@ -52,13 +50,20 @@ async function loadMarkdownFiles() {
 export async function getAllPosts(): Promise<BlogPost[]> {
   try {
     console.log("Getting all blog posts...");
-    const markdownPosts = await loadMarkdownFiles();
-    console.log("Loaded markdown posts:", markdownPosts.length);
     
-    // Always include the static posts as fallback
-    const allPosts = [...markdownPosts, ...blogPosts];
+    // Always include the static posts even if markdown loading fails
+    let allPosts = [...blogPosts];
+    
+    try {
+      const markdownPosts = await loadMarkdownFiles();
+      console.log("Loaded markdown posts:", markdownPosts.length);
+      allPosts = [...markdownPosts, ...allPosts];
+    } catch (mdError) {
+      console.error("Error loading markdown posts:", mdError);
+      // Continue with just the static posts
+    }
+    
     console.log("Total posts:", allPosts.length);
-    
     return allPosts;
   } catch (error) {
     console.error("Error in getAllPosts:", error);
