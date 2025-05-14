@@ -18,7 +18,14 @@ const Blog = () => {
         console.log("Loading blog posts...");
         const allPosts = await getAllPosts();
         console.log("Loaded posts:", allPosts);
-        setPosts(allPosts || []); // Ensure we always have an array even if getAllPosts returns null
+        
+        // Filter out posts with missing essential data
+        const validPosts = allPosts.filter(post => 
+          post && post.title && post.title !== "Untitled"
+        );
+        
+        console.log("Valid posts after filtering:", validPosts.length);
+        setPosts(validPosts || []); // Ensure we always have an array even if empty
       } catch (error) {
         console.error("Failed to load posts:", error);
         toast.error("Failed to load blog posts");

@@ -18,48 +18,43 @@ async function loadMarkdownFiles() {
     const posts: BlogPost[] = Object.entries(modules).map(([path, module]: [string, any]) => {
       console.log("Processing file:", path);
       
-      // Debug the module structure
-      console.log("Module structure:", Object.keys(module));
-      
-      // Handle various markdown module structures
-      let attributes: Record<string, any> = {};
-      let content = '';
-      
-      // Try to extract frontmatter and content based on common patterns
-      if (module.attributes) {
-        attributes = module.attributes;
-      } else if (module.frontmatter) {
-        attributes = module.frontmatter;
-      } else if (module.meta) {
-        attributes = module.meta;
-      } else if (typeof module === 'object') {
-        // Try to find attributes in the module
-        attributes = module;
-      }
-      
-      // Try to extract content
-      if (typeof module.default === 'string') {
-        content = module.default;
-      } else if (module.html) {
-        content = module.html;
-      } else if (module.content) {
-        content = module.content;
-      } else if (typeof module.default === 'object' && module.default.html) {
-        content = module.default.html;
-      }
-      
-      // Extract slug from the file path
+      // Extract the file name for slug
       const slug = path.split('/').pop()?.replace('.md', '') || '';
       
+      // Handle the specific structure of our markdown files
+      let title = 'Untitled';
+      let author = 'Unknown';
+      let date = new Date().toISOString();
+      let excerpt = '';
+      let tags: string[] = [];
+      let content = '';
+      
+      // Extract frontmatter from the markdown ReactComponent
+      if (module.attributes) {
+        console.log("Found attributes:", Object.keys(module.attributes));
+        title = module.attributes.title || title;
+        author = module.attributes.author || author;
+        date = module.attributes.date || date;
+        excerpt = module.attributes.excerpt || excerpt;
+        tags = module.attributes.tags || tags;
+      }
+      
+      // Extract content - different modules structure it differently
+      if (module.ReactComponent) {
+        // The content is likely in the component itself
+        // We'll use the excerpt as content if we can't extract it better
+        content = excerpt;
+      }
+      
       const post: BlogPost = {
-        id: attributes.id || slug,
-        title: attributes.title || 'Untitled',
-        slug: attributes.slug || slug,
-        date: attributes.date || new Date().toISOString(),
-        author: attributes.author || 'Unknown',
-        excerpt: attributes.excerpt || '',
-        content: content,
-        tags: attributes.tags || []
+        id: slug,
+        title: title,
+        slug: slug,
+        date: date,
+        author: author,
+        excerpt: excerpt,
+        content: content || excerpt,
+        tags: tags
       };
       
       console.log(`Processed post: ${post.title} (${post.slug})`);
