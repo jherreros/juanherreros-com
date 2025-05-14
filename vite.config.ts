@@ -6,18 +6,15 @@ import path from 'path';
 import { plugin as markdown, Mode } from 'vite-plugin-markdown';
 import { componentTagger } from 'lovable-tagger';
 // Import the content plugin
-import contentPluginModule from '@originjs/vite-plugin-content';
+import contentPlugin from '@originjs/vite-plugin-content';
 
 // https://vitejs.dev/config/
 export default defineConfig(({ mode }) => ({
   plugins: [
     react(),
     markdown({ mode: [Mode.REACT] }),
-    // The plugin might be a factory or directly usable
-    // Try both approaches by checking its type
-    typeof contentPluginModule === 'function' 
-      ? contentPluginModule() 
-      : contentPluginModule,
+    // Use the plugin directly
+    contentPlugin,
     mode === 'development' && componentTagger(),
   ].filter(Boolean),
   resolve: {

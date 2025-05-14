@@ -1,4 +1,3 @@
-
 import { BlogPost } from "@/lib/types";
 import { blogPosts } from "@/data/blogPosts";
 
@@ -22,9 +21,8 @@ async function loadMarkdownFiles() {
       // Debug the module structure
       console.log("Module structure:", Object.keys(module));
       
-      // Handle various markdown module structures that could be returned
-      // by different markdown plugins
-      let attributes = {};
+      // Handle various markdown module structures
+      let attributes: Record<string, any> = {};
       let content = '';
       
       // Try to extract frontmatter and content based on common patterns
