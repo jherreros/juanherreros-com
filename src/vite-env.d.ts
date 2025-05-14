@@ -6,9 +6,3 @@ declare module '*.md' {
   const content: BlogPost;
   export default content;
 }
-
-// Add declaration for content plugin
-declare module '@originjs/vite-plugin-content' {
-  const contentPlugin: any;
-  export default contentPlugin;
-}
