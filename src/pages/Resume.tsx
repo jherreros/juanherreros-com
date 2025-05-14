@@ -15,12 +15,8 @@ const Resume = () => {
   useEffect(() => {
     async function loadResumeContent() {
       try {
-        // For Vite's markdown plugin, we can access the content directly
-        if (resumeMarkdown && typeof resumeMarkdown === 'object' && 'default' in resumeMarkdown) {
-          setResumeContent(resumeMarkdown.default);
-        } else {
-          setResumeContent(resumeMarkdown as unknown as string);
-        }
+        // For Vite's markdown plugin, properly handle the content
+        setResumeContent(resumeMarkdown as string);
       } catch (error) {
         console.error("Failed to load resume content:", error);
         toast.error("Failed to load resume content");
