@@ -5,12 +5,14 @@ import { fileURLToPath, URL } from 'node:url';
 import path from 'path';
 import { plugin as markdown, Mode } from 'vite-plugin-markdown';
 import { componentTagger } from 'lovable-tagger';
+import content from '@originjs/vite-plugin-content';
 
 // https://vitejs.dev/config/
 export default defineConfig(({ mode }) => ({
   plugins: [
     react(),
-    markdown({ mode: [Mode.REACT] }),  // Using the enum Mode.REACT instead of Mode.React
+    markdown({ mode: [Mode.REACT] }),
+    content(),  // Add the content plugin to handle markdown imports
     mode === 'development' && componentTagger(),
   ].filter(Boolean),
   resolve: {

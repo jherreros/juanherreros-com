@@ -1,26 +1,28 @@
 
 import { BlogPost } from "@/lib/types";
 import { blogPosts } from "@/data/blogPosts";
-import * as fs from 'fs';
-import * as path from 'path';
 
 // Helper function to load all markdown files from content/blog directory
 async function loadMarkdownFiles() {
   try {
     // In a browser environment, use dynamic imports to load markdown files
     const modules = import.meta.glob('/src/content/blog/*.md', { eager: true });
-    const posts: BlogPost[] = Object.values(modules).map((module: any) => {
-      const { id, title, slug, date, author, excerpt, tags, default: content } = module;
+    const posts: BlogPost[] = Object.entries(modules).map(([path, module]: [string, any]) => {
+      const { attributes, default: content } = module;
       
+      // Extract slug from the file path
+      const slug = path.split('/').pop()?.replace('.md', '') || '';
+      
+      // Create a blog post object
       return {
-        id,
-        title,
-        slug,
-        date,
-        author,
-        excerpt,
-        content,
-        tags: tags || []
+        id: attributes.id || slug,
+        title: attributes.title || 'Untitled',
+        slug: attributes.slug || slug,
+        date: attributes.date || new Date().toISOString(),
+        author: attributes.author || 'Unknown',
+        excerpt: attributes.excerpt || '',
+        content: content || '',
+        tags: attributes.tags || []
       };
     });
 
@@ -35,7 +37,7 @@ async function loadMarkdownFiles() {
 export async function getAllPosts(): Promise<BlogPost[]> {
   try {
     const markdownPosts = await loadMarkdownFiles();
-    return markdownPosts.length > 0 ? markdownPosts : blogPosts;
+    return [...markdownPosts, ...blogPosts];
   } catch (error) {
     console.error("Error loading blog posts:", error);
     // Return the fallback static data if imports fail

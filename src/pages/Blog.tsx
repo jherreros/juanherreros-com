@@ -15,7 +15,9 @@ const Blog = () => {
   useEffect(() => {
     async function loadPosts() {
       try {
+        console.log("Loading blog posts...");
         const allPosts = await getAllPosts();
+        console.log("Loaded posts:", allPosts);
         setPosts(allPosts || []); // Ensure we always have an array even if getAllPosts returns null
       } catch (error) {
         console.error("Failed to load posts:", error);
@@ -35,6 +37,9 @@ const Blog = () => {
     post?.excerpt?.toLowerCase().includes(searchQuery.toLowerCase()) ||
     post?.author?.toLowerCase().includes(searchQuery.toLowerCase())
   );
+
+  // Add debug log to see filtered posts
+  console.log("Filtered posts:", filteredPosts);
 
   return (
     <div className="min-h-screen py-12 px-4 sm:px-6 lg:px-8 max-w-6xl mx-auto">
