@@ -12,7 +12,8 @@ export default defineConfig(({ mode }) => ({
   plugins: [
     react(),
     markdown({ mode: [Mode.REACT] }),
-    content(),  // The content plugin is correctly imported and used here
+    // Using content plugin with default options
+    content(),
     mode === 'development' && componentTagger(),
   ].filter(Boolean),
   resolve: {
