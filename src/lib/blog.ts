@@ -1,24 +1,41 @@
 
 import { BlogPost } from "@/lib/types";
 import { blogPosts } from "@/data/blogPosts";
+import * as fs from 'fs';
+import * as path from 'path';
 
-// This is a placeholder function that would be replaced with actual file system 
-// operations in a Node.js environment, or with fetch requests in a browser environment
+// Helper function to load all markdown files from content/blog directory
+async function loadMarkdownFiles() {
+  try {
+    // In a browser environment, use dynamic imports to load markdown files
+    const modules = import.meta.glob('/src/content/blog/*.md', { eager: true });
+    const posts: BlogPost[] = Object.values(modules).map((module: any) => {
+      const { id, title, slug, date, author, excerpt, tags, default: content } = module;
+      
+      return {
+        id,
+        title,
+        slug,
+        date,
+        author,
+        excerpt,
+        content,
+        tags: tags || []
+      };
+    });
+
+    return posts;
+  } catch (error) {
+    console.error("Error loading markdown files:", error);
+    // Fallback to static data
+    return blogPosts;
+  }
+}
+
 export async function getAllPosts(): Promise<BlogPost[]> {
   try {
-    // In a real implementation, this would dynamically import all .md files
-    // or fetch them from an API endpoint
-    
-    // Use the static blogPosts data if the imports fail
-    return blogPosts;
-    
-    /* Commented out as this approach may not work in the current environment
-    const post1 = await import('@/content/blog/evolution-platform-engineering.md');
-    const post2 = await import('@/content/blog/leading-technical-teams.md');
-    const post3 = await import('@/content/blog/modern-cloud-infrastructure.md');
-    
-    return [post1.default, post2.default, post3.default] as BlogPost[];
-    */
+    const markdownPosts = await loadMarkdownFiles();
+    return markdownPosts.length > 0 ? markdownPosts : blogPosts;
   } catch (error) {
     console.error("Error loading blog posts:", error);
     // Return the fallback static data if imports fail

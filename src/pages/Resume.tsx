@@ -1,56 +1,55 @@
 
-import { resumeSections } from "@/data/resume";
-import { ResumeItem as ResumeItemType } from "@/lib/types";
+import { useState, useEffect } from "react";
+import ReactMarkdown from "react-markdown";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
+import { toast } from "@/components/ui/sonner";
 
-function ResumeItem({ item }: { item: ResumeItemType }) {
-  return (
-    <div className="mb-8">
-      <div className="flex flex-col md:flex-row md:items-center md:justify-between mb-2">
-        <h3 className="text-lg font-semibold text-primary">{item.title}</h3>
-        <div className="text-muted-foreground text-sm">
-          {new Date(item.startDate).getFullYear()} - 
-          {item.current ? " Present" : item.endDate ? ` ${new Date(item.endDate).getFullYear()}` : ""}
-        </div>
-      </div>
-      
-      {(item.organization || item.location) && (
-        <div className="mb-2 text-sm">
-          {item.organization && <span className="font-medium">{item.organization}</span>}
-          {item.organization && item.location && <span> · </span>}
-          {item.location && <span>{item.location}</span>}
-        </div>
-      )}
-      
-      <p className="mb-3 text-foreground">{item.description}</p>
-      
-      {item.bullets && item.bullets.length > 0 && (
-        <ul className="list-disc pl-5 mb-4 text-sm space-y-1">
-          {item.bullets.map((bullet, index) => (
-            <li key={index} className="text-foreground">{bullet}</li>
-          ))}
-        </ul>
-      )}
-      
-      {item.skills && item.skills.length > 0 && (
-        <div className="flex flex-wrap gap-2 mt-2">
-          {item.skills.map((skill, index) => (
-            <Badge key={index} variant="outline" className="text-xs">
-              {skill}
-            </Badge>
-          ))}
-        </div>
-      )}
-    </div>
-  );
-}
+// Import the resume markdown content
+import resumeMarkdown from "@/content/resume.md";
 
 const Resume = () => {
+  const [resumeContent, setResumeContent] = useState<string>("");
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    async function loadResumeContent() {
+      try {
+        // For Vite's markdown plugin, we can access the content directly
+        if (resumeMarkdown && typeof resumeMarkdown === 'object' && 'default' in resumeMarkdown) {
+          setResumeContent(resumeMarkdown.default);
+        } else {
+          setResumeContent(resumeMarkdown as unknown as string);
+        }
+      } catch (error) {
+        console.error("Failed to load resume content:", error);
+        toast.error("Failed to load resume content");
+      } finally {
+        setIsLoading(false);
+      }
+    }
+    
+    loadResumeContent();
+  }, []);
+
   const handleDownloadPDF = () => {
     // In a real scenario, this would be implemented to generate/download a PDF
     alert("PDF download functionality would be implemented here.");
   };
+  
+  if (isLoading) {
+    return (
+      <div className="min-h-screen py-12 px-4 sm:px-6 lg:px-8 max-w-4xl mx-auto">
+        <div className="animate-pulse">
+          <div className="h-8 w-64 bg-muted rounded mb-4"></div>
+          <div className="h-4 w-40 bg-muted rounded mb-12"></div>
+          <div className="h-4 w-full bg-muted rounded mb-2"></div>
+          <div className="h-4 w-full bg-muted rounded mb-2"></div>
+          <div className="h-4 w-3/4 bg-muted rounded mb-8"></div>
+        </div>
+      </div>
+    );
+  }
   
   return (
     <div className="min-h-screen py-12 px-4 sm:px-6 lg:px-8 max-w-4xl mx-auto">
@@ -62,14 +61,21 @@ const Resume = () => {
         <Button onClick={handleDownloadPDF}>Download PDF</Button>
       </div>
       
-      {resumeSections.map((section, index) => (
-        <section key={index} className="mb-12">
-          <h2 className="text-xl font-bold mb-6 pb-2 border-b text-primary">{section.title}</h2>
-          {section.items.map((item) => (
-            <ResumeItem key={item.id} item={item} />
-          ))}
-        </section>
-      ))}
+      <div className="prose dark:prose-invert max-w-none">
+        <ReactMarkdown
+          components={{
+            h1: ({node, ...props}) => <h2 className="text-xl font-bold mb-6 pb-2 border-b text-primary" {...props} />,
+            h2: ({node, ...props}) => <h3 className="text-lg font-semibold text-primary mb-2" {...props} />,
+            strong: ({node, ...props}) => <span className="font-medium" {...props} />,
+            em: ({node, ...props}) => <span className="text-muted-foreground text-sm" {...props} />,
+            p: ({node, ...props}) => <p className="mb-3 text-foreground" {...props} />,
+            ul: ({node, ...props}) => <ul className="list-disc pl-5 mb-4 text-sm space-y-1" {...props} />,
+            li: ({node, ...props}) => <li className="text-foreground" {...props} />,
+          }}
+        >
+          {resumeContent}
+        </ReactMarkdown>
+      </div>
     </div>
   );
 };
