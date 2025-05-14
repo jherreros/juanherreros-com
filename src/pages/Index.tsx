@@ -21,7 +21,12 @@ const Index = () => {
     async function loadPosts() {
       try {
         const posts = await getRecentPosts(3);
-        setLatestPosts(posts);
+        // Only set posts that have valid titles
+        const validPosts = posts.filter(post => 
+          post && post.title && post.title !== 'Untitled' && post.title !== 'Unknown Title'
+        );
+        console.log("Valid posts for homepage:", validPosts.length);
+        setLatestPosts(validPosts);
       } catch (error) {
         console.error("Failed to load recent posts:", error);
       } finally {

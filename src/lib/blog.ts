@@ -1,3 +1,4 @@
+
 import { BlogPost } from "@/lib/types";
 import { blogPosts } from "@/data/blogPosts";
 
@@ -17,33 +18,56 @@ async function loadMarkdownFiles() {
     
     const posts: BlogPost[] = Object.entries(modules).map(([path, module]: [string, any]) => {
       console.log("Processing file:", path);
+      console.log("Module content:", module);
       
       // Extract the file name for slug
       const slug = path.split('/').pop()?.replace('.md', '') || '';
       
-      // Handle the specific structure of our markdown files
-      let title = 'Untitled';
-      let author = 'Unknown';
+      // Initialize with default values
+      let title = 'Unknown Title';
+      let author = 'Unknown Author';
       let date = new Date().toISOString();
       let excerpt = '';
       let tags: string[] = [];
       let content = '';
       
-      // Extract frontmatter from the markdown ReactComponent
-      if (module.attributes) {
-        console.log("Found attributes:", Object.keys(module.attributes));
+      // Extract frontmatter data depending on the module structure
+      if (module.default && typeof module.default === 'object') {
+        // For vite-plugin-md structure
+        const frontmatter = module.frontmatter || module.attributes || {};
+        title = frontmatter.title || title;
+        author = frontmatter.author || author;
+        date = frontmatter.date || date;
+        excerpt = frontmatter.excerpt || excerpt;
+        tags = frontmatter.tags || tags;
+        
+        // Try to get content
+        if (typeof module.default === 'string') {
+          content = module.default;
+        } else if (module.html) {
+          content = module.html;
+        } else if (module.content) {
+          content = module.content;
+        }
+      } else if (module.attributes) {
+        // For some markdown plugins
         title = module.attributes.title || title;
         author = module.attributes.author || author;
         date = module.attributes.date || date;
         excerpt = module.attributes.excerpt || excerpt;
         tags = module.attributes.tags || tags;
+        
+        // Try to extract content from the component
+        if (module.default) {
+          content = excerpt; // Use excerpt as fallback
+        }
       }
       
-      // Extract content - different modules structure it differently
-      if (module.ReactComponent) {
-        // The content is likely in the component itself
-        // We'll use the excerpt as content if we can't extract it better
-        content = excerpt;
+      // Fallback to the file name as title if nothing else works
+      if (title === 'Unknown Title') {
+        title = slug.split('-').map(word => 
+          word.charAt(0).toUpperCase() + word.slice(1)
+        ).join(' ');
       }
       
       const post: BlogPost = {
@@ -52,9 +76,9 @@ async function loadMarkdownFiles() {
         slug: slug,
         date: date,
         author: author,
-        excerpt: excerpt,
-        content: content || excerpt,
-        tags: tags
+        excerpt: excerpt || 'No excerpt available',
+        content: content || excerpt || 'No content available',
+        tags: tags || []
       };
       
       console.log(`Processed post: ${post.title} (${post.slug})`);
@@ -80,7 +104,14 @@ export async function getAllPosts(): Promise<BlogPost[]> {
     try {
       const markdownPosts = await loadMarkdownFiles();
       console.log("Loaded markdown posts:", markdownPosts.length);
-      allPosts = [...markdownPosts, ...allPosts];
+      
+      // Filter out any posts with missing titles
+      const validMarkdownPosts = markdownPosts.filter(
+        post => post && post.title && post.title !== 'Unknown Title'
+      );
+      
+      console.log("Valid markdown posts after filtering:", validMarkdownPosts.length);
+      allPosts = [...validMarkdownPosts, ...allPosts];
     } catch (mdError) {
       console.error("Error loading markdown posts:", mdError);
       // Continue with just the static posts
@@ -112,6 +143,7 @@ export async function getRecentPosts(count: number = 3): Promise<BlogPost[]> {
     // Sort by date, newest first
     return posts
       .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())
+      .filter(post => post && post.title && post.title !== 'Unknown Title' && post.title !== 'Untitled')
       .slice(0, count);
   } catch (error) {
     console.error("Error getting recent posts:", error);
