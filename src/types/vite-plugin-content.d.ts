@@ -1,7 +1,7 @@
 
 declare module '@originjs/vite-plugin-content' {
-  // The package is a CommonJS module that exports a default function
-  const contentPlugin: any;
+  // Define the plugin as a default export constructor function
+  const contentPluginConstructor: any;
   
-  export default contentPlugin;
+  export default contentPluginConstructor;
 }

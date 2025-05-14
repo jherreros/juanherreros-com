@@ -19,19 +19,41 @@ async function loadMarkdownFiles() {
     const posts: BlogPost[] = Object.entries(modules).map(([path, module]: [string, any]) => {
       console.log("Processing file:", path);
       
-      // Print module structure for debugging
+      // Debug the module structure
       console.log("Module structure:", Object.keys(module));
       
-      // Handle different possible module structures
-      const attributes = module.attributes || module.frontmatter || module.meta || {};
-      const content = typeof module.default === 'string' 
-        ? module.default 
-        : module.html || module.content || '';
+      // Handle various markdown module structures that could be returned
+      // by different markdown plugins
+      let attributes = {};
+      let content = '';
+      
+      // Try to extract frontmatter and content based on common patterns
+      if (module.attributes) {
+        attributes = module.attributes;
+      } else if (module.frontmatter) {
+        attributes = module.frontmatter;
+      } else if (module.meta) {
+        attributes = module.meta;
+      } else if (typeof module === 'object') {
+        // Try to find attributes in the module
+        attributes = module;
+      }
+      
+      // Try to extract content
+      if (typeof module.default === 'string') {
+        content = module.default;
+      } else if (module.html) {
+        content = module.html;
+      } else if (module.content) {
+        content = module.content;
+      } else if (typeof module.default === 'object' && module.default.html) {
+        content = module.default.html;
+      }
       
       // Extract slug from the file path
       const slug = path.split('/').pop()?.replace('.md', '') || '';
       
-      return {
+      const post: BlogPost = {
         id: attributes.id || slug,
         title: attributes.title || 'Untitled',
         slug: attributes.slug || slug,
@@ -41,6 +63,9 @@ async function loadMarkdownFiles() {
         content: content,
         tags: attributes.tags || []
       };
+      
+      console.log(`Processed post: ${post.title} (${post.slug})`);
+      return post;
     });
 
     console.log("Successfully processed markdown posts:", posts.length);
