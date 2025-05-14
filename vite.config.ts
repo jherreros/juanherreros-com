@@ -6,7 +6,9 @@ import path from 'path';
 import { plugin as markdown, Mode } from 'vite-plugin-markdown';
 import { componentTagger } from 'lovable-tagger';
 // Import the content plugin
-import contentPlugin from '@originjs/vite-plugin-content';
+// Using type assertion to avoid TypeScript errors
+import contentPluginModule from '@originjs/vite-plugin-content';
+const contentPlugin = contentPluginModule as any;
 
 // https://vitejs.dev/config/
 export default defineConfig(({ mode }) => ({
