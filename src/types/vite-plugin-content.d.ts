@@ -1,7 +1,7 @@
 
 declare module '@originjs/vite-plugin-content' {
-  // The plugin seems to export an object with a content function property
-  const plugin: {
+  // Define it as a default export since it's a CommonJS module
+  const contentPlugin: {
     content: () => {
       name: string;
       // Add other plugin properties as needed
@@ -9,5 +9,5 @@ declare module '@originjs/vite-plugin-content' {
     }
   };
   
-  export { plugin };
+  export default contentPlugin;
 }

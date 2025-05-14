@@ -5,8 +5,8 @@ import { fileURLToPath, URL } from 'node:url';
 import path from 'path';
 import { plugin as markdown, Mode } from 'vite-plugin-markdown';
 import { componentTagger } from 'lovable-tagger';
-// Import the plugin correctly with its actual export structure
-import { plugin } from '@originjs/vite-plugin-content';
+// Import the CommonJS module correctly with default import
+import contentPlugin from '@originjs/vite-plugin-content';
 
 // https://vitejs.dev/config/
 export default defineConfig(({ mode }) => ({
@@ -14,7 +14,7 @@ export default defineConfig(({ mode }) => ({
     react(),
     markdown({ mode: [Mode.REACT] }),
     // Use the content plugin with default options
-    plugin.content(),
+    contentPlugin.content(),
     mode === 'development' && componentTagger(),
   ].filter(Boolean),
   resolve: {
