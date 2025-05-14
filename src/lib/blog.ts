@@ -19,7 +19,11 @@ async function loadMarkdownFiles() {
     const posts: BlogPost[] = Object.entries(modules).map(([path, module]: [string, any]) => {
       console.log("Processing file:", path);
       
+      // Print module structure to help debugging
+      console.log("Module structure:", Object.keys(module));
+      
       // Handle different markdown loader output formats
+      // Try to be more flexible with how we extract data
       const attributes = module.attributes || module.frontmatter || module.meta || {};
       const content = module.html || module.content || module.default || '';
       
