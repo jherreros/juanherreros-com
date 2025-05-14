@@ -19,13 +19,14 @@ async function loadMarkdownFiles() {
     const posts: BlogPost[] = Object.entries(modules).map(([path, module]: [string, any]) => {
       console.log("Processing file:", path);
       
-      // Print module structure to help debugging
+      // Print module structure for debugging
       console.log("Module structure:", Object.keys(module));
       
-      // Handle different markdown loader output formats
-      // Try to be more flexible with how we extract data
+      // Handle different possible module structures
       const attributes = module.attributes || module.frontmatter || module.meta || {};
-      const content = module.html || module.content || module.default || '';
+      const content = typeof module.default === 'string' 
+        ? module.default 
+        : module.html || module.content || '';
       
       // Extract slug from the file path
       const slug = path.split('/').pop()?.replace('.md', '') || '';

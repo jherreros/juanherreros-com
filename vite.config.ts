@@ -5,16 +5,16 @@ import { fileURLToPath, URL } from 'node:url';
 import path from 'path';
 import { plugin as markdown, Mode } from 'vite-plugin-markdown';
 import { componentTagger } from 'lovable-tagger';
-// Import the plugin correctly
-import content from '@originjs/vite-plugin-content';
+// Import the plugin as a CommonJS module
+import contentPlugin from '@originjs/vite-plugin-content';
 
 // https://vitejs.dev/config/
 export default defineConfig(({ mode }) => ({
   plugins: [
     react(),
     markdown({ mode: [Mode.REACT] }),
-    // Use the content plugin directly
-    content(),
+    // Invoke the plugin directly without calling any method
+    contentPlugin(),
     mode === 'development' && componentTagger(),
   ].filter(Boolean),
   resolve: {
