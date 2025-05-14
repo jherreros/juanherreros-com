@@ -14,7 +14,7 @@ export default defineConfig(({ mode }) => ({
     react(),
     markdown({ mode: [Mode.REACT] }),
     // Use the plugin directly
-    contentPlugin as any,
+    contentPlugin,
     mode === 'development' && componentTagger(),
   ].filter(Boolean),
   resolve: {
