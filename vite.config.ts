@@ -13,8 +13,8 @@ export default defineConfig(({ mode }) => ({
   plugins: [
     react(),
     markdown({ mode: [Mode.REACT] }),
-    // Use the plugin directly
-    contentPlugin,
+    // Use the plugin directly with type assertion
+    contentPlugin as any,
     mode === 'development' && componentTagger(),
   ].filter(Boolean),
   resolve: {
