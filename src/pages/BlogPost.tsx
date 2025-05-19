@@ -1,9 +1,8 @@
-
 import { useParams, Link } from "react-router-dom";
 import { format } from "date-fns";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { ArrowLeft } from "lucide-react";
+import { ArrowLeft, Tag } from "lucide-react";
 import { useEffect, useState } from "react";
 import ReactMarkdown from "react-markdown";
 import { BlogPost as BlogPostType } from "@/lib/types";
@@ -82,14 +81,16 @@ const BlogPost = () => {
             </div>
             <span className="text-muted-foreground">•</span>
             <time dateTime={post.date}>{formattedDate}</time>
-            {post.tags && post.tags.length > 0 && (
-              <div className="flex flex-wrap gap-2">
-                {post.tags.map((tag, i) => (
-                  <Badge key={i} variant="secondary">{tag}</Badge>
-                ))}
-              </div>
-            )}
           </div>
+          
+          {post.tags && post.tags.length > 0 && (
+            <div className="flex flex-wrap gap-2 mt-4">
+              <Tag className="h-4 w-4 text-muted-foreground" />
+              {post.tags.map((tag, i) => (
+                <Badge key={i} variant="secondary">{tag}</Badge>
+              ))}
+            </div>
+          )}
         </header>
         
         <div className="prose dark:prose-invert max-w-none">

@@ -1,3 +1,4 @@
+
 import { BlogPost } from "@/lib/types";
 
 // Helper function to load all markdown files from content/blog directory
@@ -95,7 +96,8 @@ export async function getAllPosts(): Promise<BlogPost[]> {
     const markdownPosts = await loadMarkdownFiles();
     console.log("Loaded markdown posts:", markdownPosts.length);
     
-    return markdownPosts;
+    // Sort posts by date, newest first
+    return markdownPosts.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
   } catch (error) {
     console.error("Error in getAllPosts:", error);
     return [];
@@ -115,10 +117,8 @@ export async function getPostBySlug(slug: string): Promise<BlogPost | undefined>
 export async function getRecentPosts(count: number = 3): Promise<BlogPost[]> {
   try {
     const posts = await getAllPosts();
-    // Sort by date, newest first
-    return posts
-      .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())
-      .slice(0, count);
+    // Posts are already sorted by date in getAllPosts, so we just need to take the first 'count' posts
+    return posts.slice(0, count);
   } catch (error) {
     console.error("Error getting recent posts:", error);
     return [];
