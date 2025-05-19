@@ -43,7 +43,16 @@ async function loadMarkdownFiles() {
             if (key.trim() === 'author') author = value;
             if (key.trim() === 'date') date = value;
             if (key.trim() === 'excerpt') excerpt = value;
-            if (key.trim() === 'tags') tags = value.split(',').map(t => t.trim());
+            if (key.trim() === 'tags') {
+              // Properly parse tags - they could be comma-separated or in YAML array format
+              if (value.startsWith('[') && value.endsWith(']')) {
+                // YAML array format: [tag1, tag2, tag3]
+                tags = value.slice(1, -1).split(',').map(t => t.trim());
+              } else {
+                // Simple comma-separated format: tag1, tag2, tag3
+                tags = value.split(',').map(t => t.trim());
+              }
+            }
           }
         });
         
@@ -75,7 +84,7 @@ async function loadMarkdownFiles() {
         tags: tags || []
       };
       
-      console.log(`Processed post: ${post.title} (${post.slug})`);
+      console.log(`Processed post: ${post.title} (${post.slug}), tags: ${post.tags.join(', ')}`);
       return post;
     });
 

@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 import { Card } from "@/components/ui/card";
 import ReactMarkdown from "react-markdown";
 import { toast } from "@/components/ui/sonner";
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 
 const Resume = () => {
   const [resumeContent, setResumeContent] = useState<string>("");
@@ -53,7 +54,14 @@ const Resume = () => {
             h3: ({node, ...props}) => <h3 className="text-primary" {...props} />,
             h4: ({node, ...props}) => <h4 className="text-primary" {...props} />,
             h5: ({node, ...props}) => <h5 className="text-primary" {...props} />,
-            h6: ({node, ...props}) => <h6 className="text-primary" {...props} />
+            h6: ({node, ...props}) => <h6 className="text-primary" {...props} />,
+            // Table components mapping to correctly render tables
+            table: ({node, ...props}) => <Table className="my-4" {...props} />,
+            thead: ({node, ...props}) => <TableHeader {...props} />,
+            tbody: ({node, ...props}) => <TableBody {...props} />,
+            tr: ({node, ...props}) => <TableRow {...props} />,
+            th: ({node, ...props}) => <TableHead className="text-primary" {...props} />,
+            td: ({node, ...props}) => <TableCell {...props} />
           }}>
             {resumeContent}
           </ReactMarkdown>
