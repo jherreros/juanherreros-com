@@ -1,10 +1,9 @@
 ---
-id: "3"
-title: "Landing Zones"
+title: Landing Zones
 slug: "landing-zones"
 date: "2023-11-24"
-author: "Juan Herreros Elorza"
-excerpt: "An invitation to use the concept of Landing Zones in Internal Platforms"
+author: Juan Herreros Elorza
+excerpt: An invitation to use the concept of Landing Zones in Internal Platforms
 tags:
   - "Platform Engineering"
   - "Internal Developer Platform"

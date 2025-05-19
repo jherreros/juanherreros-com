@@ -1,10 +1,9 @@
 ---
-id: "5"
-title: "Automating the deployment"
+title: Automating the deployment
 slug: "automating-the-deployment"
 date: "2020-09-06"
-author: "Juan Herreros Elorza"
-excerpt: "I've uploaded the code to a VCS and I've created a pipeline to automate the deployment of the website."
+author: Juan Herreros Elorza
+excerpt: I've uploaded the code to a VCS and I've created a pipeline to automate the deployment of the website.
 tags:
   - "Cloud"
   - "Infrastructure"

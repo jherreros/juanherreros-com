@@ -1,10 +1,9 @@
 ---
-id: "1"
-title: "Platform layers"
+title: Platform layers
 slug: "platform-layers"
 date: "2024-10-06"
-author: "Juan Herreros Elorza"
-excerpt: "How to strucute a Platform in Core, Foundation and Delivery"
+author: Juan Herreros Elorza
+excerpt: How to strucute a Platform in Core, Foundation and Delivery
 tags:
   - "Platform Engineering"
   - "Internal Developer Platform"

@@ -1,10 +1,9 @@
 ---
-id: "2"
-title: "Lessons learnt from building blocks"
+title: Lessons learnt from building blocks
 slug: "lessons-learnt-from-building-blocks"
 date: "2024-09-30"
-author: "Juan Herreros Elorza"
-excerpt: "Lessons learnt from using \"building blocks\" as an approach to IaC"
+author: Juan Herreros Elorza
+excerpt: Lessons learnt from using "building blocks" as an approach to IaC
 tags:
   - "Platform Engineering"
   - "Internal Developer Platform"
