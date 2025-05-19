@@ -12,26 +12,11 @@ const Resume = () => {
     async function loadResumeContent() {
       try {
         console.log("Loading resume markdown content...");
-        // Import the resume markdown file
-        const resumeModule = await import('/src/content/resume.md');
-        console.log("Resume module:", resumeModule);
         
-        // Extract content from the module
-        let content = '';
-        if (typeof resumeModule.default === 'string') {
-          content = resumeModule.default;
-        } else if (resumeModule.content) {
-          content = resumeModule.content;
-        } else if (resumeModule.html) {
-          content = resumeModule.html;
-        } else if (resumeModule.attributes && resumeModule.body) {
-          content = resumeModule.body;
-        } else {
-          // Fallback to stringify the module if we can't find the content
-          content = JSON.stringify(resumeModule);
-        }
+        // Import the resume markdown file as text using ?raw suffix
+        const content = await import('/src/content/resume.md?raw').then(module => module.default);
+        console.log("Resume content loaded, length:", content.length);
         
-        console.log("Resume content extracted, length:", content.length);
         setResumeContent(content);
       } catch (error) {
         console.error("Failed to load resume content:", error);
