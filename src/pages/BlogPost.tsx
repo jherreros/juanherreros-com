@@ -19,7 +19,9 @@ const BlogPost = () => {
     async function loadPost() {
       if (slug) {
         try {
+          console.log("Loading post with slug:", slug);
           const foundPost = await getPostBySlug(slug);
+          console.log("Post found:", foundPost?.title);
           setPost(foundPost || null);
         } catch (error) {
           console.error("Failed to load post:", error);
@@ -58,7 +60,7 @@ const BlogPost = () => {
     );
   }
 
-  const formattedDate = format(new Date(post.date), "MMMM dd, yyyy");
+  const formattedDate = post.date ? format(new Date(post.date), "MMMM dd, yyyy") : 'Unknown date';
 
   return (
     <div className="min-h-screen py-12 px-4 sm:px-6 lg:px-8 max-w-4xl mx-auto">
@@ -80,19 +82,18 @@ const BlogPost = () => {
             </div>
             <span className="text-muted-foreground">•</span>
             <time dateTime={post.date}>{formattedDate}</time>
-            <div className="flex flex-wrap gap-2">
-              {post.tags.map((tag, i) => (
-                <Badge key={i} variant="secondary">{tag}</Badge>
-              ))}
-            </div>
+            {post.tags && post.tags.length > 0 && (
+              <div className="flex flex-wrap gap-2">
+                {post.tags.map((tag, i) => (
+                  <Badge key={i} variant="secondary">{tag}</Badge>
+                ))}
+              </div>
+            )}
           </div>
         </header>
         
         <div className="prose dark:prose-invert max-w-none">
-          <ReactMarkdown components={{
-            // Remove h1 as it would duplicate the title
-            h1: () => null
-          }}>
+          <ReactMarkdown>
             {post.content}
           </ReactMarkdown>
         </div>

@@ -1,6 +1,5 @@
 
 import { BlogPost } from "@/lib/types";
-import { blogPosts } from "@/data/blogPosts";
 
 // Helper function to load all markdown files from content/blog directory
 async function loadMarkdownFiles() {
@@ -18,66 +17,130 @@ async function loadMarkdownFiles() {
     
     const posts: BlogPost[] = Object.entries(modules).map(([path, module]: [string, any]) => {
       console.log("Processing file:", path);
-      console.log("Module content:", module);
+      console.log("Module structure:", Object.keys(module));
       
       // Extract the file name for slug
       const slug = path.split('/').pop()?.replace('.md', '') || '';
       
       // Initialize with default values
-      let title = 'Unknown Title';
-      let author = 'Unknown Author';
+      let title = slug.split('-').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ');
+      let author = 'Juan Herreros'; // Default author
       let date = new Date().toISOString();
       let excerpt = '';
       let tags: string[] = [];
       let content = '';
       
-      // Extract frontmatter data depending on the module structure
-      if (module.default && typeof module.default === 'object') {
-        // For vite-plugin-md structure
-        const frontmatter = module.frontmatter || module.attributes || {};
-        title = frontmatter.title || title;
-        author = frontmatter.author || author;
-        date = frontmatter.date || date;
-        excerpt = frontmatter.excerpt || excerpt;
-        tags = frontmatter.tags || tags;
-        
-        // Try to get content
+      try {
+        // Try different module structures to extract content
         if (typeof module.default === 'string') {
+          // Raw content as string
           content = module.default;
-        } else if (module.html) {
-          content = module.html;
-        } else if (module.content) {
-          content = module.content;
+          
+          // Try to extract frontmatter-like info from the content
+          const titleMatch = content.match(/# (.*?)(\n|$)/);
+          if (titleMatch) {
+            title = titleMatch[1].trim();
+            // Remove the title from content to avoid duplication
+            content = content.replace(/# (.*?)(\n|$)/, '');
+          }
+          
+          // Extract first paragraph as excerpt if not set
+          if (!excerpt) {
+            const paragraphMatch = content.match(/\n\n(.*?)(\n\n|$)/);
+            if (paragraphMatch) {
+              excerpt = paragraphMatch[1].trim();
+            }
+          }
+        } else if (module.frontmatter) {
+          // vite-plugin-markdown structure with frontmatter
+          title = module.frontmatter.title || title;
+          author = module.frontmatter.author || author;
+          date = module.frontmatter.date || date;
+          excerpt = module.frontmatter.excerpt || excerpt;
+          tags = module.frontmatter.tags || [];
+          content = module.html || module.content || '';
+        } else if (module.attributes) {
+          // Some other markdown plugin structure
+          title = module.attributes.title || title;
+          author = module.attributes.author || author;
+          date = module.attributes.date || date;
+          excerpt = module.attributes.excerpt || excerpt;
+          tags = module.attributes.tags || [];
+          
+          // Try to get content from different properties
+          if (module.html) {
+            content = module.html;
+          } else if (module.content) {
+            content = module.content;
+          } else if (typeof module.default === 'function') {
+            // For React components generated from markdown
+            content = module.body || '';
+          }
+        } else if (module.metadata) {
+          // Another possible structure
+          title = module.metadata.title || title;
+          author = module.metadata.author || author;
+          date = module.metadata.date || date;
+          excerpt = module.metadata.excerpt || excerpt;
+          tags = module.metadata.tags || [];
+          content = module.content || '';
+        } else {
+          // Last attempt - try to access raw content
+          const rawContent = module.default?.toString() || '';
+          content = rawContent;
+          
+          // Try to parse frontmatter-like content
+          const frontmatterMatch = rawContent.match(/---\n([\s\S]*?)\n---\n([\s\S]*)/);
+          if (frontmatterMatch) {
+            const frontmatterStr = frontmatterMatch[1];
+            const contentStr = frontmatterMatch[2];
+            
+            // Parse frontmatter
+            frontmatterStr.split('\n').forEach(line => {
+              const [key, ...valueParts] = line.split(':');
+              const value = valueParts.join(':').trim();
+              if (key && value) {
+                if (key.trim() === 'title') title = value;
+                if (key.trim() === 'author') author = value;
+                if (key.trim() === 'date') date = value;
+                if (key.trim() === 'excerpt') excerpt = value;
+                if (key.trim() === 'tags') tags = value.split(',').map(t => t.trim());
+              }
+            });
+            
+            content = contentStr;
+          }
         }
-      } else if (module.attributes) {
-        // For some markdown plugins
-        title = module.attributes.title || title;
-        author = module.attributes.author || author;
-        date = module.attributes.date || date;
-        excerpt = module.attributes.excerpt || excerpt;
-        tags = module.attributes.tags || tags;
-        
-        // Try to extract content from the component
-        if (module.default) {
-          content = excerpt; // Use excerpt as fallback
-        }
+      } catch (parseError) {
+        console.error(`Error parsing markdown file ${path}:`, parseError);
       }
       
-      // Fallback to the file name as title if nothing else works
-      if (title === 'Unknown Title') {
-        title = slug.split('-').map(word => 
-          word.charAt(0).toUpperCase() + word.slice(1)
-        ).join(' ');
+      // Final fallback for content: use the full raw content if we couldn't extract it properly
+      if (!content && module.default) {
+        content = typeof module.default === 'string' ? module.default : JSON.stringify(module.default);
+      }
+
+      // Extract excerpt from content if not set
+      if (!excerpt && content) {
+        // Extract the first paragraph that's not empty and not a heading
+        const paragraphs = content
+          .split('\n\n')
+          .filter(p => p.trim() && !p.trim().startsWith('#'));
+        
+        if (paragraphs.length > 0) {
+          excerpt = paragraphs[0].substring(0, 150).trim();
+          if (excerpt.length >= 150) excerpt += '...';
+        }
       }
       
       const post: BlogPost = {
         id: slug,
-        title: title,
-        slug: slug,
-        date: date,
-        author: author,
+        title,
+        slug,
+        date,
+        author,
         excerpt: excerpt || 'No excerpt available',
-        content: content || excerpt || 'No content available',
+        content: content || 'No content available',
         tags: tags || []
       };
       
@@ -98,31 +161,14 @@ export async function getAllPosts(): Promise<BlogPost[]> {
   try {
     console.log("Getting all blog posts...");
     
-    // Always include the static posts even if markdown loading fails
-    let allPosts = [...blogPosts];
+    // Only load posts from markdown files, don't include the static posts
+    const markdownPosts = await loadMarkdownFiles();
+    console.log("Loaded markdown posts:", markdownPosts.length);
     
-    try {
-      const markdownPosts = await loadMarkdownFiles();
-      console.log("Loaded markdown posts:", markdownPosts.length);
-      
-      // Filter out any posts with missing titles
-      const validMarkdownPosts = markdownPosts.filter(
-        post => post && post.title && post.title !== 'Unknown Title'
-      );
-      
-      console.log("Valid markdown posts after filtering:", validMarkdownPosts.length);
-      allPosts = [...validMarkdownPosts, ...allPosts];
-    } catch (mdError) {
-      console.error("Error loading markdown posts:", mdError);
-      // Continue with just the static posts
-    }
-    
-    console.log("Total posts:", allPosts.length);
-    return allPosts;
+    return markdownPosts;
   } catch (error) {
     console.error("Error in getAllPosts:", error);
-    // Return only the static posts if there's an error
-    return blogPosts;
+    return [];
   }
 }
 
@@ -132,8 +178,7 @@ export async function getPostBySlug(slug: string): Promise<BlogPost | undefined>
     return posts.find(post => post.slug === slug);
   } catch (error) {
     console.error(`Error finding post with slug ${slug}:`, error);
-    // Try fallback to static data
-    return blogPosts.find(post => post.slug === slug);
+    return undefined;
   }
 }
 
@@ -143,13 +188,9 @@ export async function getRecentPosts(count: number = 3): Promise<BlogPost[]> {
     // Sort by date, newest first
     return posts
       .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())
-      .filter(post => post && post.title && post.title !== 'Unknown Title' && post.title !== 'Untitled')
       .slice(0, count);
   } catch (error) {
     console.error("Error getting recent posts:", error);
-    // Return the first 'count' posts from static data
-    return blogPosts
-      .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())
-      .slice(0, count);
+    return [];
   }
 }

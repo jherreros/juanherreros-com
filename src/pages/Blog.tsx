@@ -17,15 +17,9 @@ const Blog = () => {
       try {
         console.log("Loading blog posts...");
         const allPosts = await getAllPosts();
-        console.log("Loaded posts:", allPosts);
+        console.log("Loaded posts:", allPosts.length);
         
-        // Filter out posts with missing essential data
-        const validPosts = allPosts.filter(post => 
-          post && post.title && post.title !== "Untitled"
-        );
-        
-        console.log("Valid posts after filtering:", validPosts.length);
-        setPosts(validPosts || []); // Ensure we always have an array even if empty
+        setPosts(allPosts || []); // Ensure we always have an array even if empty
       } catch (error) {
         console.error("Failed to load posts:", error);
         toast.error("Failed to load blog posts");
@@ -39,10 +33,13 @@ const Blog = () => {
   
   // Filter posts based on search query - add null checks to prevent errors
   const filteredPosts = posts.filter(post => 
-    post && post.title?.toLowerCase().includes(searchQuery.toLowerCase()) || 
-    post?.tags?.some(tag => tag.toLowerCase().includes(searchQuery.toLowerCase())) ||
-    post?.excerpt?.toLowerCase().includes(searchQuery.toLowerCase()) ||
-    post?.author?.toLowerCase().includes(searchQuery.toLowerCase())
+    post && 
+    (
+      post.title?.toLowerCase().includes(searchQuery.toLowerCase()) || 
+      post?.tags?.some(tag => tag.toLowerCase().includes(searchQuery.toLowerCase())) ||
+      post?.excerpt?.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      post?.author?.toLowerCase().includes(searchQuery.toLowerCase())
+    )
   );
 
   // Add debug log to see filtered posts

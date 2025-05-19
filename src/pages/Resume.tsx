@@ -1,20 +1,47 @@
 
 import { useState, useEffect } from "react";
 import { Card } from "@/components/ui/card";
-import { Separator } from "@/components/ui/separator";
 import ReactMarkdown from "react-markdown";
 import { toast } from "@/components/ui/sonner";
-// Import directly from the resume data instead of trying to load the markdown file
-import { resumeData } from "@/data/resume";
 
 const Resume = () => {
   const [resumeContent, setResumeContent] = useState<string>("");
   const [isLoading, setIsLoading] = useState(true);
   
   useEffect(() => {
-    // Load from the static content since we're having issues with markdown imports
-    setResumeContent(resumeData.content);
-    setIsLoading(false);
+    async function loadResumeContent() {
+      try {
+        console.log("Loading resume markdown content...");
+        // Import the resume markdown file
+        const resumeModule = await import('/src/content/resume.md');
+        console.log("Resume module:", resumeModule);
+        
+        // Extract content from the module
+        let content = '';
+        if (typeof resumeModule.default === 'string') {
+          content = resumeModule.default;
+        } else if (resumeModule.content) {
+          content = resumeModule.content;
+        } else if (resumeModule.html) {
+          content = resumeModule.html;
+        } else if (resumeModule.attributes && resumeModule.body) {
+          content = resumeModule.body;
+        } else {
+          // Fallback to stringify the module if we can't find the content
+          content = JSON.stringify(resumeModule);
+        }
+        
+        console.log("Resume content extracted, length:", content.length);
+        setResumeContent(content);
+      } catch (error) {
+        console.error("Failed to load resume content:", error);
+        toast.error("Failed to load resume");
+      } finally {
+        setIsLoading(false);
+      }
+    }
+    
+    loadResumeContent();
   }, []);
 
   if (isLoading) {

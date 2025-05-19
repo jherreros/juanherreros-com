@@ -20,13 +20,10 @@ const Index = () => {
   useEffect(() => {
     async function loadPosts() {
       try {
+        console.log("Loading recent posts for homepage...");
         const posts = await getRecentPosts(3);
-        // Only set posts that have valid titles
-        const validPosts = posts.filter(post => 
-          post && post.title && post.title !== 'Untitled' && post.title !== 'Unknown Title'
-        );
-        console.log("Valid posts for homepage:", validPosts.length);
-        setLatestPosts(validPosts);
+        console.log("Recent posts loaded:", posts.length);
+        setLatestPosts(posts);
       } catch (error) {
         console.error("Failed to load recent posts:", error);
       } finally {
