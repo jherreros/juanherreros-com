@@ -1,4 +1,3 @@
-
 import { BlogPost } from "@/lib/types";
 
 // Helper function to load all markdown files from content/blog directory
@@ -7,7 +6,7 @@ async function loadMarkdownFiles() {
     console.log("Attempting to load markdown files...");
     
     // Use import.meta.glob to load all markdown files
-    const modules = import.meta.glob('/src/content/blog/*.md', { eager: true });
+    const modules = import.meta.glob('/src/content/blog/*.md', { eager: true, as: 'raw' });
     console.log("Found markdown files:", Object.keys(modules).length);
     
     if (Object.keys(modules).length === 0) {
@@ -15,9 +14,8 @@ async function loadMarkdownFiles() {
       return [];
     }
     
-    const posts: BlogPost[] = Object.entries(modules).map(([path, module]: [string, any]) => {
+    const posts: BlogPost[] = Object.entries(modules).map(([path, content]: [string, string]) => {
       console.log("Processing file:", path);
-      console.log("Module structure:", Object.keys(module));
       
       // Extract the file name for slug
       const slug = path.split('/').pop()?.replace('.md', '') || '';
@@ -28,98 +26,30 @@ async function loadMarkdownFiles() {
       let date = new Date().toISOString();
       let excerpt = '';
       let tags: string[] = [];
-      let content = '';
       
-      try {
-        // Try different module structures to extract content
-        if (typeof module.default === 'string') {
-          // Raw content as string
-          content = module.default;
-          
-          // Try to extract frontmatter-like info from the content
-          const titleMatch = content.match(/# (.*?)(\n|$)/);
-          if (titleMatch) {
-            title = titleMatch[1].trim();
-            // Remove the title from content to avoid duplication
-            content = content.replace(/# (.*?)(\n|$)/, '');
+      // Try to parse frontmatter
+      const frontmatterMatch = content.match(/^---\n([\s\S]*?)\n---\n([\s\S]*)$/);
+      
+      if (frontmatterMatch) {
+        const [_, frontmatterStr, contentBody] = frontmatterMatch;
+        
+        // Parse frontmatter
+        frontmatterStr.split('\n').forEach(line => {
+          const [key, ...valueParts] = line.split(':');
+          if (key && valueParts.length > 0) {
+            const value = valueParts.join(':').trim();
+            if (key.trim() === 'title') title = value;
+            if (key.trim() === 'author') author = value;
+            if (key.trim() === 'date') date = value;
+            if (key.trim() === 'excerpt') excerpt = value;
+            if (key.trim() === 'tags') tags = value.split(',').map(t => t.trim());
           }
-          
-          // Extract first paragraph as excerpt if not set
-          if (!excerpt) {
-            const paragraphMatch = content.match(/\n\n(.*?)(\n\n|$)/);
-            if (paragraphMatch) {
-              excerpt = paragraphMatch[1].trim();
-            }
-          }
-        } else if (module.frontmatter) {
-          // vite-plugin-markdown structure with frontmatter
-          title = module.frontmatter.title || title;
-          author = module.frontmatter.author || author;
-          date = module.frontmatter.date || date;
-          excerpt = module.frontmatter.excerpt || excerpt;
-          tags = module.frontmatter.tags || [];
-          content = module.html || module.content || '';
-        } else if (module.attributes) {
-          // Some other markdown plugin structure
-          title = module.attributes.title || title;
-          author = module.attributes.author || author;
-          date = module.attributes.date || date;
-          excerpt = module.attributes.excerpt || excerpt;
-          tags = module.attributes.tags || [];
-          
-          // Try to get content from different properties
-          if (module.html) {
-            content = module.html;
-          } else if (module.content) {
-            content = module.content;
-          } else if (typeof module.default === 'function') {
-            // For React components generated from markdown
-            content = module.body || '';
-          }
-        } else if (module.metadata) {
-          // Another possible structure
-          title = module.metadata.title || title;
-          author = module.metadata.author || author;
-          date = module.metadata.date || date;
-          excerpt = module.metadata.excerpt || excerpt;
-          tags = module.metadata.tags || [];
-          content = module.content || '';
-        } else {
-          // Last attempt - try to access raw content
-          const rawContent = module.default?.toString() || '';
-          content = rawContent;
-          
-          // Try to parse frontmatter-like content
-          const frontmatterMatch = rawContent.match(/---\n([\s\S]*?)\n---\n([\s\S]*)/);
-          if (frontmatterMatch) {
-            const frontmatterStr = frontmatterMatch[1];
-            const contentStr = frontmatterMatch[2];
-            
-            // Parse frontmatter
-            frontmatterStr.split('\n').forEach(line => {
-              const [key, ...valueParts] = line.split(':');
-              const value = valueParts.join(':').trim();
-              if (key && value) {
-                if (key.trim() === 'title') title = value;
-                if (key.trim() === 'author') author = value;
-                if (key.trim() === 'date') date = value;
-                if (key.trim() === 'excerpt') excerpt = value;
-                if (key.trim() === 'tags') tags = value.split(',').map(t => t.trim());
-              }
-            });
-            
-            content = contentStr;
-          }
-        }
-      } catch (parseError) {
-        console.error(`Error parsing markdown file ${path}:`, parseError);
+        });
+        
+        // Use the content after frontmatter
+        content = contentBody;
       }
       
-      // Final fallback for content: use the full raw content if we couldn't extract it properly
-      if (!content && module.default) {
-        content = typeof module.default === 'string' ? module.default : JSON.stringify(module.default);
-      }
-
       // Extract excerpt from content if not set
       if (!excerpt && content) {
         // Extract the first paragraph that's not empty and not a heading

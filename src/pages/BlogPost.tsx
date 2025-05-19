@@ -93,7 +93,14 @@ const BlogPost = () => {
         </header>
         
         <div className="prose dark:prose-invert max-w-none">
-          <ReactMarkdown>
+          <ReactMarkdown components={{
+            h1: ({node, ...props}) => <h1 className="text-primary" {...props} />,
+            h2: ({node, ...props}) => <h2 className="text-primary" {...props} />,
+            h3: ({node, ...props}) => <h3 className="text-primary" {...props} />,
+            h4: ({node, ...props}) => <h4 className="text-primary" {...props} />,
+            h5: ({node, ...props}) => <h5 className="text-primary" {...props} />,
+            h6: ({node, ...props}) => <h6 className="text-primary" {...props} />
+          }}>
             {post.content}
           </ReactMarkdown>
         </div>
