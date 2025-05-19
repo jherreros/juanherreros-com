@@ -42,35 +42,23 @@ const Resume = () => {
 
   return (
     <div className="container mx-auto py-8 px-4">
-      <h1 className="text-3xl font-bold mb-6">Resume</h1>
+      <h1 className="text-3xl font-bold mb-6 text-primary">Resume</h1>
       
       <Card className="p-6">
         <div className="prose dark:prose-invert max-w-none">
-          <ReactMarkdown>
+          <ReactMarkdown components={{
+            // Make all headings green by applying text-primary class
+            h1: ({node, ...props}) => <h1 className="text-primary" {...props} />,
+            h2: ({node, ...props}) => <h2 className="text-primary" {...props} />,
+            h3: ({node, ...props}) => <h3 className="text-primary" {...props} />,
+            h4: ({node, ...props}) => <h4 className="text-primary" {...props} />,
+            h5: ({node, ...props}) => <h5 className="text-primary" {...props} />,
+            h6: ({node, ...props}) => <h6 className="text-primary" {...props} />
+          }}>
             {resumeContent}
           </ReactMarkdown>
         </div>
       </Card>
-      
-      <div className="mt-8">
-        <h2 className="text-xl font-semibold mb-4">Download Options</h2>
-        <div className="flex gap-4">
-          <a 
-            href="/JuanHerreros_Resume.pdf" 
-            target="_blank"
-            className="px-4 py-2 bg-primary text-primary-foreground rounded hover:bg-primary/90"
-          >
-            Download PDF
-          </a>
-          <a 
-            href="/JuanHerreros_Resume.docx" 
-            target="_blank"
-            className="px-4 py-2 bg-secondary text-secondary-foreground rounded hover:bg-secondary/90"
-          >
-            Download Word
-          </a>
-        </div>
-      </div>
     </div>
   );
 };

@@ -59,5 +59,24 @@ p, li, span:not(.text-primary) {
 
 /* Fix for blog title text in dark mode - ensure it's the primary color */
 .dark .text-primary {
+  color: var(--primary);
+}
+
+/* Custom styling for resume titles */
+.prose h1, .prose h2, .prose h3, .prose h4, .prose h5, .prose h6 {
+  color: var(--primary);
+}
+
+/* Ensure dark mode text consistency */
+.dark .prose h1, .dark .prose h2, .dark .prose h3, .dark .prose h4, .dark .prose h5, .dark .prose h6 {
+  color: var(--primary);
+}
+
+/* Style adjustments for markdown content */
+.prose strong {
   color: var(--foreground);
+}
+
+.prose em {
+  color: var(--muted-foreground);
 }
