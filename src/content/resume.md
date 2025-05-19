@@ -52,8 +52,8 @@
 
 # Key Skills
 
-|||||
-|-|-|-|-|
+|                      |                      |                      |                    |
+|----------------------|----------------------|----------------------|--------------------|
 | Leadership           | Mentorship           | Platform Engineering | Kubernetes         |
 | Strategy             | Conflict resolution  | GitOps               | Terraform/OpenTofu |
 | Cloud Architecture   | Team building        | Observability        | Bash               |

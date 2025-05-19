@@ -19,7 +19,7 @@ export const talks: Talk[] = [
     date: "2023-02-16",
     description:
       "A reflection of how an automated, repeatable approach drives benefits in both technical and non-technical areas.",
-    videoUrl: "https://www.youtube.com/watch?=_-mHscUXYZY",
+    videoUrl: "https://www.youtube.com/watch?v=_-mHscUXYZY",
     tags: ["Infrastructure as Code", "Automation", "Terraform", "Culture"],
   },
   {
