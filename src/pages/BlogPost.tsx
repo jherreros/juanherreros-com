@@ -1,5 +1,6 @@
+
 import { useParams, Link } from "react-router-dom";
-import { format } from "date-fns";
+import { format, isValid, parseISO } from "date-fns";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { ArrowLeft, Tag } from "lucide-react";
@@ -59,7 +60,21 @@ const BlogPost = () => {
     );
   }
 
-  const formattedDate = post.date ? format(new Date(post.date), "MMMM dd, yyyy") : 'Unknown date';
+  // Safely format the date
+  const getFormattedDate = (dateString: string) => {
+    try {
+      const date = parseISO(dateString);
+      if (isValid(date)) {
+        return format(date, "MMMM dd, yyyy");
+      }
+      return "Unknown date";
+    } catch (error) {
+      console.error("Error parsing date:", error);
+      return "Unknown date";
+    }
+  };
+
+  const formattedDate = post.date ? getFormattedDate(post.date) : 'Unknown date';
 
   return (
     <div className="min-h-screen py-12 px-4 sm:px-6 lg:px-8 max-w-4xl mx-auto">

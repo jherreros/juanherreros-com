@@ -3,14 +3,28 @@ import { BlogPost } from "@/lib/types";
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Link } from "react-router-dom";
-import { format } from "date-fns";
+import { format, isValid, parseISO } from "date-fns";
 
 interface BlogCardProps {
   post: BlogPost;
 }
 
 export function BlogCard({ post }: BlogCardProps) {
-  const formattedDate = format(new Date(post.date), "MMMM dd, yyyy");
+  // Safely format the date
+  const formatDate = (dateString: string) => {
+    try {
+      const date = parseISO(dateString);
+      if (isValid(date)) {
+        return format(date, "MMMM dd, yyyy");
+      }
+      return "Date unavailable";
+    } catch (error) {
+      console.error("Error formatting date:", error);
+      return "Date unavailable";
+    }
+  };
+
+  const formattedDate = post.date ? formatDate(post.date) : "Date unavailable";
 
   return (
     <Card className="h-full flex flex-col hover:shadow-md transition-shadow border-corporate-100">

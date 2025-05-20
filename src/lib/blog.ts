@@ -1,4 +1,3 @@
-
 import { BlogPost } from "@/lib/types";
 
 // Helper function to load all markdown files from content/blog directory
@@ -24,7 +23,7 @@ async function loadMarkdownFiles() {
       // Initialize with default values
       let title = slug.split('-').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ');
       let author = 'Juan Herreros'; // Default author
-      let date = new Date().toISOString();
+      let date = new Date().toISOString(); // Default to current date in ISO format
       let excerpt = '';
       let tags: string[] = [];
       
@@ -41,7 +40,22 @@ async function loadMarkdownFiles() {
             const value = valueParts.join(':').trim();
             if (key.trim() === 'title') title = value;
             if (key.trim() === 'author') author = value;
-            if (key.trim() === 'date') date = value;
+            if (key.trim() === 'date') {
+              // Ensure date is in ISO format for consistency
+              try {
+                // If it's already a valid date string, use it
+                if (/^\d{4}-\d{2}-\d{2}/.test(value)) {
+                  // Add time component if not present
+                  date = value.includes('T') ? value : `${value}T00:00:00Z`;
+                } else {
+                  // Otherwise use current date
+                  date = new Date().toISOString();
+                }
+              } catch (e) {
+                console.error("Invalid date format:", value);
+                date = new Date().toISOString();
+              }
+            }
             if (key.trim() === 'excerpt') excerpt = value;
             if (key.trim() === 'tags') {
               // Properly parse tags - they could be comma-separated or in YAML array format
@@ -106,7 +120,19 @@ export async function getAllPosts(): Promise<BlogPost[]> {
     console.log("Loaded markdown posts:", markdownPosts.length);
     
     // Sort posts by date, newest first
-    return markdownPosts.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
+    return markdownPosts.sort((a, b) => {
+      // Safely compare dates (if invalid, push to the end)
+      const dateA = new Date(a.date);
+      const dateB = new Date(b.date);
+      const isValidA = !isNaN(dateA.getTime());
+      const isValidB = !isNaN(dateB.getTime());
+      
+      if (!isValidA && !isValidB) return 0;
+      if (!isValidA) return 1;
+      if (!isValidB) return -1;
+      
+      return dateB.getTime() - dateA.getTime();
+    });
   } catch (error) {
     console.error("Error in getAllPosts:", error);
     return [];

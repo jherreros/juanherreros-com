@@ -69,6 +69,6 @@ const Resume = () => {
       </Card>
     </div>
   );
-};
+}
 
 export default Resume;
