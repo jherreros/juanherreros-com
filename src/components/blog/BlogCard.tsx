@@ -13,10 +13,13 @@ export function BlogCard({ post }: BlogCardProps) {
   // Safely format the date
   const formatDate = (dateString: string) => {
     try {
-      const date = parseISO(dateString);
+      // Clean the date string to ensure it's in ISO format
+      const cleanDate = dateString.trim().replace(/["']/g, '');
+      const date = parseISO(cleanDate);
       if (isValid(date)) {
         return format(date, "MMMM dd, yyyy");
       }
+      console.warn("Invalid date in BlogCard:", dateString);
       return "Date unavailable";
     } catch (error) {
       console.error("Error formatting date:", error, dateString);

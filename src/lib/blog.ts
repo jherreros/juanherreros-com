@@ -1,4 +1,3 @@
-
 import { BlogPost } from "@/lib/types";
 
 // Helper function to load all markdown files from content/blog directory
@@ -44,12 +43,15 @@ async function loadMarkdownFiles() {
             if (key.trim() === 'date') {
               // Ensure date is in ISO format for consistency
               try {
+                // Remove any quotes if present
+                const cleanValue = value.replace(/["']/g, '').trim();
                 // If it's already a valid date string, use it
-                if (/^\d{4}-\d{2}-\d{2}/.test(value)) {
+                if (/^\d{4}-\d{2}-\d{2}/.test(cleanValue)) {
                   // Add time component if not present
-                  date = value.includes('T') ? value : `${value}T00:00:00Z`;
+                  date = cleanValue.includes('T') ? cleanValue : `${cleanValue}T00:00:00Z`;
                 } else {
                   // Otherwise use current date
+                  console.warn("Invalid date format, using current date as fallback:", cleanValue);
                   date = new Date().toISOString();
                 }
               } catch (e) {

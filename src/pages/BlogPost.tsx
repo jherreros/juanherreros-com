@@ -63,10 +63,13 @@ const BlogPost = () => {
   // Safely format the date
   const getFormattedDate = (dateString: string) => {
     try {
-      const date = parseISO(dateString);
+      // Clean the date string to ensure it's in ISO format
+      const cleanDate = dateString.trim().replace(/["']/g, '');
+      const date = parseISO(cleanDate);
       if (isValid(date)) {
         return format(date, "MMMM dd, yyyy");
       }
+      console.warn("Invalid date in BlogPost:", dateString);
       return "Unknown date";
     } catch (error) {
       console.error("Error parsing date:", error);

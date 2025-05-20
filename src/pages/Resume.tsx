@@ -66,7 +66,7 @@ const Resume = () => {
             tbody: ({node, ...props}) => <TableBody {...props} />,
             tr: ({node, ...props}) => <TableRow {...props} />,
             th: ({node, ...props}) => <TableHead className="text-primary font-medium" {...props} />,
-            td: ({node, ...props}) => <TableCell {...props} />
+            td: ({node, ...props}) => <TableCell className="p-2" {...props} />
           }}>
             {resumeContent}
           </ReactMarkdown>
