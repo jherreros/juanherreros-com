@@ -52,13 +52,10 @@
 
 # Key Skills
 
-|                      |                      |                      |                    |
-|----------------------|----------------------|----------------------|--------------------|
-| Leadership           | Mentorship           | Platform Engineering | Kubernetes         |
-| Strategy             | Conflict resolution  | GitOps               | Terraform/OpenTofu |
-| Cloud Architecture   | Team building        | Observability        | Bash               |
-| Product Management   | Technical writing    | Security             | Linux              |
-| Public communication | Developer Experience | Networking           | Azure              |
+- **Leadership**: Tech Strategy, Cloud Architecture, Product Management, Public Communication, Technical Writing
+- **People**: Mentorship, Conflict Resolution, Team Building, Developer Experience, Developer Advocacy
+- **Areas**: Platform Engineering, GitOps, Observability, Security, Networking
+- **Tools and Platforms**: Kubernetes, Terraform/OpenTofu, Azure, Bash, Linux
 
 # Languages
 
