@@ -1,4 +1,3 @@
-
 import { BlogPost } from "@/lib/types";
 
 // Helper function to load all markdown files from content/blog directory
@@ -62,44 +61,48 @@ async function loadMarkdownFiles() {
             }
             if (key.trim() === 'excerpt') excerpt = value;
             if (key.trim() === 'tags') {
-              // Parse tags from frontmatter in different formats
               try {
+                // Log the raw tags value for debugging
                 console.log(`Raw tags value for ${title}:`, value);
                 
-                // NEW APPROACH: If tags are empty or undefined, add default tags
-                if (!value || value.trim() === '') {
-                  // Add some default tags based on title words
-                  const titleWords = title.split(' ');
-                  tags = titleWords
-                    .filter(word => word.length > 3)
-                    .slice(0, 2)
-                    .map(word => word.toLowerCase());
+                // Parse the tags based on the format in the markdown files
+                if (value) {
+                  // Check if the tags are in YAML array format
+                  if (value.trim().startsWith('[') && value.trim().endsWith(']')) {
+                    // Parse YAML array format: [tag1, tag2, tag3]
+                    const tagsString = value.trim().slice(1, -1);
+                    tags = tagsString
+                      .split(',')
+                      .map(tag => tag.trim().replace(/["']/g, ''))
+                      .filter(tag => tag);
+                  } else {
+                    // Parse simple list format (indented with - or *)
+                    // First, split by line if it contains newlines
+                    const tagLines = value.includes('\n') 
+                      ? value.split('\n')
+                      : [value];
                     
-                  // Add a default tech tag
-                  tags.push('technology');
-                  
-                  console.log(`No tags found, using default tags: ${tags.join(', ')}`);
+                    // Process each line
+                    tags = tagLines
+                      .map(line => {
+                        // Remove leading dash, star or whitespace
+                        return line.trim().replace(/^[-*]\s*/, '').replace(/["']/g, '');
+                      })
+                      .filter(tag => tag);
+                    
+                    // If we still don't have tags, try splitting by comma (simple comma-separated list)
+                    if (tags.length === 0 || (tags.length === 1 && tags[0].includes(','))) {
+                      tags = value
+                        .split(',')
+                        .map(tag => tag.trim().replace(/["']/g, ''))
+                        .filter(tag => tag);
+                    }
+                  }
                 }
-                else if (value.startsWith('[') && value.endsWith(']')) {
-                  // YAML array format: [tag1, tag2, tag3]
-                  tags = value
-                    .slice(1, -1)
-                    .split(',')
-                    .map(t => t.trim().replace(/["']/g, '')) // Remove quotes from tags
-                    .filter(t => t.length > 0);
-                } else {
-                  // Simple comma-separated format: tag1, tag2, tag3
-                  tags = value
-                    .split(',')
-                    .map(t => t.trim().replace(/["']/g, '')) // Remove quotes from tags
-                    .filter(t => t.length > 0);
-                }
-                
                 console.log(`Parsed tags for ${title}:`, tags);
               } catch (e) {
                 console.error("Failed to parse tags:", value, e);
-                // If tag parsing fails, add some default tags
-                tags = ['technology', 'development'];
+                tags = [];
               }
             }
           }
@@ -107,12 +110,6 @@ async function loadMarkdownFiles() {
         
         // Use the content after frontmatter
         content = contentBody;
-      }
-      
-      // If no tags were found or parsed, add default tags
-      if (!tags || tags.length === 0) {
-        tags = ['cloud', 'development', 'technology'];
-        console.log(`No tags found for ${title}, using default tags:`, tags);
       }
       
       // Extract excerpt from content if not set
