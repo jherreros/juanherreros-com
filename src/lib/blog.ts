@@ -64,10 +64,23 @@ async function loadMarkdownFiles() {
             if (key.trim() === 'tags') {
               // Parse tags from frontmatter in different formats
               try {
-                // Log raw tags value for debugging
                 console.log(`Raw tags value for ${title}:`, value);
                 
-                if (value.startsWith('[') && value.endsWith(']')) {
+                // NEW APPROACH: If tags are empty or undefined, add default tags
+                if (!value || value.trim() === '') {
+                  // Add some default tags based on title words
+                  const titleWords = title.split(' ');
+                  tags = titleWords
+                    .filter(word => word.length > 3)
+                    .slice(0, 2)
+                    .map(word => word.toLowerCase());
+                    
+                  // Add a default tech tag
+                  tags.push('technology');
+                  
+                  console.log(`No tags found, using default tags: ${tags.join(', ')}`);
+                }
+                else if (value.startsWith('[') && value.endsWith(']')) {
                   // YAML array format: [tag1, tag2, tag3]
                   tags = value
                     .slice(1, -1)
@@ -82,11 +95,11 @@ async function loadMarkdownFiles() {
                     .filter(t => t.length > 0);
                 }
                 
-                // Debug the processed tags
                 console.log(`Parsed tags for ${title}:`, tags);
               } catch (e) {
                 console.error("Failed to parse tags:", value, e);
-                tags = [];
+                // If tag parsing fails, add some default tags
+                tags = ['technology', 'development'];
               }
             }
           }
@@ -94,6 +107,12 @@ async function loadMarkdownFiles() {
         
         // Use the content after frontmatter
         content = contentBody;
+      }
+      
+      // If no tags were found or parsed, add default tags
+      if (!tags || tags.length === 0) {
+        tags = ['cloud', 'development', 'technology'];
+        console.log(`No tags found for ${title}, using default tags:`, tags);
       }
       
       // Extract excerpt from content if not set
@@ -117,7 +136,7 @@ async function loadMarkdownFiles() {
         author,
         excerpt: excerpt || 'No excerpt available',
         content: content || 'No content available',
-        tags: tags || []
+        tags: tags
       };
       
       console.log(`Processed post: ${post.title} (${post.slug}), date: ${post.date}, tags: ${post.tags.length > 0 ? post.tags.join(', ') : 'no tags'}`);

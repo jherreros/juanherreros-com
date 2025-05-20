@@ -56,17 +56,17 @@ const Resume = () => {
             h5: ({node, ...props}) => <h5 className="text-primary" {...props} />,
             h6: ({node, ...props}) => <h6 className="text-primary" {...props} />,
             
-            // Table components mapping to correctly render tables
+            // Enhanced table components mapping for better table rendering
             table: ({node, ...props}) => (
-              <div className="my-4 w-full overflow-auto rounded border border-border">
-                <Table {...props} />
+              <div className="my-6 w-full overflow-auto rounded border border-border">
+                <Table className="w-full" {...props} />
               </div>
             ),
             thead: ({node, ...props}) => <TableHeader {...props} />,
             tbody: ({node, ...props}) => <TableBody {...props} />,
-            tr: ({node, ...props}) => <TableRow {...props} />,
-            th: ({node, ...props}) => <TableHead className="text-primary font-medium p-2" {...props} />,
-            td: ({node, ...props}) => <TableCell className="p-2 border-t border-border" {...props} />
+            tr: ({node, ...props}) => <TableRow className="hover:bg-muted/50" {...props} />,
+            th: ({node, ...props}) => <TableHead className="text-primary font-medium py-3 px-4" {...props} />,
+            td: ({node, ...props}) => <TableCell className="py-3 px-4 border-t border-border" {...props} />
           }}>
             {resumeContent}
           </ReactMarkdown>

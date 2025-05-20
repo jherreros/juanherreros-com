@@ -1,6 +1,7 @@
 
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 
 export function Hero() {
   return (
@@ -26,19 +27,15 @@ export function Hero() {
           </div>
           <div className="md:w-2/5">
             <div className="bg-gradient-to-br from-green-200 to-green-400 dark:from-green-700 dark:to-green-900 p-1 rounded-lg shadow-lg">
-              <div className="bg-background rounded-md p-6">
-                <h2 className="text-lg font-semibold mb-2 text-foreground">Latest Updates</h2>
-                <ul className="space-y-3">
-                  <li className="text-sm text-muted-foreground">
-                    <span className="font-medium text-foreground">New Blog Post:</span> Building a Modern Cloud Infrastructure
-                  </li>
-                  <li className="text-sm text-muted-foreground">
-                    <span className="font-medium text-foreground">Recent Talk:</span> Building Internal Developer Platforms at KubeCon
-                  </li>
-                  <li className="text-sm text-muted-foreground">
-                    <span className="font-medium text-foreground">Open Source:</span> Contributing to Kubernetes SIG Docs
-                  </li>
-                </ul>
+              <div className="aspect-square w-full overflow-hidden rounded-md bg-background">
+                <Avatar className="h-full w-full rounded-md">
+                  <AvatarImage 
+                    src="https://images.unsplash.com/photo-1488590528505-98d2b5aba04b" 
+                    alt="Juan Herreros" 
+                    className="object-cover h-full w-full" 
+                  />
+                  <AvatarFallback className="text-4xl h-full w-full">JH</AvatarFallback>
+                </Avatar>
               </div>
             </div>
           </div>
