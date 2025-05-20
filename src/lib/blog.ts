@@ -1,3 +1,4 @@
+
 import { BlogPost } from "@/lib/types";
 
 // Helper function to load all markdown files from content/blog directory
@@ -63,23 +64,28 @@ async function loadMarkdownFiles() {
             if (key.trim() === 'tags') {
               // Parse tags from frontmatter in different formats
               try {
+                // Log raw tags value for debugging
+                console.log(`Raw tags value for ${title}:`, value);
+                
                 if (value.startsWith('[') && value.endsWith(']')) {
                   // YAML array format: [tag1, tag2, tag3]
                   tags = value
                     .slice(1, -1)
                     .split(',')
-                    .map(t => t.trim())
+                    .map(t => t.trim().replace(/["']/g, '')) // Remove quotes from tags
                     .filter(t => t.length > 0);
                 } else {
                   // Simple comma-separated format: tag1, tag2, tag3
                   tags = value
                     .split(',')
-                    .map(t => t.trim())
+                    .map(t => t.trim().replace(/["']/g, '')) // Remove quotes from tags
                     .filter(t => t.length > 0);
                 }
+                
+                // Debug the processed tags
                 console.log(`Parsed tags for ${title}:`, tags);
               } catch (e) {
-                console.error("Failed to parse tags:", value);
+                console.error("Failed to parse tags:", value, e);
                 tags = [];
               }
             }
@@ -114,7 +120,7 @@ async function loadMarkdownFiles() {
         tags: tags || []
       };
       
-      console.log(`Processed post: ${post.title} (${post.slug}), date: ${post.date}, tags: ${post.tags.join(', ')}`);
+      console.log(`Processed post: ${post.title} (${post.slug}), date: ${post.date}, tags: ${post.tags.length > 0 ? post.tags.join(', ') : 'no tags'}`);
       return post;
     });
 

@@ -58,15 +58,15 @@ const Resume = () => {
             
             // Table components mapping to correctly render tables
             table: ({node, ...props}) => (
-              <div className="my-4 w-full overflow-auto">
+              <div className="my-4 w-full overflow-auto rounded border border-border">
                 <Table {...props} />
               </div>
             ),
             thead: ({node, ...props}) => <TableHeader {...props} />,
             tbody: ({node, ...props}) => <TableBody {...props} />,
             tr: ({node, ...props}) => <TableRow {...props} />,
-            th: ({node, ...props}) => <TableHead className="text-primary font-medium" {...props} />,
-            td: ({node, ...props}) => <TableCell className="p-2" {...props} />
+            th: ({node, ...props}) => <TableHead className="text-primary font-medium p-2" {...props} />,
+            td: ({node, ...props}) => <TableCell className="p-2 border-t border-border" {...props} />
           }}>
             {resumeContent}
           </ReactMarkdown>
