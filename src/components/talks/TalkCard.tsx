@@ -19,12 +19,12 @@ export function TalkCard({ talk }: TalkCardProps) {
       }
       return "Date unavailable";
     } catch (error) {
-      console.error("Error formatting date:", error);
+      console.error("Error formatting date:", error, dateString);
       return "Date unavailable";
     }
   };
 
-  const formattedDate = formatDate(talk.date);
+  const formattedDate = talk.date ? formatDate(talk.date) : "Date unavailable";
 
   return (
     <Card className="h-full flex flex-col hover:shadow-md transition-shadow">
@@ -58,15 +58,21 @@ export function TalkCard({ talk }: TalkCardProps) {
       </CardContent>
       <CardFooter className="flex flex-col items-start gap-4">
         <div className="flex flex-wrap gap-2">
-          {talk.tags.slice(0, 3).map((tag, index) => (
-            <Badge key={index} variant="outline" className="text-xs">
-              {tag}
-            </Badge>
-          ))}
-          {talk.tags.length > 3 && (
-            <Badge variant="outline" className="text-xs">
-              +{talk.tags.length - 3}
-            </Badge>
+          {talk.tags && talk.tags.length > 0 ? (
+            <>
+              {talk.tags.slice(0, 3).map((tag, index) => (
+                <Badge key={index} variant="outline" className="text-xs">
+                  {tag}
+                </Badge>
+              ))}
+              {talk.tags.length > 3 && (
+                <Badge variant="outline" className="text-xs">
+                  +{talk.tags.length - 3}
+                </Badge>
+              )}
+            </>
+          ) : (
+            <span className="text-xs text-muted-foreground">No tags</span>
           )}
         </div>
         {talk.slides && (

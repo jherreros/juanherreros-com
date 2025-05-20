@@ -19,7 +19,7 @@ export function BlogCard({ post }: BlogCardProps) {
       }
       return "Date unavailable";
     } catch (error) {
-      console.error("Error formatting date:", error);
+      console.error("Error formatting date:", error, dateString);
       return "Date unavailable";
     }
   };
@@ -47,15 +47,21 @@ export function BlogCard({ post }: BlogCardProps) {
       </CardContent>
       <CardFooter>
         <div className="flex flex-wrap gap-2">
-          {post.tags.slice(0, 3).map((tag, index) => (
-            <Badge key={index} variant="outline" className="text-xs">
-              {tag}
-            </Badge>
-          ))}
-          {post.tags.length > 3 && (
-            <Badge variant="outline" className="text-xs">
-              +{post.tags.length - 3}
-            </Badge>
+          {post.tags && post.tags.length > 0 ? (
+            <>
+              {post.tags.slice(0, 3).map((tag, index) => (
+                <Badge key={index} variant="outline" className="text-xs">
+                  {tag}
+                </Badge>
+              ))}
+              {post.tags.length > 3 && (
+                <Badge variant="outline" className="text-xs">
+                  +{post.tags.length - 3}
+                </Badge>
+              )}
+            </>
+          ) : (
+            <span className="text-xs text-muted-foreground">No tags</span>
           )}
         </div>
       </CardFooter>

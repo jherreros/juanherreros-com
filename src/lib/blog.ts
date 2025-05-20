@@ -1,3 +1,4 @@
+
 import { BlogPost } from "@/lib/types";
 
 // Helper function to load all markdown files from content/blog directory
@@ -58,13 +59,26 @@ async function loadMarkdownFiles() {
             }
             if (key.trim() === 'excerpt') excerpt = value;
             if (key.trim() === 'tags') {
-              // Properly parse tags - they could be comma-separated or in YAML array format
-              if (value.startsWith('[') && value.endsWith(']')) {
-                // YAML array format: [tag1, tag2, tag3]
-                tags = value.slice(1, -1).split(',').map(t => t.trim());
-              } else {
-                // Simple comma-separated format: tag1, tag2, tag3
-                tags = value.split(',').map(t => t.trim());
+              // Parse tags from frontmatter in different formats
+              try {
+                if (value.startsWith('[') && value.endsWith(']')) {
+                  // YAML array format: [tag1, tag2, tag3]
+                  tags = value
+                    .slice(1, -1)
+                    .split(',')
+                    .map(t => t.trim())
+                    .filter(t => t.length > 0);
+                } else {
+                  // Simple comma-separated format: tag1, tag2, tag3
+                  tags = value
+                    .split(',')
+                    .map(t => t.trim())
+                    .filter(t => t.length > 0);
+                }
+                console.log(`Parsed tags for ${title}:`, tags);
+              } catch (e) {
+                console.error("Failed to parse tags:", value);
+                tags = [];
               }
             }
           }
@@ -98,7 +112,7 @@ async function loadMarkdownFiles() {
         tags: tags || []
       };
       
-      console.log(`Processed post: ${post.title} (${post.slug}), tags: ${post.tags.join(', ')}`);
+      console.log(`Processed post: ${post.title} (${post.slug}), date: ${post.date}, tags: ${post.tags.join(', ')}`);
       return post;
     });
 

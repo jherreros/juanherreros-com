@@ -55,12 +55,17 @@ const Resume = () => {
             h4: ({node, ...props}) => <h4 className="text-primary" {...props} />,
             h5: ({node, ...props}) => <h5 className="text-primary" {...props} />,
             h6: ({node, ...props}) => <h6 className="text-primary" {...props} />,
+            
             // Table components mapping to correctly render tables
-            table: ({node, ...props}) => <Table className="my-4" {...props} />,
+            table: ({node, ...props}) => (
+              <div className="my-4 w-full overflow-auto">
+                <Table {...props} />
+              </div>
+            ),
             thead: ({node, ...props}) => <TableHeader {...props} />,
             tbody: ({node, ...props}) => <TableBody {...props} />,
             tr: ({node, ...props}) => <TableRow {...props} />,
-            th: ({node, ...props}) => <TableHead className="text-primary" {...props} />,
+            th: ({node, ...props}) => <TableHead className="text-primary font-medium" {...props} />,
             td: ({node, ...props}) => <TableCell {...props} />
           }}>
             {resumeContent}
@@ -69,6 +74,6 @@ const Resume = () => {
       </Card>
     </div>
   );
-}
+};
 
 export default Resume;

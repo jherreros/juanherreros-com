@@ -6,7 +6,7 @@ import { BlogCard } from "@/components/blog/BlogCard";
 import { TalkCard } from "@/components/talks/TalkCard";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useMemo } from "react";
 import { BlogPost } from "@/lib/types";
 import { getRecentPosts } from "@/lib/blog";
 
@@ -14,8 +14,12 @@ const Index = () => {
   const [latestPosts, setLatestPosts] = useState<BlogPost[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   
-  // Get latest blog posts and talks
-  const latestTalks = talks.slice(0, 2);
+  // Sort talks by date and get the 2 most recent ones
+  const latestTalks = useMemo(() => {
+    return [...talks]
+      .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())
+      .slice(0, 2);
+  }, []);
 
   useEffect(() => {
     async function loadPosts() {
