@@ -4,12 +4,7 @@ slug: "the-backend"
 date: "2020-09-28"
 author: Juan Herreros Elorza
 excerpt: This web now has backend that serves a visitor counter
-tags:
-  - "Cloud"
-  - "Infrastructure"
-  - "Challenge"
-  - "Project"
-  - "AWS"
+tags: ["Cloud", "Infrastructure", "Challenge", "Project", "AWS"]
 ---
 
 Welcome to a new post of my blog!

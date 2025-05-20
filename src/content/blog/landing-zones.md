@@ -4,9 +4,7 @@ slug: "landing-zones"
 date: "2023-11-24"
 author: Juan Herreros Elorza
 excerpt: An invitation to use the concept of Landing Zones in Internal Platforms
-tags:
-  - "Platform Engineering"
-  - "Internal Developer Platform"
+tags: ["Platform Engineering", "Internal Developer Platform"]
 ---
 
 This post is an open invitation to use specific terminology to refer to different aspects of Internal Developer Platforms. Cloud Providers define Landing Zones as a way of configuring and structuting the resources in them, and I think that term could be used also in Internal Developer Platforms.

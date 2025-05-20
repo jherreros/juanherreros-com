@@ -4,11 +4,7 @@ slug: "automating-the-deployment"
 date: "2020-09-06"
 author: Juan Herreros Elorza
 excerpt: I've uploaded the code to a VCS and I've created a pipeline to automate the deployment of the website.
-tags:
-  - "Cloud"
-  - "Infrastructure"
-  - "Challenge"
-  - "Project"
+tags: ["Cloud", "Infrastructure", "Challenge", "Project"]
 ---
 
 Welcome to a new post of the blog!

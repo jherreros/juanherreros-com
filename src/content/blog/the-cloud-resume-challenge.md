@@ -4,11 +4,7 @@ slug: "the-cloud-resume-challenge"
 date: "2020-08-30"
 author: Juan Herreros Elorza
 excerpt: I've decided to start the Cloud Resume Challenge, and this website is the result of that.
-tags:
-  - "Cloud"
-  - "Infrastructure"
-  - "Challenge"
-  - "Project"
+tags: ["Cloud", "Infrastructure", "Challenge", "Project"]
 ---
 
 Welcome to my blog!

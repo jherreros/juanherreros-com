@@ -4,9 +4,7 @@ slug: "platform-layers"
 date: "2024-10-06"
 author: Juan Herreros Elorza
 excerpt: How to strucute a Platform in Core, Foundation and Delivery
-tags:
-  - "Platform Engineering"
-  - "Internal Developer Platform"
+tags: ["Platform Engineering", "Internal Developer Platform"]
 ---
 
 Throughout my years building Platforms, I’ve found that there are different understandings about what a Platform is. Everybody would agree that it’s a starting point where to build on top and that it makes the life of its users easier (that it reduces their cognitive load), however there are different takes on how it does that.

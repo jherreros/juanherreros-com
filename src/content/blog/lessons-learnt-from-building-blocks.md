@@ -4,9 +4,7 @@ slug: "lessons-learnt-from-building-blocks"
 date: "2024-09-30"
 author: Juan Herreros Elorza
 excerpt: Lessons learnt from using "building blocks" as an approach to IaC
-tags:
-  - "Platform Engineering"
-  - "Internal Developer Platform"
+tags: ["Platform Engineering", "Internal Developer Platform"]
 ---
 
 When I first started working in Banking Circle, I was working with Infrastructure as Code (IaC).
