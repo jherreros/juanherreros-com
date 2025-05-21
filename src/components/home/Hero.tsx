@@ -30,7 +30,7 @@ export function Hero() {
               <div className="aspect-square w-full overflow-hidden rounded-md bg-background">
                 <Avatar className="h-full w-full rounded-md">
                   <AvatarImage 
-                    src="https://images.unsplash.com/photo-1488590528505-98d2b5aba04b" 
+                    src="/Juan.jpg" 
                     alt="Juan Herreros" 
                     className="object-cover h-full w-full" 
                   />

@@ -35,7 +35,7 @@ export const talks: Talk[] = [
     date: "2024-05-21T00:00:00Z",
     description:
       "A look into the structure of Banking Circle's Internal Developer Platform, and the open source tooling we have built for it.",
-    imageUrl: "/placeholder.svg",
+    imageUrl: "/cncf-cph.png",
     tags: ["Kubernetes", "Open Source", "Cloud Native", "Platform Engineering"],
   },
   {
@@ -44,8 +44,17 @@ export const talks: Talk[] = [
     date: "2025-04-08T00:00:00Z",
     description:
       "A quick overview of Banking Circle's Compute Platform, including its core and the abstraction layers exposed to our users.",
-    imageUrl: "/placeholder.svg",
+    imageUrl: "/qcon.jpg",
     tags: ["Kubernetes", "Open Source", "Cloud Native", "Platform Engineering"],
+  },
+  {
+    title: "Azure Landing Zones as a Service",
+    event: "Azure Usergroup Denmark",
+    date: "2025-02-05T00:00:00Z",
+    description:
+      "An introduction to our single, simple, self-service interface to provision infrastructure resources.",
+    imageUrl: "/azure-usergroup.jpg",
+    tags: ["Azure", "Landing Zones", "Cloud Native", "Platform Engineering"],
   },
   {
     title: "Infrastructure as code, from templates to APIs: A Platform Engineering Story",
@@ -53,7 +62,7 @@ export const talks: Talk[] = [
     date: "2025-06-23T00:00:00Z",
     description:
       "A look back at our journey around infrastructure provisioning, from re-usable building blocks to a pure Platform Engineering approach.",
-    imageUrl: "/placeholder.svg",
+    imageUrl: "/pcon25.png",
     tags: ["Terraform", "Infrastructure as Code", "Cloud Native", "Platform Engineering"],
   },
 ];
