@@ -14,7 +14,7 @@ Moreover, all of this is completely automated and version-controlled, so that it
 
 #### The architecture
 
-![Picture](/public/arch.png)
+![Picture](/arch.png)
 
 The frontend of this website, as described in the previous blog posts, is composed by:
 - A [S3](https://aws.amazon.com/s3/) bucket, which hosts the static site generated with Gatsby
