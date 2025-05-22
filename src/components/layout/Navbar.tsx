@@ -57,7 +57,7 @@ export function Navbar() {
                 asChild 
                 className="text-foreground hover:text-primary transition-colors"
               >
-                <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
+                <a href="https://linkedin.com/in/juan-herreros-elorza" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
                   <Linkedin size={20} />
                 </a>
               </Button>
@@ -67,7 +67,7 @@ export function Navbar() {
                 asChild 
                 className="text-foreground hover:text-primary transition-colors"
               >
-                <a href="https://github.com" target="_blank" rel="noopener noreferrer" aria-label="GitHub">
+                <a href="https://github.com/jherreros" target="_blank" rel="noopener noreferrer" aria-label="GitHub">
                   <Github size={20} />
                 </a>
               </Button>
@@ -148,7 +148,7 @@ export function Navbar() {
           {/* Social icons in mobile menu */}
           <div className="flex space-x-4 px-3 py-2">
             <a 
-              href="https://linkedin.com" 
+              href="https://linkedin.com/in/juan-herreros-elorza"
               target="_blank" 
               rel="noopener noreferrer" 
               aria-label="LinkedIn"
@@ -157,7 +157,7 @@ export function Navbar() {
               <Linkedin size={20} />
             </a>
             <a 
-              href="https://github.com" 
+              href="https://github.com/jherreros" 
               target="_blank" 
               rel="noopener noreferrer" 
               aria-label="GitHub"
