@@ -62,7 +62,7 @@ export const talks: Talk[] = [
     date: "2025-05-14T00:00:00Z",
     description:
       "(Not a talk as such) I was a guest in the podcast The Shortcu.tt, where I talked about our journey in Banking Circle",
-    videoUrl: "/https://www.youtube.com/watch?v=i8EGSQcg0aY",
+    videoUrl: "https://www.youtube.com/watch?v=i8EGSQcg0aY",
     tags: ["Podcast", "Culture", "Cloud Native", "Platform Engineering"],
   },
   {
