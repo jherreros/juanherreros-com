@@ -57,6 +57,15 @@ export const talks: Talk[] = [
     tags: ["Azure", "Landing Zones", "Cloud Native", "Platform Engineering"],
   },
   {
+    title: "Evolving Engineering at Banking Circle",
+    event: "The Shortcu.tt podcast ",
+    date: "2025-05-14T00:00:00Z",
+    description:
+      "(Not a talk as such) I was a guest in the podcast The Shortcu.tt, where I talked about our journey in Banking Circle",
+    videoUrl: "/https://www.youtube.com/watch?v=i8EGSQcg0aY",
+    tags: ["Podcast", "Culture", "Cloud Native", "Platform Engineering"],
+  },
+  {
     title: "Infrastructure as code, from templates to APIs: A Platform Engineering Story",
     event: "PlatformCon 2025",
     date: "2025-06-23T00:00:00Z",
