@@ -4,12 +4,17 @@ import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle }
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { format, isValid, parseISO } from "date-fns";
+import { useLanguage } from "@/contexts/LanguageContext";
+import { useTranslation } from "@/lib/translations";
 
 interface TalkCardProps {
   talk: Talk;
 }
 
 export function TalkCard({ talk }: TalkCardProps) {
+  const { language } = useLanguage();
+  const t = useTranslation(language);
+
   // Safely parse and format the date
   const formatDate = (dateString: string) => {
     try {
@@ -17,14 +22,15 @@ export function TalkCard({ talk }: TalkCardProps) {
       if (isValid(date)) {
         return format(date, "MMMM dd, yyyy");
       }
-      return "Date unavailable";
+      return t('dateUnavailable');
     } catch (error) {
       console.error("Error formatting date:", error, dateString);
-      return "Date unavailable";
+      return t('dateUnavailable');
     }
   };
 
-  const formattedDate = talk.date ? formatDate(talk.date) : "Date unavailable";
+  const formattedDate = talk.date ? formatDate(talk.date) : t('dateUnavailable');
+  const description = talk.description[language] || talk.description.en;
 
   return (
     <Card className="h-full flex flex-col hover:shadow-md transition-shadow">
@@ -54,7 +60,7 @@ export function TalkCard({ talk }: TalkCardProps) {
             ) : null}
           </div>
         )}
-        <p className="text-foreground">{talk.description}</p>
+        <p className="text-foreground">{description}</p>
       </CardContent>
       <CardFooter className="flex flex-col items-start gap-4">
         <div className="flex flex-wrap gap-2">
@@ -72,13 +78,13 @@ export function TalkCard({ talk }: TalkCardProps) {
               )}
             </>
           ) : (
-            <span className="text-xs text-muted-foreground">No tags</span>
+            <span className="text-xs text-muted-foreground">{t('noTags')}</span>
           )}
         </div>
         {talk.slides && (
           <Button variant="secondary" size="sm" asChild>
             <a href={talk.slides} target="_blank" rel="noopener noreferrer">
-              View Slides
+              {t('viewSlides')}
             </a>
           </Button>
         )}

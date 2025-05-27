@@ -1,4 +1,6 @@
 
+import { Language } from "@/contexts/LanguageContext";
+
 export interface BlogPost {
   title: string;
   slug: string;
@@ -14,7 +16,7 @@ export interface Talk {
   title: string;
   event: string;
   date: string;
-  description: string;
+  description: Record<Language, string>;
   videoUrl?: string; // YouTube or other video platform URL
   imageUrl?: string; // Fallback image if no video
   slides?: string; // URL to slides

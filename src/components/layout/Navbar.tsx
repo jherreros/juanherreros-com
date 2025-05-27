@@ -3,19 +3,24 @@ import { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { cn } from "@/lib/utils";
 import { ThemeToggle } from "./ThemeToggle";
+import { LanguageSelector } from "./LanguageSelector";
 import { Github, Linkedin } from "lucide-react";
 import { Button } from "@/components/ui/button";
-
-const navItems = [
-  { name: "Home", path: "/" },
-  { name: "Blog", path: "/blog" },
-  { name: "Talks", path: "/talks" },
-  { name: "Resume", path: "/resume" },
-];
+import { useLanguage } from "@/contexts/LanguageContext";
+import { useTranslation } from "@/lib/translations";
 
 export function Navbar() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const location = useLocation();
+  const { language } = useLanguage();
+  const t = useTranslation(language);
+
+  const navItems = [
+    { name: t('home'), path: "/" },
+    { name: t('blog'), path: "/blog" },
+    { name: t('talks'), path: "/talks" },
+    { name: t('resume'), path: "/resume" },
+  ];
 
   return (
     <nav className="bg-background border-b border-border sticky top-0 z-50">
@@ -47,7 +52,7 @@ export function Navbar() {
             </div>
           </div>
 
-          {/* Social icons + Theme toggle + mobile menu button */}
+          {/* Social icons + Language selector + Theme toggle + mobile menu button */}
           <div className="flex items-center">
             {/* Social icons */}
             <div className="hidden sm:flex space-x-2 mr-2">
@@ -73,6 +78,7 @@ export function Navbar() {
               </Button>
             </div>
             
+            <LanguageSelector />
             <ThemeToggle />
             
             {/* Mobile menu button */}
