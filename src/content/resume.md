@@ -11,7 +11,7 @@ Passionate about developer experience, team health, and delivering real impact t
 ### Platform Engineering Manager
 *April 2025 - Present*
 
-I lead the team behind three of Banking Circle’s core "Atlas" platforms.
+I lead the team behind three of Banking Circle's core "Atlas" platforms.
 
 Atlas is the foundation our engineering teams build on. It gives developers a powerful, intuitive, self-service experience to manage everything they need—quickly and reliably.
 
@@ -23,16 +23,16 @@ Atlas is the foundation our engineering teams build on. It gives developers a po
 *October 2024 - April 2025*
 
 - Design and implementation of our compute, messaging (Pub/Sub) and infrastructure platforms
-- Product management of those Platforms: Handling backlog, gathering user feedback, internal communication, driving adoption
+- Product management of those platforms: handling backlog, gathering user feedback, internal communication, driving adoption
 - Recruiting and mentorship of other team members
-- Establish best practices on how to use all our Platforms
+- Establishing best practices on how to use all our platforms
 
 ### Tech Lead
 *December 2022 - April 2025*
 
-We built a new team and started building a Platform on top of Kubernetes. There, my responsibilites ranged from designing the architecture and functionality of the platform, to implementing it, to getting developers in Banking Circle to use it; while ensuring everyone in the team is feeling well, learning and able to deliver on our Vision.
+We built a new team and started building a platform on top of Kubernetes. There, my responsibilities ranged from designing the architecture and functionality of the platform, to implementing it, to getting developers in Banking Circle to use it; while ensuring everyone in the team is feeling well, learning and able to deliver on our vision.
 
-This Kubernetes platform includes a series of CNCF-hosted, other open-source and also propietary software. Among others, we use ArgoCD, Cilium, Grafana, Kyverno or Trivy. We not only put pieces together, but build a cohesive, intuitive interface on top, to ensure people can use it efficiently and in a self-service fashion, without having to understand the underlying complexity; as well as to ensure everything we do on it is secure and compliant.
+This Kubernetes platform includes a series of CNCF-hosted, other open-source and also proprietary software. Among others, we use ArgoCD, Cilium, Grafana, Kyverno or Trivy. We not only put pieces together, but build a cohesive, intuitive interface on top, to ensure people can use it efficiently and in a self-service fashion, without having to understand the underlying complexity; as well as to ensure everything we do on it is secure and compliant.
 
 ### Senior DevOps Engineer
 *March 2022 - December 2022*
@@ -44,31 +44,31 @@ Some teams that already had some familiarity with Azure Pipelines or Terraform w
 ### DevOps Engineer
 *March 2021 - March 2022*
 
-I first joined the team building our client-facing API, as the DevOps Engineer in a team otherwise composed by developers and testers. I had 2 main responsibilities and in both cases, I took a modular approach, creating re-usable building blocks.
+I first joined the team building our client-facing API, as the DevOps Engineer in a team otherwise composed of developers and testers. I had 2 main responsibilities and in both cases, I took a modular approach, creating reusable building blocks.
 
 - Coding a declarative definition (Infrastructure as Code - Terraform) of all the resources the team was using in Azure.
-- Taking care of standardazing the App Delivery process (or SDLC) for all our microservices, through pipeline templates (Azure DevOps).
+- Taking care of standardizing the app delivery process (or SDLC) for all our microservices, through pipeline templates (Azure DevOps).
 
 ## Saxo Bank (2018-2021)
 
 ### DevOps Engineer
 *December 2019 - February 2021*
 
-Worked in the Data in Motion team as a DevOps Engineer, working with Kafka, Azure, Azure DevOps, Ansible, git or Grafana; making our developments faster and our infrastructure more reliable
+Worked in the Data in Motion team as a DevOps Engineer, working with Kafka, Azure, Azure DevOps, Ansible, Git or Grafana; making our developments faster and our infrastructure more reliable.
 
 ### IT Graduate
 *September 2018 - December 2019*
 
 I joined Saxo's Graduate program, where I spent some months working in each of these teams: Data Science, Data Engineering and finally the Data in Motion team (Kafka), in which I worked as a DevOps Engineer.
 
-## Interships
+## Internships
 
 - **Technical University of Madrid (UPM)** - February 2017 - July 2017
 - **Axon Partners Group** - June 2016 - October 2016
 
 # Education
 
-## Master in Science in Telecommunications Engineering
+## Master of Science in Telecommunications Engineering
 
 2016-2018
 

@@ -7,7 +7,7 @@ export const talks: Talk[] = [
     event: "DevOps Meetup, Copenhagen",
     date: "2022-11-10T00:00:00Z",
     description:
-      "An introduction to how Banking Cicle went from a mostly manual approach to re-usable terraform modules for infrastructure provisioning.",
+      "An introduction to how Banking Circle went from a mostly manual approach to re-usable terraform modules for infrastructure provisioning.",
     videoUrl: "https://www.youtube.com/watch?v=KnLCEtHkRa8",
     tags: ["Infrastructure as Code", "Automation", "Terraform"],
   },
