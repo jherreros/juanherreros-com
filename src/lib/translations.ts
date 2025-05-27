@@ -16,7 +16,11 @@ type TranslationKey =
   | 'dateUnavailable'
   | 'viewSlides'
   | 'unknownDate'
-  | 'by';
+  | 'by'
+  | 'heroTitle'
+  | 'heroSubtitle'
+  | 'readMyBlog'
+  | 'viewMyResume';
 
 const translations: Record<Language, Record<TranslationKey, string>> = {
   en: {
@@ -35,6 +39,10 @@ const translations: Record<Language, Record<TranslationKey, string>> = {
     viewSlides: 'View Slides',
     unknownDate: 'Unknown date',
     by: 'By',
+    heroTitle: "Hi, I'm Juan",
+    heroSubtitle: 'Platform Engineering Manager with a passion for building high-performing teams and scalable, developer-friendly infrastructure.',
+    readMyBlog: 'Read My Blog',
+    viewMyResume: 'View My Resume',
   },
   es: {
     home: 'Inicio',
@@ -52,6 +60,10 @@ const translations: Record<Language, Record<TranslationKey, string>> = {
     viewSlides: 'Ver Diapositivas',
     unknownDate: 'Fecha desconocida',
     by: 'Por',
+    heroTitle: 'Hola, soy Juan',
+    heroSubtitle: 'Manager de Ingeniería de Plataforma con pasión por construir equipos de alto rendimiento e infraestructura escalable y amigable para desarrolladores.',
+    readMyBlog: 'Lee Mi Blog',
+    viewMyResume: 'Ver Mi CV',
   },
   da: {
     home: 'Hjem',
@@ -69,6 +81,10 @@ const translations: Record<Language, Record<TranslationKey, string>> = {
     viewSlides: 'Se Slides',
     unknownDate: 'Ukendt dato',
     by: 'Af',
+    heroTitle: 'Hej, jeg er Juan',
+    heroSubtitle: 'Platform Engineering Manager med passion for at bygge højtydende teams og skalerbar, udviklervenlig infrastruktur.',
+    readMyBlog: 'Læs Min Blog',
+    viewMyResume: 'Se Mit CV',
   },
 };
 

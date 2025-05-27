@@ -6,8 +6,10 @@ import { Search } from "lucide-react";
 import { BlogPost } from "@/lib/types";
 import { getAllPosts } from "@/lib/blog";
 import { toast } from "@/components/ui/sonner";
+import { useLanguage } from "@/contexts/LanguageContext";
 
 const Blog = () => {
+  const { language } = useLanguage();
   const [searchQuery, setSearchQuery] = useState("");
   const [posts, setPosts] = useState<BlogPost[]>([]);
   const [isLoading, setIsLoading] = useState(true);
@@ -16,7 +18,7 @@ const Blog = () => {
     async function loadPosts() {
       try {
         console.log("Loading blog posts...");
-        const allPosts = await getAllPosts();
+        const allPosts = await getAllPosts(language);
         console.log("Loaded posts:", allPosts.length);
         
         setPosts(allPosts || []); // Ensure we always have an array even if empty
@@ -29,7 +31,7 @@ const Blog = () => {
     }
     
     loadPosts();
-  }, []);
+  }, [language]);
   
   // Filter posts based on search query - add null checks to prevent errors
   const filteredPosts = posts.filter(post => 

@@ -9,8 +9,10 @@ import { Button } from "@/components/ui/button";
 import { useEffect, useState, useMemo } from "react";
 import { BlogPost } from "@/lib/types";
 import { getRecentPosts } from "@/lib/blog";
+import { useLanguage } from "@/contexts/LanguageContext";
 
 const Index = () => {
+  const { language } = useLanguage();
   const [latestPosts, setLatestPosts] = useState<BlogPost[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   
@@ -25,7 +27,7 @@ const Index = () => {
     async function loadPosts() {
       try {
         console.log("Loading recent posts for homepage...");
-        const posts = await getRecentPosts(3);
+        const posts = await getRecentPosts(3, language);
         console.log("Recent posts loaded:", posts.length);
         setLatestPosts(posts);
       } catch (error) {
@@ -36,7 +38,7 @@ const Index = () => {
     }
     
     loadPosts();
-  }, []);
+  }, [language]);
 
   return (
     <div className="min-h-screen flex flex-col">
