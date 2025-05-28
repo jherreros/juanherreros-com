@@ -4,43 +4,31 @@ import { Card } from "@/components/ui/card";
 import ReactMarkdown from "react-markdown";
 import { toast } from "@/components/ui/sonner";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
-import { useLanguage } from "@/contexts/LanguageContext";
-import { useTranslation } from "@/lib/translations";
 
 const Resume = () => {
-  const { language } = useLanguage();
-  const t = useTranslation(language);
   const [resumeContent, setResumeContent] = useState<string>("");
   const [isLoading, setIsLoading] = useState(true);
   
   useEffect(() => {
     async function loadResumeContent() {
       try {
-        console.log(`Loading resume markdown content for language: ${language}...`);
+        console.log("Loading resume markdown content...");
         
-        // Import the resume markdown file as text using ?raw suffix, based on language
-        const content = await import(`/src/content/resume/${language}.md?raw`).then(module => module.default);
+        // Import the resume markdown file as text using ?raw suffix
+        const content = await import('/src/content/resume.md?raw').then(module => module.default);
         console.log("Resume content loaded, length:", content.length);
         
         setResumeContent(content);
       } catch (error) {
         console.error("Failed to load resume content:", error);
-        // Fallback to English if the language version doesn't exist
-        try {
-          const content = await import('/src/content/resume/en.md?raw').then(module => module.default);
-          setResumeContent(content);
-          console.log("Loaded fallback English resume");
-        } catch (fallbackError) {
-          console.error("Failed to load fallback resume:", fallbackError);
-          toast.error("Failed to load resume");
-        }
+        toast.error("Failed to load resume");
       } finally {
         setIsLoading(false);
       }
     }
     
     loadResumeContent();
-  }, [language]);
+  }, []);
 
   if (isLoading) {
     return (
@@ -55,7 +43,7 @@ const Resume = () => {
 
   return (
     <div className="container mx-auto py-8 px-4">
-      <h1 className="text-3xl font-bold mb-6 text-primary">{t('resume')}</h1>
+      <h1 className="text-3xl font-bold mb-6 text-primary">Resume</h1>
       
       <Card className="p-6">
         <div className="prose dark:prose-invert max-w-none">
@@ -71,19 +59,15 @@ const Resume = () => {
               
               // Enhanced table components mapping for better table rendering
               table: ({node, ...props}) => (
-                <div className="my-6 w-full overflow-auto border rounded-lg">
-                  <Table {...props} className="w-full" />
+                <div className="my-6 w-full overflow-y-auto">
+                  <Table {...props} className="w-full border-collapse" />
                 </div>
               ),
               thead: ({node, ...props}) => <TableHeader {...props} />,
               tbody: ({node, ...props}) => <TableBody {...props} />,
               tr: ({node, ...props}) => <TableRow {...props} />,
-              th: ({node, ...props}) => (
-                <TableHead className="font-semibold text-primary p-3 border-r border-border bg-muted/50 last:border-r-0" {...props} />
-              ),
-              td: ({node, ...props}) => (
-                <TableCell className="p-3 border-r border-border last:border-r-0 align-top" {...props} />
-              )
+              th: ({node, ...props}) => <TableHead className="font-semibold text-primary p-2 border border-border bg-muted" {...props} />,
+              td: ({node, ...props}) => <TableCell className="p-2 border border-border" {...props} />
             }}
           >
             {resumeContent}

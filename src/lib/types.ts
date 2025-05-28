@@ -2,7 +2,6 @@
 import { Language } from "@/contexts/LanguageContext";
 
 export interface BlogPost {
-  id: string;
   title: string;
   slug: string;
   date: string;
@@ -14,7 +13,6 @@ export interface BlogPost {
 }
 
 export interface Talk {
-  id: string;
   title: string;
   event: string;
   date: string;
