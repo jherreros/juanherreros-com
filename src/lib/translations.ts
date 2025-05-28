@@ -20,7 +20,10 @@ type TranslationKey =
   | 'heroTitle'
   | 'heroSubtitle'
   | 'readMyBlog'
-  | 'viewMyResume';
+  | 'viewMyResume'
+  | 'blogDescription'
+  | 'searchPlaceholder'
+  | 'noPostsFound';
 
 const translations: Record<Language, Record<TranslationKey, string>> = {
   en: {
@@ -43,6 +46,9 @@ const translations: Record<Language, Record<TranslationKey, string>> = {
     heroSubtitle: 'Platform Engineering Manager with a passion for building high-performing teams and scalable, developer-friendly infrastructure.',
     readMyBlog: 'Read My Blog',
     viewMyResume: 'View My Resume',
+    blogDescription: 'Thoughts, insights, and experiences from my journey in platform engineering and leadership.',
+    searchPlaceholder: 'Search posts by title, tag, content, or author...',
+    noPostsFound: 'No posts found matching your search criteria.',
   },
   es: {
     home: 'Inicio',
@@ -64,6 +70,9 @@ const translations: Record<Language, Record<TranslationKey, string>> = {
     heroSubtitle: 'Manager de Ingeniería de Plataforma con pasión por construir equipos de alto rendimiento e infraestructura escalable y amigable para desarrolladores.',
     readMyBlog: 'Lee Mi Blog',
     viewMyResume: 'Ver Mi CV',
+    blogDescription: 'Pensamientos, ideas y experiencias de mi viaje en ingeniería de plataforma y liderazgo.',
+    searchPlaceholder: 'Buscar entradas por título, etiqueta, contenido o autor...',
+    noPostsFound: 'No se encontraron entradas que coincidan con tu búsqueda.',
   },
   da: {
     home: 'Hjem',
@@ -85,6 +94,9 @@ const translations: Record<Language, Record<TranslationKey, string>> = {
     heroSubtitle: 'Platform Engineering Manager med passion for at bygge højtydende teams og skalerbar, udviklervenlig infrastruktur.',
     readMyBlog: 'Læs Min Blog',
     viewMyResume: 'Se Mit CV',
+    blogDescription: 'Tanker, indsigter og oplevelser fra min rejse inden for platform engineering og ledelse.',
+    searchPlaceholder: 'Søg indlæg efter titel, tag, indhold eller forfatter...',
+    noPostsFound: 'Ingen indlæg fundet, der matcher dine søgekriterier.',
   },
 };
 

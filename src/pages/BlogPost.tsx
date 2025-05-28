@@ -9,9 +9,13 @@ import ReactMarkdown from "react-markdown";
 import { BlogPost as BlogPostType } from "@/lib/types";
 import { getPostBySlug } from "@/lib/blog";
 import { toast } from "@/components/ui/sonner";
+import { useLanguage } from "@/contexts/LanguageContext";
+import { useTranslation } from "@/lib/translations";
 
 const BlogPost = () => {
   const { slug } = useParams<{ slug: string }>();
+  const { language } = useLanguage();
+  const t = useTranslation(language);
   const [post, setPost] = useState<BlogPostType | null>(null);
   const [isLoading, setIsLoading] = useState(true);
   
@@ -19,8 +23,8 @@ const BlogPost = () => {
     async function loadPost() {
       if (slug) {
         try {
-          console.log("Loading post with slug:", slug);
-          const foundPost = await getPostBySlug(slug);
+          console.log(`Loading post with slug: ${slug} for language: ${language}`);
+          const foundPost = await getPostBySlug(slug, language);
           console.log("Post found:", foundPost?.title);
           setPost(foundPost || null);
         } catch (error) {
@@ -33,7 +37,7 @@ const BlogPost = () => {
     }
     
     loadPost();
-  }, [slug]);
+  }, [slug, language]);
 
   // Show loading state
   if (isLoading) {
@@ -51,10 +55,10 @@ const BlogPost = () => {
   if (!post) {
     return (
       <div className="min-h-screen flex flex-col items-center justify-center">
-        <h1 className="text-2xl font-bold mb-4">Post Not Found</h1>
-        <p className="text-muted-foreground mb-6">Sorry, the post you're looking for doesn't exist or has been removed.</p>
+        <h1 className="text-2xl font-bold mb-4">{t('postNotFound')}</h1>
+        <p className="text-muted-foreground mb-6">{t('postNotFoundDescription')}</p>
         <Button asChild>
-          <Link to="/blog">Back to Blog</Link>
+          <Link to="/blog">{t('backToBlog')}</Link>
         </Button>
       </div>
     );
@@ -63,21 +67,20 @@ const BlogPost = () => {
   // Safely format the date
   const getFormattedDate = (dateString: string) => {
     try {
-      // Clean the date string to ensure it's in ISO format
       const cleanDate = dateString.trim().replace(/["']/g, '');
       const date = parseISO(cleanDate);
       if (isValid(date)) {
         return format(date, "MMMM dd, yyyy");
       }
       console.warn("Invalid date in BlogPost:", dateString);
-      return "Unknown date";
+      return t('unknownDate');
     } catch (error) {
       console.error("Error parsing date:", error);
-      return "Unknown date";
+      return t('unknownDate');
     }
   };
 
-  const formattedDate = post.date ? getFormattedDate(post.date) : 'Unknown date';
+  const formattedDate = post.date ? getFormattedDate(post.date) : t('unknownDate');
 
   return (
     <div className="min-h-screen py-12 px-4 sm:px-6 lg:px-8 max-w-4xl mx-auto">
@@ -85,7 +88,7 @@ const BlogPost = () => {
         <Button variant="ghost" size="sm" asChild>
           <Link to="/blog">
             <ArrowLeft className="mr-2 h-4 w-4" />
-            Back to all posts
+            {t('backToAllPosts')}
           </Link>
         </Button>
       </div>
@@ -95,7 +98,7 @@ const BlogPost = () => {
           <h1 className="text-3xl md:text-4xl font-bold mb-4 text-primary">{post.title}</h1>
           <div className="flex flex-wrap items-center gap-4 text-sm text-muted-foreground">
             <div className="flex items-center">
-              <span className="font-medium text-foreground">By {post.author}</span>
+              <span className="font-medium text-foreground">{t('by')} {post.author}</span>
             </div>
             <span className="text-muted-foreground">•</span>
             <time dateTime={post.date}>{formattedDate}</time>

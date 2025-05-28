@@ -4,30 +4,34 @@ import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/componen
 import { Badge } from "@/components/ui/badge";
 import { Link } from "react-router-dom";
 import { format, isValid, parseISO } from "date-fns";
+import { useLanguage } from "@/contexts/LanguageContext";
+import { useTranslation } from "@/lib/translations";
 
 interface BlogCardProps {
   post: BlogPost;
 }
 
 export function BlogCard({ post }: BlogCardProps) {
+  const { language } = useLanguage();
+  const t = useTranslation(language);
+
   // Safely format the date
   const formatDate = (dateString: string) => {
     try {
-      // Clean the date string to ensure it's in ISO format
       const cleanDate = dateString.trim().replace(/["']/g, '');
       const date = parseISO(cleanDate);
       if (isValid(date)) {
         return format(date, "MMMM dd, yyyy");
       }
       console.warn("Invalid date in BlogCard:", dateString);
-      return "Date unavailable";
+      return t('dateUnavailable');
     } catch (error) {
       console.error("Error formatting date:", error, dateString);
-      return "Date unavailable";
+      return t('dateUnavailable');
     }
   };
 
-  const formattedDate = post.date ? formatDate(post.date) : "Date unavailable";
+  const formattedDate = post.date ? formatDate(post.date) : t('dateUnavailable');
 
   return (
     <Card className="h-full flex flex-col hover:shadow-md transition-shadow border-corporate-100">
@@ -41,7 +45,7 @@ export function BlogCard({ post }: BlogCardProps) {
           </Link>
         </CardTitle>
         <div className="flex flex-col space-y-1 text-sm">
-          <p className="text-foreground font-medium">By {post.author}</p>
+          <p className="text-foreground font-medium">{t('by')} {post.author}</p>
           <p className="text-sm text-muted-foreground">{formattedDate}</p>
         </div>
       </CardHeader>
@@ -64,7 +68,7 @@ export function BlogCard({ post }: BlogCardProps) {
               )}
             </>
           ) : (
-            <span className="text-xs text-muted-foreground">No tags</span>
+            <span className="text-xs text-muted-foreground">{t('noTags')}</span>
           )}
         </div>
       </CardFooter>

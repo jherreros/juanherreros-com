@@ -7,9 +7,11 @@ import { BlogPost } from "@/lib/types";
 import { getAllPosts } from "@/lib/blog";
 import { toast } from "@/components/ui/sonner";
 import { useLanguage } from "@/contexts/LanguageContext";
+import { useTranslation } from "@/lib/translations";
 
 const Blog = () => {
   const { language } = useLanguage();
+  const t = useTranslation(language);
   const [searchQuery, setSearchQuery] = useState("");
   const [posts, setPosts] = useState<BlogPost[]>([]);
   const [isLoading, setIsLoading] = useState(true);
@@ -17,11 +19,11 @@ const Blog = () => {
   useEffect(() => {
     async function loadPosts() {
       try {
-        console.log("Loading blog posts...");
+        console.log(`Loading blog posts for language: ${language}...`);
         const allPosts = await getAllPosts(language);
         console.log("Loaded posts:", allPosts.length);
         
-        setPosts(allPosts || []); // Ensure we always have an array even if empty
+        setPosts(allPosts || []);
       } catch (error) {
         console.error("Failed to load posts:", error);
         toast.error("Failed to load blog posts");
@@ -33,7 +35,7 @@ const Blog = () => {
     loadPosts();
   }, [language]);
   
-  // Filter posts based on search query - add null checks to prevent errors
+  // Filter posts based on search query
   const filteredPosts = posts.filter(post => 
     post && 
     (
@@ -44,22 +46,21 @@ const Blog = () => {
     )
   );
 
-  // Add debug log to see filtered posts
   console.log("Filtered posts:", filteredPosts);
 
   return (
     <div className="min-h-screen py-12 px-4 sm:px-6 lg:px-8 max-w-6xl mx-auto">
       <div className="mb-10">
-        <h1 className="text-3xl font-bold mb-6 text-primary">Blog</h1>
+        <h1 className="text-3xl font-bold mb-6 text-primary">{t('blog')}</h1>
         <p className="text-foreground mb-6">
-          Thoughts, insights, and experiences from my journey in platform engineering and leadership.
+          {t('blogDescription')}
         </p>
         
         <div className="relative mb-8">
           <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground" size={18} />
           <Input
             type="text"
-            placeholder="Search posts by title, tag, content, or author..."
+            placeholder={t('searchPlaceholder')}
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
             className="pl-10"
@@ -83,7 +84,7 @@ const Blog = () => {
         <BlogList posts={filteredPosts} />
       ) : (
         <div className="text-center py-12">
-          <p className="text-foreground">No posts found matching your search criteria.</p>
+          <p className="text-foreground">{t('noPostsFound')}</p>
         </div>
       )}
     </div>
