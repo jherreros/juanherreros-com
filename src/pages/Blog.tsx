@@ -1,4 +1,3 @@
-
 import { BlogList } from "@/components/blog/BlogList";
 import { useState, useEffect } from "react";
 import { Input } from "@/components/ui/input";
@@ -6,17 +5,22 @@ import { Search } from "lucide-react";
 import { BlogPost } from "@/lib/types";
 import { getAllPosts } from "@/lib/blog";
 import { toast } from "@/components/ui/sonner";
+import { useLanguage } from "@/contexts/LanguageContext";
+import { useTranslation } from "@/lib/translations";
 
 const Blog = () => {
   const [searchQuery, setSearchQuery] = useState("");
   const [posts, setPosts] = useState<BlogPost[]>([]);
   const [isLoading, setIsLoading] = useState(true);
+  const { language } = useLanguage();
+  const t = useTranslation(language);
   
   useEffect(() => {
     async function loadPosts() {
       try {
-        console.log("Loading blog posts...");
-        const allPosts = await getAllPosts();
+        console.log(`Loading blog posts for language: ${language}...`);
+        setIsLoading(true);
+        const allPosts = await getAllPosts(language);
         console.log("Loaded posts:", allPosts.length);
         
         setPosts(allPosts || []); // Ensure we always have an array even if empty
@@ -29,7 +33,7 @@ const Blog = () => {
     }
     
     loadPosts();
-  }, []);
+  }, [language]); // Re-load posts when language changes
   
   // Filter posts based on search query - add null checks to prevent errors
   const filteredPosts = posts.filter(post => 
@@ -48,7 +52,7 @@ const Blog = () => {
   return (
     <div className="min-h-screen py-12 px-4 sm:px-6 lg:px-8 max-w-6xl mx-auto">
       <div className="mb-10">
-        <h1 className="text-3xl font-bold mb-6 text-primary">Blog</h1>
+        <h1 className="text-3xl font-bold mb-6 text-primary">{t('blog')}</h1>
         <p className="text-foreground mb-6">
           Thoughts, insights, and experiences from my journey in platform engineering and leadership.
         </p>
