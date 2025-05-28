@@ -1,26 +1,41 @@
-
 import { useState, useEffect } from "react";
 import { Card } from "@/components/ui/card";
 import ReactMarkdown from "react-markdown";
 import { toast } from "@/components/ui/sonner";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
+import { useLanguage } from "@/contexts/LanguageContext";
+import { useTranslation } from "@/lib/translations";
+
+// Import all resume files explicitly
+import enResume from "/src/content/resume/en.md?raw";
+import esResume from "/src/content/resume/es.md?raw";
+import daResume from "/src/content/resume/da.md?raw";
 
 const Resume = () => {
+  const { language } = useLanguage();
+  const t = useTranslation(language);
   const [resumeContent, setResumeContent] = useState<string>("");
   const [isLoading, setIsLoading] = useState(true);
   
   useEffect(() => {
     async function loadResumeContent() {
       try {
-        console.log("Loading resume markdown content...");
+        console.log(`Loading resume markdown content for language: ${language}...`);
         
-        // Import the resume markdown file as text using ?raw suffix
-        const content = await import('/src/content/resume.md?raw').then(module => module.default);
+        // Use a map to get the correct content based on language
+        const resumeMap = {
+          en: enResume,
+          es: esResume,
+          da: daResume
+        };
+        
+        const content = resumeMap[language] || enResume; // Fallback to English
         console.log("Resume content loaded, length:", content.length);
         
         setResumeContent(content);
       } catch (error) {
         console.error("Failed to load resume content:", error);
+        setResumeContent(enResume); // Use English as final fallback
         toast.error("Failed to load resume");
       } finally {
         setIsLoading(false);
@@ -28,7 +43,7 @@ const Resume = () => {
     }
     
     loadResumeContent();
-  }, []);
+  }, [language]);
 
   if (isLoading) {
     return (
@@ -43,7 +58,7 @@ const Resume = () => {
 
   return (
     <div className="container mx-auto py-8 px-4">
-      <h1 className="text-3xl font-bold mb-6 text-primary">Resume</h1>
+      <h1 className="text-3xl font-bold mb-6 text-primary">{t('resume')}</h1>
       
       <Card className="p-6">
         <div className="prose dark:prose-invert max-w-none">
