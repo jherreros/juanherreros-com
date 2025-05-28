@@ -71,15 +71,19 @@ const Resume = () => {
               
               // Enhanced table components mapping for better table rendering
               table: ({node, ...props}) => (
-                <div className="my-6 w-full overflow-y-auto">
-                  <Table {...props} className="w-full border-collapse" />
+                <div className="my-6 w-full overflow-auto border rounded-lg">
+                  <Table {...props} className="w-full" />
                 </div>
               ),
               thead: ({node, ...props}) => <TableHeader {...props} />,
               tbody: ({node, ...props}) => <TableBody {...props} />,
               tr: ({node, ...props}) => <TableRow {...props} />,
-              th: ({node, ...props}) => <TableHead className="font-semibold text-primary p-2 border border-border bg-muted" {...props} />,
-              td: ({node, ...props}) => <TableCell className="p-2 border border-border" {...props} />
+              th: ({node, ...props}) => (
+                <TableHead className="font-semibold text-primary p-3 border-r border-border bg-muted/50 last:border-r-0" {...props} />
+              ),
+              td: ({node, ...props}) => (
+                <TableCell className="p-3 border-r border-border last:border-r-0 align-top" {...props} />
+              )
             }}
           >
             {resumeContent}

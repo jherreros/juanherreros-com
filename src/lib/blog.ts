@@ -1,3 +1,4 @@
+
 import { BlogPost } from "@/lib/types";
 import { Language } from "@/contexts/LanguageContext";
 
@@ -30,6 +31,7 @@ async function loadMarkdownFiles(language: Language = 'en') {
         let date = new Date().toISOString(); // Default to current date in ISO format
         let excerpt = '';
         let tags: string[] = [];
+        let actualContent = content;
         
         // Try to parse frontmatter
         const frontmatterMatch = content.match(/^---\n([\s\S]*?)\n---\n([\s\S]*)$/);
@@ -37,73 +39,41 @@ async function loadMarkdownFiles(language: Language = 'en') {
         if (frontmatterMatch) {
           const [_, frontmatterStr, contentBody] = frontmatterMatch;
           
-          // Parse frontmatter
+          // Parse frontmatter line by line
           frontmatterStr.split('\n').forEach(line => {
-            const [key, ...valueParts] = line.split(':');
-            if (key && valueParts.length > 0) {
-              const value = valueParts.join(':').trim();
-              if (key.trim() === 'title') title = value;
-              if (key.trim() === 'author') author = value;
-              if (key.trim() === 'date') {
-                // Ensure date is in ISO format for consistency
+            const colonIndex = line.indexOf(':');
+            if (colonIndex > 0) {
+              const key = line.substring(0, colonIndex).trim();
+              const value = line.substring(colonIndex + 1).trim();
+              
+              if (key === 'title') title = value.replace(/^["']|["']$/g, '');
+              if (key === 'author') author = value.replace(/^["']|["']$/g, '');
+              if (key === 'date') {
                 try {
-                  // Remove any quotes if present
-                  const cleanValue = value.replace(/["']/g, '').trim();
-                  // If it's already a valid date string, use it
+                  const cleanValue = value.replace(/^["']|["']$/g, '').trim();
                   if (/^\d{4}-\d{2}-\d{2}/.test(cleanValue)) {
-                    // Add time component if not present
                     date = cleanValue.includes('T') ? cleanValue : `${cleanValue}T00:00:00Z`;
-                  } else {
-                    // Otherwise use current date
-                    console.warn("Invalid date format, using current date as fallback:", cleanValue);
-                    date = new Date().toISOString();
                   }
                 } catch (e) {
                   console.error("Invalid date format:", value);
                   date = new Date().toISOString();
                 }
               }
-              if (key.trim() === 'excerpt') excerpt = value;
-              if (key.trim() === 'tags') {
+              if (key === 'excerpt') excerpt = value.replace(/^["']|["']$/g, '');
+              if (key === 'tags') {
                 try {
-                  // Log the raw tags value for debugging
-                  console.log(`Raw tags value for ${title}:`, value);
-                  
-                  // Parse the tags based on the format in the markdown files
-                  if (value) {
-                    // Check if the tags are in YAML array format
-                    if (value.trim().startsWith('[') && value.trim().endsWith(']')) {
-                      // Parse YAML array format: [tag1, tag2, tag3]
-                      const tagsString = value.trim().slice(1, -1);
-                      tags = tagsString
-                        .split(',')
-                        .map(tag => tag.trim().replace(/["']/g, ''))
-                        .filter(tag => tag);
-                    } else {
-                      // Parse simple list format (indented with - or *)
-                      // First, split by line if it contains newlines
-                      const tagLines = value.includes('\n') 
-                        ? value.split('\n')
-                        : [value];
-                      
-                      // Process each line
-                      tags = tagLines
-                        .map(line => {
-                          // Remove leading dash, star or whitespace
-                          return line.trim().replace(/^[-*]\s*/, '').replace(/["']/g, '');
-                        })
-                        .filter(tag => tag);
-                      
-                      // If we still don't have tags, try splitting by comma (simple comma-separated list)
-                      if (tags.length === 0 || (tags.length === 1 && tags[0].includes(','))) {
-                        tags = value
-                          .split(',')
-                          .map(tag => tag.trim().replace(/["']/g, ''))
-                          .filter(tag => tag);
-                      }
-                    }
+                  if (value.trim().startsWith('[') && value.trim().endsWith(']')) {
+                    const tagsString = value.trim().slice(1, -1);
+                    tags = tagsString
+                      .split(',')
+                      .map(tag => tag.trim().replace(/^["']|["']$/g, ''))
+                      .filter(tag => tag);
+                  } else {
+                    tags = value
+                      .split(',')
+                      .map(tag => tag.trim().replace(/^["']|["']$/g, ''))
+                      .filter(tag => tag);
                   }
-                  console.log(`Parsed tags for ${title}:`, tags);
                 } catch (e) {
                   console.error("Failed to parse tags:", value, e);
                   tags = [];
@@ -113,13 +83,12 @@ async function loadMarkdownFiles(language: Language = 'en') {
           });
           
           // Use the content after frontmatter
-          content = contentBody;
+          actualContent = contentBody.trim();
         }
         
         // Extract excerpt from content if not set
-        if (!excerpt && content) {
-          // Extract the first paragraph that's not empty and not a heading
-          const paragraphs = content
+        if (!excerpt && actualContent) {
+          const paragraphs = actualContent
             .split('\n\n')
             .filter(p => p.trim() && !p.trim().startsWith('#'));
           
@@ -136,7 +105,7 @@ async function loadMarkdownFiles(language: Language = 'en') {
           date,
           author,
           excerpt: excerpt || 'No excerpt available',
-          content: content || 'No content available',
+          content: actualContent || 'No content available',
           tags: tags
         };
         
