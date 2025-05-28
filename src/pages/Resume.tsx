@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { Card } from "@/components/ui/card";
 import ReactMarkdown from "react-markdown";
+import remarkGfm from "remark-gfm"; // Add this import
 import { toast } from "@/components/ui/sonner";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { useLanguage } from "@/contexts/LanguageContext";
@@ -63,6 +64,7 @@ const Resume = () => {
       <Card className="p-6">
         <div className="prose dark:prose-invert max-w-none">
           <ReactMarkdown 
+            remarkPlugins={[remarkGfm]} // Add this line
             components={{
               // Make all headings green by applying text-primary class
               h1: ({node, ...props}) => <h1 className="text-primary" {...props} />,
@@ -74,7 +76,7 @@ const Resume = () => {
               
               // Enhanced table components mapping for better table rendering
               table: ({node, ...props}) => (
-                <div className="my-6 w-full overflow-y-auto">
+                <div className="my-6 w-full overflow-auto">
                   <Table {...props} className="w-full border-collapse" />
                 </div>
               ),

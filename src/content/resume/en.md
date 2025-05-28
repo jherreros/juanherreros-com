@@ -83,10 +83,13 @@ I joined Saxo's Graduate program, where I spent some months working in each of t
 
 # Key Skills
 
-- **Leadership**: Tech Strategy, Cloud Architecture, Product Management, Public Communication, Technical Writing
-- **People**: Mentorship, Conflict Resolution, Team Building, Developer Experience, Developer Advocacy
-- **Areas**: Platform Engineering, GitOps, Observability, Security, Networking
-- **Tools and Platforms**: Kubernetes, Terraform/OpenTofu, Azure, Bash, Linux
+| Leadership | People | Areas | Tools and Platforms |
+|------------|--------|-------|-------------------|
+| Tech Strategy | Mentorship | Platform Engineering | Kubernetes |
+| Cloud Architecture | Conflict Resolution | GitOps | Terraform/OpenTofu |
+| Product Management | Team Building | Observability | Azure |
+| Public Communication | Developer Experience | Security | Bash |
+| Technical Writing | Developer Advocacy | Networking | Linux |
 
 # Languages
 
