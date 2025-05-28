@@ -54,14 +54,14 @@ const Blog = () => {
       <div className="mb-10">
         <h1 className="text-3xl font-bold mb-6 text-primary">{t('blog')}</h1>
         <p className="text-foreground mb-6">
-          Thoughts, insights, and experiences from my journey in platform engineering and leadership.
+          {t('thoughtsAndInsights')}
         </p>
         
         <div className="relative mb-8">
           <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground" size={18} />
           <Input
             type="text"
-            placeholder="Search posts by title, tag, content, or author..."
+            placeholder={t('searchPlaceholder')}
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
             className="pl-10"
@@ -85,7 +85,7 @@ const Blog = () => {
         <BlogList posts={filteredPosts} />
       ) : (
         <div className="text-center py-12">
-          <p className="text-foreground">No posts found matching your search criteria.</p>
+          <p className="text-foreground">{t('noPostsFound')}</p>
         </div>
       )}
     </div>

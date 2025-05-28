@@ -1,4 +1,3 @@
-
 import { Language } from '@/contexts/LanguageContext';
 
 type TranslationKey = 
@@ -16,7 +15,19 @@ type TranslationKey =
   | 'dateUnavailable'
   | 'viewSlides'
   | 'unknownDate'
-  | 'by';
+  | 'by'
+  | 'latestBlogPosts'
+  | 'viewAllPosts'
+  | 'recentTalks'
+  | 'viewAllTalks'
+  | 'readMyBlog'
+  | 'viewMyResume'
+  | 'hiImJuan'
+  | 'heroDescription'
+  | 'thoughtsAndInsights'
+  | 'searchPlaceholder'
+  | 'noPostsFound'
+  | 'loadingPosts';
 
 const translations: Record<Language, Record<TranslationKey, string>> = {
   en: {
@@ -35,6 +46,18 @@ const translations: Record<Language, Record<TranslationKey, string>> = {
     viewSlides: 'View Slides',
     unknownDate: 'Unknown date',
     by: 'By',
+    latestBlogPosts: 'Latest Blog Posts',
+    viewAllPosts: 'View all posts',
+    recentTalks: 'Recent Talks',
+    viewAllTalks: 'View all talks',
+    readMyBlog: 'Read My Blog',
+    viewMyResume: 'View My Resume',
+    hiImJuan: "Hi, I'm Juan",
+    heroDescription: 'Platform Engineering Manager with a passion for building high-performing teams and scalable, developer-friendly infrastructure.',
+    thoughtsAndInsights: 'Thoughts, insights, and experiences from my journey in platform engineering and leadership.',
+    searchPlaceholder: 'Search posts by title, tag, content, or author...',
+    noPostsFound: 'No posts found matching your search criteria.',
+    loadingPosts: 'Loading posts...',
   },
   es: {
     home: 'Inicio',
@@ -52,6 +75,18 @@ const translations: Record<Language, Record<TranslationKey, string>> = {
     viewSlides: 'Ver Diapositivas',
     unknownDate: 'Fecha desconocida',
     by: 'Por',
+    latestBlogPosts: 'Últimas Entradas del Blog',
+    viewAllPosts: 'Ver todas las entradas',
+    recentTalks: 'Charlas Recientes',
+    viewAllTalks: 'Ver todas las charlas',
+    readMyBlog: 'Lee Mi Blog',
+    viewMyResume: 'Ver Mi CV',
+    hiImJuan: 'Hola, soy Juan',
+    heroDescription: 'Gerente de Ingeniería de Plataforma con pasión por construir equipos de alto rendimiento e infraestructura escalable y amigable para desarrolladores.',
+    thoughtsAndInsights: 'Pensamientos, ideas y experiencias de mi viaje en ingeniería de plataforma y liderazgo.',
+    searchPlaceholder: 'Buscar entradas por título, etiqueta, contenido o autor...',
+    noPostsFound: 'No se encontraron entradas que coincidan con tus criterios de búsqueda.',
+    loadingPosts: 'Cargando entradas...',
   },
   da: {
     home: 'Hjem',
@@ -69,6 +104,18 @@ const translations: Record<Language, Record<TranslationKey, string>> = {
     viewSlides: 'Se Slides',
     unknownDate: 'Ukendt dato',
     by: 'Af',
+    latestBlogPosts: 'Seneste Blogindlæg',
+    viewAllPosts: 'Se alle indlæg',
+    recentTalks: 'Seneste Foredrag',
+    viewAllTalks: 'Se alle foredrag',
+    readMyBlog: 'Læs Min Blog',
+    viewMyResume: 'Se Mit CV',
+    hiImJuan: 'Hej, jeg er Juan',
+    heroDescription: 'Platform Engineering Manager med passion for at bygge højtydende teams og skalerbar, udviklervenlig infrastruktur.',
+    thoughtsAndInsights: 'Tanker, indsigter og oplevelser fra min rejse inden for platform engineering og ledelse.',
+    searchPlaceholder: 'Søg indlæg efter titel, tag, indhold eller forfatter...',
+    noPostsFound: 'Ingen indlæg fundet, der matcher dine søgekriterier.',
+    loadingPosts: 'Indlæser indlæg...',
   },
 };
 
@@ -77,3 +124,6 @@ export function useTranslation(language: Language) {
     return translations[language][key] || translations.en[key];
   };
 }
+
+// Export the translation keys type for better TypeScript support
+export type { TranslationKey };

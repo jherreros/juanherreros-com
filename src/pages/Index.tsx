@@ -1,4 +1,3 @@
-
 import { Hero } from "@/components/home/Hero";
 import { talks } from "@/data/talks";
 import { Separator } from "@/components/ui/separator";
@@ -9,10 +8,14 @@ import { Button } from "@/components/ui/button";
 import { useEffect, useState, useMemo } from "react";
 import { BlogPost } from "@/lib/types";
 import { getRecentPosts } from "@/lib/blog";
+import { useLanguage } from "@/contexts/LanguageContext";
+import { useTranslation } from "@/lib/translations";
 
 const Index = () => {
   const [latestPosts, setLatestPosts] = useState<BlogPost[]>([]);
   const [isLoading, setIsLoading] = useState(true);
+  const { language } = useLanguage();
+  const t = useTranslation(language);
   
   // Sort talks by date and get the 2 most recent ones
   const latestTalks = useMemo(() => {
@@ -25,7 +28,8 @@ const Index = () => {
     async function loadPosts() {
       try {
         console.log("Loading recent posts for homepage...");
-        const posts = await getRecentPosts(3);
+        // Load posts for the current language
+        const posts = await getRecentPosts(3, language);
         console.log("Recent posts loaded:", posts.length);
         setLatestPosts(posts);
       } catch (error) {
@@ -36,7 +40,7 @@ const Index = () => {
     }
     
     loadPosts();
-  }, []);
+  }, [language]); // Re-load posts when language changes
 
   return (
     <div className="min-h-screen flex flex-col">
@@ -44,9 +48,9 @@ const Index = () => {
       
       <section className="py-12 px-4 sm:px-6 lg:px-8 max-w-6xl mx-auto">
         <div className="flex justify-between items-center mb-6">
-          <h2 className="text-2xl font-bold">Latest Blog Posts</h2>
+          <h2 className="text-2xl font-bold">{t('latestBlogPosts')}</h2>
           <Button variant="ghost" asChild>
-            <Link to="/blog">View all posts</Link>
+            <Link to="/blog">{t('viewAllPosts')}</Link>
           </Button>
         </div>
         <div className="grid gap-6 md:grid-cols-3">
@@ -73,9 +77,9 @@ const Index = () => {
       
       <section className="py-12 px-4 sm:px-6 lg:px-8 max-w-6xl mx-auto">
         <div className="flex justify-between items-center mb-6">
-          <h2 className="text-2xl font-bold">Recent Talks</h2>
+          <h2 className="text-2xl font-bold">{t('recentTalks')}</h2>
           <Button variant="ghost" asChild>
-            <Link to="/talks">View all talks</Link>
+            <Link to="/talks">{t('viewAllTalks')}</Link>
           </Button>
         </div>
         <div className="grid gap-6 md:grid-cols-2">
