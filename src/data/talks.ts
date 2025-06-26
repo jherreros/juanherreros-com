@@ -95,7 +95,7 @@ export const talks: Talk[] = [
       es: "Una mirada retrospectiva a nuestro viaje alrededor del aprovisionamiento de infraestructura, desde bloques de construcción reutilizables hasta un enfoque puro de Platform Engineering.",
       da: "Et tilbageblik på vores rejse omkring infrastruktur provisionering, fra genanvendelige byggeklodser til en ren Platform Engineering tilgang."
     },
-    imageUrl: "/pcon25.png",
+    videoUrl: "https://www.youtube.com/watch?v=HWG7fSMQd9I",
     tags: ["Terraform", "Infrastructure as Code", "Cloud Native", "Platform Engineering"],
   },
 ];
