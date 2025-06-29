@@ -66,6 +66,16 @@ I joined Saxo's Graduate program, where I spent some months working in each of t
 - **Technical University of Madrid (UPM)** - February 2017 - July 2017
 - **Axon Partners Group** - June 2016 - October 2016
 
+# Key Skills
+
+| Leadership | People | Areas | Tools and Platforms |
+|------------|--------|-------|-------------------|
+| Tech Strategy | Mentorship | Platform Engineering | Kubernetes |
+| Cloud Architecture | Conflict Resolution | GitOps | Terraform/OpenTofu |
+| Product Management | Team Building | Observability | Azure |
+| Public Communication | Developer Experience | Security | Bash |
+| Technical Writing | Developer Advocacy | Networking | Linux |
+
 # Education
 
 ## Master of Science in Telecommunications Engineering
@@ -80,16 +90,6 @@ I joined Saxo's Graduate program, where I spent some months working in each of t
 2012-2016
 
 *Technical University of Madrid (UPM)*
-
-# Key Skills
-
-| Leadership | People | Areas | Tools and Platforms |
-|------------|--------|-------|-------------------|
-| Tech Strategy | Mentorship | Platform Engineering | Kubernetes |
-| Cloud Architecture | Conflict Resolution | GitOps | Terraform/OpenTofu |
-| Product Management | Team Building | Observability | Azure |
-| Public Communication | Developer Experience | Security | Bash |
-| Technical Writing | Developer Advocacy | Networking | Linux |
 
 # Languages
 

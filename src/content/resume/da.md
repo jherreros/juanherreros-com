@@ -66,6 +66,16 @@ Jeg sluttede mig til Saxos Graduate program, hvor jeg tilbragte nogle måneder m
 - **Technical University of Madrid (UPM)** - Februar 2017 - Juli 2017
 - **Axon Partners Group** - Juni 2016 - Oktober 2016
 
+# Kompetencer
+
+| Lederskab | Mennesker | Områder | Værktøjer og Platforme |
+|-----------|-----------|---------|----------------------|
+| Teknisk Strategi | Mentorskab | Platform Engineering | Kubernetes |
+| Cloud Arkitektur | Konfliktløsning | GitOps | Terraform/OpenTofu |
+| Produktledelse | Teambuilding | Observerbarhed | Azure |
+| Offentlig Kommunikation | Udvikleroplevelse | Sikkerhed | Bash |
+| Teknisk Skrivning | Developer Advocacy | Netværk | Linux |
+
 # Uddannelse
 
 ## Kandidatgrad i Telekommunikations Ingeniørvidenskab
@@ -80,16 +90,6 @@ Jeg sluttede mig til Saxos Graduate program, hvor jeg tilbragte nogle måneder m
 2012-2016
 
 *Technical University of Madrid (UPM)*
-
-# Nøglekompetencer
-
-| Lederskab | Mennesker | Områder | Værktøjer og Platforme |
-|-----------|-----------|---------|----------------------|
-| Teknisk Strategi | Mentorskab | Platform Engineering | Kubernetes |
-| Cloud Arkitektur | Konfliktløsning | GitOps | Terraform/OpenTofu |
-| Produktledelse | Teambuilding | Observerbarhed | Azure |
-| Offentlig Kommunikation | Udvikleroplevelse | Sikkerhed | Bash |
-| Teknisk Skrivning | Developer Advocacy | Netværk | Linux |
 
 # Sprog
 

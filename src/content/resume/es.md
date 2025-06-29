@@ -73,6 +73,16 @@ Participé en el programa de Graduados de Saxo, donde pasé varios meses trabaja
 * **Universidad Politécnica de Madrid (UPM)** – Febrero 2017 - Julio 2017
 * **Axon Partners Group** – Junio 2016 - Octubre 2016
 
+# Habilidades Clave
+
+| Liderazgo            | Personas                 | Áreas                | Herramientas y Plataformas |
+| -------------------- | ------------------------ | -------------------- | -------------------------- |
+| Tech Strategy        | Mentoría                 | Platform Engineering | Kubernetes                 |
+| Cloud Architecture   | Resolución de conflictos | GitOps               | Terraform/OpenTofu         |
+| Product Management   | Formación de equipos     | Observabilidad       | Azure                      |
+| Public Communication | Developer Experience     | Seguridad            | Bash                       |
+| Technical Writing    | Developer Advocacy       | Networking           | Linux                      |
+
 # Educación
 
 ## Máster en Ingeniería de Telecomunicación
@@ -85,16 +95,6 @@ Participé en el programa de Graduados de Saxo, donde pasé varios meses trabaja
 
 2012-2016
 *Universidad Politécnica de Madrid (UPM)*
-
-# Habilidades Clave
-
-| Liderazgo            | Personas                 | Áreas                | Herramientas y Plataformas |
-| -------------------- | ------------------------ | -------------------- | -------------------------- |
-| Tech Strategy        | Mentoría                 | Platform Engineering | Kubernetes                 |
-| Cloud Architecture   | Resolución de conflictos | GitOps               | Terraform/OpenTofu         |
-| Product Management   | Formación de equipos     | Observabilidad       | Azure                      |
-| Public Communication | Developer Experience     | Seguridad            | Bash                       |
-| Technical Writing    | Developer Advocacy       | Networking           | Linux                      |
 
 # Idiomas
 
