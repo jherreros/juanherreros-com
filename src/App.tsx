@@ -13,6 +13,7 @@ import Index from "./pages/Index";
 import Blog from "./pages/Blog";
 import BlogPost from "./pages/BlogPost";
 import Talks from "./pages/Talks";
+import TalkDetail from "./pages/TalkDetail";
 import Resume from "./pages/Resume";
 import NotFound from "./pages/NotFound";
 
@@ -34,6 +35,7 @@ const App = () => (
                   <Route path="/blog" element={<Blog />} />
                   <Route path="/blog/:slug" element={<BlogPost />} />
                   <Route path="/talks" element={<Talks />} />
+                  <Route path="/talks/:id" element={<TalkDetail />} />
                   <Route path="/resume" element={<Resume />} />
                   <Route path="*" element={<NotFound />} />
                 </Routes>

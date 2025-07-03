@@ -27,7 +27,8 @@ type TranslationKey =
   | 'thoughtsAndInsights'
   | 'searchPlaceholder'
   | 'noPostsFound'
-  | 'loadingPosts';
+  | 'loadingPosts'
+  | 'backToTalks';
 
 const translations: Record<Language, Record<TranslationKey, string>> = {
   en: {
@@ -58,6 +59,7 @@ const translations: Record<Language, Record<TranslationKey, string>> = {
     searchPlaceholder: 'Search posts by title, tag, content, or author...',
     noPostsFound: 'No posts found matching your search criteria.',
     loadingPosts: 'Loading posts...',
+    backToTalks: 'Back to Talks',
   },
   es: {
     home: 'Inicio',
@@ -87,6 +89,7 @@ const translations: Record<Language, Record<TranslationKey, string>> = {
     searchPlaceholder: 'Buscar entradas por título, etiqueta, contenido o autor...',
     noPostsFound: 'No se encontraron entradas que coincidan con tus criterios de búsqueda.',
     loadingPosts: 'Cargando entradas...',
+    backToTalks: 'Volver a Charlas',
   },
   da: {
     home: 'Hjem',
@@ -116,6 +119,7 @@ const translations: Record<Language, Record<TranslationKey, string>> = {
     searchPlaceholder: 'Søg indlæg efter titel, tag, indhold eller forfatter...',
     noPostsFound: 'Ingen indlæg fundet, der matcher dine søgekriterier.',
     loadingPosts: 'Indlæser indlæg...',
+    backToTalks: 'Tilbage til Foredrag',
   },
 };
 

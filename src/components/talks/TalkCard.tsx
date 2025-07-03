@@ -6,6 +6,7 @@ import { Button } from "@/components/ui/button";
 import { format, isValid, parseISO } from "date-fns";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { useTranslation } from "@/lib/translations";
+import { Link } from "react-router-dom";
 
 interface TalkCardProps {
   talk: Talk;
@@ -35,7 +36,14 @@ export function TalkCard({ talk }: TalkCardProps) {
   return (
     <Card className="h-full flex flex-col hover:shadow-md transition-shadow">
       <CardHeader>
-        <CardTitle className="text-xl text-primary">{talk.title}</CardTitle>
+        <CardTitle className="text-xl text-primary">
+          <Link 
+            to={`/talks/${talk.id}`}
+            className="hover:underline transition-all"
+          >
+            {talk.title}
+          </Link>
+        </CardTitle>
         <CardDescription>
           {talk.event} | {formattedDate}
         </CardDescription>

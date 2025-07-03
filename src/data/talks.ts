@@ -3,6 +3,7 @@ import { Talk } from "@/lib/types";
 
 export const talks: Talk[] = [
   {
+    id: "self-service-iac-banking-circle",
     title: "Self-service IaC @ Banking Circle",
     event: "DevOps Meetup, Copenhagen",
     date: "2022-11-10T00:00:00Z",
@@ -15,6 +16,7 @@ export const talks: Talk[] = [
     tags: ["Infrastructure as Code", "Automation", "Terraform"],
   },
   {
+    id: "self-service-iac-people-process-product",
     title: "Self-service Infrastructure as Code: People, process, product",
     event: "HashiTalks 2023",
     date: "2023-02-16T00:00:00Z",
@@ -27,6 +29,7 @@ export const talks: Talk[] = [
     tags: ["Infrastructure as Code", "Automation", "Terraform", "Culture"],
   },
   {
+    id: "yes-sir-i-can-gitops",
     title: "Yes sir, I can GitOps! SDLC automation on a regulated industry",
     event: "PlatformCon 2023",
     date: "2023-06-09T00:00:00Z",
@@ -39,6 +42,7 @@ export const talks: Talk[] = [
     tags: ["GitOps", "CI/CD", "Compliance", "Feature Flags"],
   },
   {
+    id: "3-layers-platform-helm",
     title: "The 3 Layers of our Platform and Helmping Ourselves before helping others",
     event: "Cloud Native Copenhagen",
     date: "2024-05-21T00:00:00Z",
@@ -51,6 +55,7 @@ export const talks: Talk[] = [
     tags: ["Kubernetes", "Open Source", "Cloud Native", "Platform Engineering"],
   },
   {
+    id: "platform-bank-4-steps",
     title: "A Platform to run a Bank on, in 4 simple steps",
     event: "QCon London 2025",
     date: "2025-04-08T00:00:00Z",
@@ -63,6 +68,7 @@ export const talks: Talk[] = [
     tags: ["Kubernetes", "Open Source", "Cloud Native", "Platform Engineering"],
   },
   {
+    id: "azure-landing-zones-service",
     title: "Azure Landing Zones as a Service",
     event: "Azure Usergroup Denmark",
     date: "2025-02-05T00:00:00Z",
@@ -75,6 +81,7 @@ export const talks: Talk[] = [
     tags: ["Azure", "Landing Zones", "Cloud Native", "Platform Engineering"],
   },
   {
+    id: "evolving-engineering-banking-circle",
     title: "Evolving Engineering at Banking Circle",
     event: "The Shortcu.tt podcast ",
     date: "2025-05-14T00:00:00Z",
@@ -87,6 +94,7 @@ export const talks: Talk[] = [
     tags: ["Podcast", "Culture", "Cloud Native", "Platform Engineering"],
   },
   {
+    id: "iac-templates-apis-platform",
     title: "Infrastructure as code, from templates to APIs: A Platform Engineering Story",
     event: "PlatformCon 2025",
     date: "2025-06-23T00:00:00Z",
