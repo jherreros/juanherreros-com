@@ -12,7 +12,7 @@ Apasionado por la developer experience, la salud del equipo y por generar impact
 
 *Abril 2025 - Actualidad*
 
-Lidero el equipo responsable de tres de las plataformas centrales "Atlas" de Banking Circle.
+Lidero el equipo responsable de tres de las plataformas "Atlas" de Banking Circle.
 
 Atlas es la base sobre la que construyen nuestros equipos de ingeniería. Ofrece a los desarrolladores una experiencia potente, intuitiva y autoservicio para gestionar todo lo que necesitan, de forma rápida y fiable.
 
@@ -24,7 +24,7 @@ Atlas es la base sobre la que construyen nuestros equipos de ingeniería. Ofrece
 
 *Octubre 2024 - Abril 2025*
 
-* Diseño e implementación de nuestras plataformas de compute, messaging (Pub/Sub) e infraestructura
+* Diseño e implementación de nuestras plataformas de compute, messaging e infraestructura
 * Gestión de producto de dichas plataformas: gestión del backlog, recogida de feedback de usuarios, comunicación interna, promoción de la adopción
 * Reclutamiento y mentoría de otros miembros del equipo
 * Establecimiento de buenas prácticas sobre cómo utilizar todas nuestras plataformas
@@ -35,24 +35,17 @@ Atlas es la base sobre la que construyen nuestros equipos de ingeniería. Ofrece
 
 Creamos un nuevo equipo y empezamos a construir una plataforma sobre Kubernetes. Mis responsabilidades iban desde el diseño de la arquitectura y funcionalidad de la plataforma, hasta su implementación y la promoción de su uso dentro de Banking Circle; asegurando al mismo tiempo que todo el equipo se sintiera bien, estuviera aprendiendo y pudiera cumplir con nuestra visión.
 
-Esta plataforma en Kubernetes incluye una serie de soluciones de la CNCF, otras open-source y también software propietario. Entre otros, utilizamos ArgoCD, Cilium, Grafana, Kyverno o Trivy. No solo ensamblamos piezas, sino que construimos una interfaz coherente e intuitiva por encima, para garantizar que las personas puedan utilizarla de forma eficiente y autoservicio, sin necesidad de entender la complejidad subyacente; además de asegurar que todo lo que hacemos en ella sea seguro y cumpla con la normativa.
-
 ### Senior DevOps Engineer
 
 *Marzo 2022 - Diciembre 2022*
 
 Creé una serie de bloques reutilizables (Terraform Modules, plantillas de pipelines) y facilité su uso en toda la organización.
 
-Algunos equipos que ya tenían familiaridad con Azure Pipelines o Terraform pudieron consumir estos "bloques" de forma autoservicio, pero también estuve involucrado en ayudar a otros equipos a adoptar estas soluciones.
-
 ### DevOps Engineer
 
 *Marzo 2021 - Marzo 2022*
 
-Me uní inicialmente al equipo que desarrollaba nuestra API orientada al cliente, como DevOps Engineer en un equipo compuesto por desarrolladores y testers. Tuve dos responsabilidades principales y en ambos casos adopté un enfoque modular, creando bloques reutilizables.
-
-* Programar una definición declarativa (Infrastructure as Code - Terraform) de todos los recursos que el equipo usaba en Azure.
-* Encargarme de estandarizar el proceso de entrega de aplicaciones (o SDLC) para todos nuestros microservicios, mediante plantillas de pipelines (Azure DevOps).
+Me uní al equipo que desarrollaba nuestra API de cara al cliente. Allí, programé una definición declarativa (Terraform) de todos los recursos que el equipo estaba utilizando en Azure. También me encargué de estandarizar el proceso de entrega de aplicaciones (o SDLC) para todos nuestros microservicios, a través de plantillas de pipeline (Azure DevOps).
 
 ## Saxo Bank (2018-2021)
 
@@ -60,13 +53,13 @@ Me uní inicialmente al equipo que desarrollaba nuestra API orientada al cliente
 
 *Diciembre 2019 - Febrero 2021*
 
-Trabajé en el equipo de Data in Motion como DevOps Engineer, trabajando con Kafka, Azure, Azure DevOps, Ansible, Git o Grafana; haciendo nuestros desarrollos más rápidos y nuestra infraestructura más fiable.
+Trabajé en el equipo de Data in Motion, usando Kafka, Azure, Azure DevOps, Ansible, Git o Grafana; haciendo nuestros desarrollos más rápidos y nuestra infraestructura más fiable.
 
 ### IT Graduate
 
 *Septiembre 2018 - Diciembre 2019*
 
-Participé en el programa de Graduados de Saxo, donde pasé varios meses trabajando en los siguientes equipos: Data Science, Data Engineering y, finalmente, en el equipo de Data in Motion (Kafka), donde trabajé como DevOps Engineer.
+Trabajé en estos equipos: Data Science, Data Engineering y Data in Motion (Kafka).
 
 ## Prácticas
 
@@ -88,13 +81,13 @@ Participé en el programa de Graduados de Saxo, donde pasé varios meses trabaja
 ## Máster en Ingeniería de Telecomunicación
 
 2016-2018
-*Universidad Politécnica de Madrid (UPM)*
-*Technical University of Denmark (DTU)*
+* *Universidad Politécnica de Madrid (UPM)*
+* *Technical University of Denmark (DTU)*
 
 ## Grado en Ingeniería de Telecomunicación y Electrónica
 
 2012-2016
-*Universidad Politécnica de Madrid (UPM)*
+* *Universidad Politécnica de Madrid (UPM)*
 
 # Idiomas
 

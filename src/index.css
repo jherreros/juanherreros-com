@@ -1,4 +1,3 @@
-
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -48,20 +47,20 @@
 
   .dark {
     --background: 160 40% 8%;
-    --foreground: 150 30% 98%;
+    --foreground: 150 10% 95%;
 
     --card: 160 40% 12%;
-    --card-foreground: 150 30% 98%;
+    --card-foreground: 150 10% 95%;
 
     --popover: 160 40% 12%;
-    --popover-foreground: 150 30% 98%;
+    --popover-foreground: 150 10% 95%;
 
     /* Corporate green primary color in dark mode */
     --primary: 152 45% 42%;
     --primary-foreground: 0 0% 100%;
 
     --secondary: 160 40% 20%;
-    --secondary-foreground: 150 30% 98%;
+    --secondary-foreground: 150 10% 95%;
 
     --muted: 160 40% 20%;
     --muted-foreground: 150 20% 65%;
@@ -112,8 +111,41 @@
     @apply border-l-4 border-primary/50 italic;
   }
 
-  .prose code {
-    @apply bg-accent text-accent-foreground rounded px-1 py-0.5;
+  /* Add the missing prose-foreground class */
+  .prose-foreground {
+    @apply text-foreground;
+  }
+
+  /* Ensure proper contrast for prose-foreground in dark mode */
+  .dark .prose-foreground {
+    @apply text-foreground;
+    color: hsl(var(--foreground)) !important;
+  }
+
+  /* Enhanced code block styling for better readability */
+  .prose code:not(pre code) {
+    @apply bg-accent/80 text-accent-foreground px-1.5 py-0.5 rounded-md font-mono text-sm font-medium border border-border/50;
+  }
+
+  .prose pre {
+    @apply bg-muted/60 border border-border p-4 rounded-lg overflow-x-auto shadow-sm;
+  }
+
+  .prose pre code {
+    @apply bg-transparent text-foreground p-0 rounded-none text-sm leading-relaxed border-none;
+  }
+
+  /* Dark mode specific code styling */
+  .dark .prose code:not(pre code) {
+    @apply bg-accent/60 text-accent-foreground border-border/30;
+  }
+
+  .dark .prose pre {
+    @apply bg-muted/40 border-border/50;
+  }
+
+  .dark .prose pre code {
+    @apply text-foreground;
   }
 
   /* Smooth transitions for theme changes */
