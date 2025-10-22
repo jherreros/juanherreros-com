@@ -106,4 +106,17 @@ export const talks: Talk[] = [
     videoUrl: "https://www.youtube.com/watch?v=HWG7fSMQd9I",
     tags: ["Terraform", "Infrastructure as Code", "Cloud Native", "Platform Engineering"],
   },
+  {
+    id: "helm-crossplane",
+    title: "Crossplane y Helm: Juntos, revueltos, mezclados y agitados",
+    event: "Cloudnativos 2025",
+    date: "2025-10-28T00:00:00Z",
+    description: {
+      en: "Combining Crossplane and Helm to manage applications including everything they need, both in Kubernetes and in the cloud, natively.",
+      es: "Combinado Crossplane y Helm para gestionar aplicaciones incluyendo todo lo que necesitan, tanto en Kubernetes como en la nube, de manera nativa.",
+      da: "Kombinere Crossplane og Helm for at administrere applikationer, herunder alt hvad de har brug for, både i Kubernetes og i skyen, nativt."
+    },
+    imageUrl: "/cloudnativos.png",
+    tags: ["Crossplane", "Helm",  "Kubernetes", "Infrastructure as Code", "Cloud Native", "Platform Engineering"],
+  },
 ];
