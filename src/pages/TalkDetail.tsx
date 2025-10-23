@@ -84,6 +84,24 @@ const TalkDetail = () => {
           </div>
         )}
 
+        {talk.slides && talk.slides.includes('speakerdeck.com') && (
+          <div className="relative w-full bg-muted rounded-lg overflow-hidden" style={{ paddingBottom: '56.25%' }}>
+            <iframe
+              src={`${talk.slides}`}
+              title={`${talk.title} - Slides`}
+              allowFullScreen
+              style={{ 
+                position: 'absolute',
+                top: 0,
+                left: 0,
+                width: '100%',
+                height: '100%',
+                border: 0 
+              }}
+            ></iframe>
+          </div>
+        )}
+
         <div className="prose prose-foreground max-w-none">
           <p className="text-lg">{description}</p>
         </div>
@@ -97,14 +115,6 @@ const TalkDetail = () => {
             ))
           )}
         </div>
-
-        {talk.slides && (
-          <Button variant="secondary" asChild>
-            <a href={talk.slides} target="_blank" rel="noopener noreferrer">
-              {t('viewSlides')}
-            </a>
-          </Button>
-        )}
       </div>
     </div>
   );

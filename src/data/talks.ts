@@ -13,6 +13,7 @@ export const talks: Talk[] = [
       da: "En introduktion til hvordan Banking Circle gik fra en mest manuel tilgang til genanvendelige terraform moduler til infrastruktur provisionering."
     },
     videoUrl: "https://www.youtube.com/watch?v=KnLCEtHkRa8",
+    slides: "https://speakerdeck.com/jherreros/self-service-iac-at-banking-circle",
     tags: ["Infrastructure as Code", "Automation", "Terraform"],
   },
   {
@@ -26,6 +27,7 @@ export const talks: Talk[] = [
       da: "En reflektion over hvordan en automatiseret, gentagelig tilgang driver fordele i både tekniske og ikke-tekniske områder."
     },
     videoUrl: "https://www.youtube.com/watch?v=_-mHscUXYZY",
+    slides: "https://speakerdeck.com/jherreros/self-service-infrastructure-as-code-people-process-product",
     tags: ["Infrastructure as Code", "Automation", "Terraform", "Culture"],
   },
   {
@@ -39,6 +41,7 @@ export const talks: Talk[] = [
       da: "Et kig på hvordan vi implementerede en automatiseret compliance-løsning i vores pipelines og en GitOps-løsning til Feature Flags, inden for vores industris reguleringer."
     },
     videoUrl: "https://www.youtube.com/watch?v=7P6IaysAiCM",
+    slides: "https://speakerdeck.com/jherreros/yes-sir-i-can-gitops-sdlc-automation-on-a-regulated-industry",
     tags: ["GitOps", "CI/CD", "Compliance", "Feature Flags"],
   },
   {
@@ -52,6 +55,7 @@ export const talks: Talk[] = [
       da: "Et kig på strukturen af Banking Circles Interne Udviklerplatform, og de open source værktøjer vi har bygget til den."
     },
     imageUrl: "/cncf-cph.png",
+    slides: "https://speakerdeck.com/jherreros/the-3-layers-of-our-platform-and-helmping-ourselves-before-helping-others",
     tags: ["Kubernetes", "Open Source", "Cloud Native", "Platform Engineering"],
   },
   {
@@ -65,6 +69,7 @@ export const talks: Talk[] = [
       da: "Et hurtigt overblik over Banking Circles Compute Platform, inklusive dens kerne og abstraktionslag eksponeret til vores brugere."
     },
     imageUrl: "/qcon.jpg",
+    slides: "https://speakerdeck.com/jherreros/a-platform-to-run-a-bank-on-in-4-simple-steps",
     tags: ["Kubernetes", "Open Source", "Cloud Native", "Platform Engineering"],
   },
   {
@@ -78,6 +83,7 @@ export const talks: Talk[] = [
       da: "En introduktion til vores enkle, selvbetjente interface til at provisionere infrastruktur ressourcer."
     },
     imageUrl: "/azure-usergroup.jpg",
+    slides: "https://speakerdeck.com/jherreros/azure-landing-zones-as-a-service",
     tags: ["Azure", "Landing Zones", "Cloud Native", "Platform Engineering"],
   },
   {
@@ -104,6 +110,7 @@ export const talks: Talk[] = [
       da: "Et tilbageblik på vores rejse omkring infrastruktur provisionering, fra genanvendelige byggeklodser til en ren Platform Engineering tilgang."
     },
     videoUrl: "https://www.youtube.com/watch?v=HWG7fSMQd9I",
+    slides: "https://speakerdeck.com/jherreros/infrastructure-as-code-from-templates-to-apis-a-platform-engineering-story",
     tags: ["Terraform", "Infrastructure as Code", "Cloud Native", "Platform Engineering"],
   },
   {
@@ -117,6 +124,7 @@ export const talks: Talk[] = [
       da: "Kombinere Crossplane og Helm for at administrere applikationer, herunder alt hvad de har brug for, både i Kubernetes og i skyen, nativt."
     },
     imageUrl: "/cloudnativos.png",
+    slides: "https://speakerdeck.com/jherreros/20251028-helm-crossplane-juntos-revueltos-mezclados-agitados",
     tags: ["Crossplane", "Helm",  "Kubernetes", "Infrastructure as Code", "Cloud Native", "Platform Engineering"],
   },
 ];
