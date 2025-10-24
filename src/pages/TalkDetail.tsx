@@ -6,12 +6,15 @@ import { ArrowLeft } from "lucide-react";
 import { format, isValid, parseISO } from "date-fns";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { useTranslation } from "@/lib/translations";
+import { useState, useEffect } from "react";
 
 const TalkDetail = () => {
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
   const { language } = useLanguage();
   const t = useTranslation(language);
+  const [slidesEmbed, setSlidesEmbed] = useState<string>("");
+  const [isLoadingSlides, setIsLoadingSlides] = useState<boolean>(false);
 
   const talk = talks.find(t => t.id === id);
 
@@ -44,6 +47,36 @@ const TalkDetail = () => {
 
   const formattedDate = talk.date ? formatDate(talk.date) : t('dateUnavailable');
   const description = talk.description[language] || talk.description.en;
+
+  useEffect(() => {
+    const fetchSlidesEmbed = async () => {
+      if (talk.slides && talk.slides.includes('speakerdeck.com')) {
+        setIsLoadingSlides(true);
+        try {
+          // Use the Vite proxy to avoid CORS issues
+          const oembedUrl = `/api/speakerdeck/oembed.json?url=${encodeURIComponent(talk.slides)}`;
+
+          const response = await fetch(oembedUrl);
+
+          if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+          }
+
+          const data = await response.json();
+
+          if (data.html) {
+            setSlidesEmbed(data.html);
+          }
+        } catch (error) {
+          console.error("Error fetching Speakerdeck embed:", error);
+        } finally {
+          setIsLoadingSlides(false);
+        }
+      }
+    };
+
+    fetchSlidesEmbed();
+  }, [talk.slides]);
 
   return (
     <div className="min-h-screen py-12 px-4 sm:px-6 lg:px-8 max-w-4xl mx-auto">
@@ -85,20 +118,14 @@ const TalkDetail = () => {
         )}
 
         {talk.slides && talk.slides.includes('speakerdeck.com') && (
-          <div className="relative w-full bg-muted rounded-lg overflow-hidden" style={{ paddingBottom: '56.25%' }}>
-            <iframe
-              src={`${talk.slides}`}
-              title={`${talk.title} - Slides`}
-              allowFullScreen
-              style={{ 
-                position: 'absolute',
-                top: 0,
-                left: 0,
-                width: '100%',
-                height: '100%',
-                border: 0 
-              }}
-            ></iframe>
+          <div className="w-full bg-muted rounded-lg overflow-hidden [&_iframe]:w-full [&_iframe]:h-auto [&_iframe]:max-w-full">
+            {isLoadingSlides ? (
+              <div className="flex items-center justify-center p-8">
+                <p className="text-muted-foreground">Loading slides...</p>
+              </div>
+            ) : slidesEmbed ? (
+              <div dangerouslySetInnerHTML={{ __html: slidesEmbed }} />
+            ) : null}
           </div>
         )}
 
