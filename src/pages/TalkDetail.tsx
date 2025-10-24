@@ -53,19 +53,25 @@ const TalkDetail = () => {
       if (talk.slides && talk.slides.includes('speakerdeck.com')) {
         setIsLoadingSlides(true);
         try {
-          // Use the Vite proxy to avoid CORS issues
-          const oembedUrl = `/api/speakerdeck/oembed.json?url=${encodeURIComponent(talk.slides)}`;
+          // If we have the speakerdeck ID, use it directly
+          if (talk.speakerdeckId) {
+            const embedHtml = `<iframe class="speakerdeck-iframe" src="//speakerdeck.com/player/${talk.speakerdeckId}" width="710" height="399" style="aspect-ratio:710/399; border:0; padding:0; margin:0; background:transparent;" frameborder="0" allowtransparency="true" allowfullscreen="allowfullscreen"></iframe>`;
+            setSlidesEmbed(embedHtml);
+          } else {
+            // Fallback: try oEmbed API (works locally with proxy, not in production)
+            const oembedUrl = `https://speakerdeck.com/oembed.json?url=${encodeURIComponent(talk.slides)}`;
+            
+            const response = await fetch(oembedUrl);
 
-          const response = await fetch(oembedUrl);
+            if (!response.ok) {
+              throw new Error(`HTTP error! status: ${response.status}`);
+            }
 
-          if (!response.ok) {
-            throw new Error(`HTTP error! status: ${response.status}`);
-          }
+            const data = await response.json();
 
-          const data = await response.json();
-
-          if (data.html) {
-            setSlidesEmbed(data.html);
+            if (data.html) {
+              setSlidesEmbed(data.html);
+            }
           }
         } catch (error) {
           console.error("Error fetching Speakerdeck embed:", error);
@@ -76,7 +82,7 @@ const TalkDetail = () => {
     };
 
     fetchSlidesEmbed();
-  }, [talk.slides]);
+  }, [talk.slides, talk.speakerdeckId]);
 
   return (
     <div className="min-h-screen py-12 px-4 sm:px-6 lg:px-8 max-w-4xl mx-auto">
@@ -118,13 +124,16 @@ const TalkDetail = () => {
         )}
 
         {talk.slides && talk.slides.includes('speakerdeck.com') && (
-          <div className="w-full bg-muted rounded-lg overflow-hidden [&_iframe]:w-full [&_iframe]:h-auto [&_iframe]:max-w-full">
+          <div className="w-full bg-muted rounded-lg overflow-hidden">
             {isLoadingSlides ? (
               <div className="flex items-center justify-center p-8">
                 <p className="text-muted-foreground">Loading slides...</p>
               </div>
             ) : slidesEmbed ? (
-              <div dangerouslySetInnerHTML={{ __html: slidesEmbed }} />
+              <div 
+                className="w-full [&_iframe]:w-full [&_iframe]:h-auto [&_iframe]:aspect-[710/399]"
+                dangerouslySetInnerHTML={{ __html: slidesEmbed }} 
+              />
             ) : null}
           </div>
         )}

@@ -22,6 +22,7 @@ export interface Talk {
   videoUrl?: string; // YouTube or other video platform URL
   imageUrl?: string; // Fallback image if no video
   slides?: string; // URL to slides
+  speakerdeckId?: string; // Speakerdeck player ID for embed
   tags: string[];
 }
 

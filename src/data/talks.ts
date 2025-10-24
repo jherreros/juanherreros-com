@@ -14,6 +14,7 @@ export const talks: Talk[] = [
     },
     videoUrl: "https://www.youtube.com/watch?v=KnLCEtHkRa8",
     slides: "https://speakerdeck.com/jherreros/self-service-iac-at-banking-circle",
+    speakerdeckId: "ab4dff2de4d84cca9cfcf0f8b625880b",
     tags: ["Infrastructure as Code", "Automation", "Terraform"],
   },
   {
@@ -28,6 +29,7 @@ export const talks: Talk[] = [
     },
     videoUrl: "https://www.youtube.com/watch?v=_-mHscUXYZY",
     slides: "https://speakerdeck.com/jherreros/self-service-infrastructure-as-code-people-process-product",
+    speakerdeckId: "35991cb08afd4ccab3df26742e69510d",
     tags: ["Infrastructure as Code", "Automation", "Terraform", "Culture"],
   },
   {
@@ -42,6 +44,7 @@ export const talks: Talk[] = [
     },
     videoUrl: "https://www.youtube.com/watch?v=7P6IaysAiCM",
     slides: "https://speakerdeck.com/jherreros/yes-sir-i-can-gitops-sdlc-automation-on-a-regulated-industry",
+    speakerdeckId: "6fef555f89dc4633bea988c47e0c5f58",
     tags: ["GitOps", "CI/CD", "Compliance", "Feature Flags"],
   },
   {
@@ -56,6 +59,7 @@ export const talks: Talk[] = [
     },
     imageUrl: "/cncf-cph.png",
     slides: "https://speakerdeck.com/jherreros/the-3-layers-of-our-platform-and-helmping-ourselves-before-helping-others",
+    speakerdeckId: "7f8101e11cca48c1bab687f9a8a5e5b0",
     tags: ["Kubernetes", "Open Source", "Cloud Native", "Platform Engineering"],
   },
   {
@@ -70,6 +74,7 @@ export const talks: Talk[] = [
     },
     imageUrl: "/qcon.jpg",
     slides: "https://speakerdeck.com/jherreros/a-platform-to-run-a-bank-on-in-4-simple-steps",
+    speakerdeckId: "883377e402d841e584feb42aebda7444",
     tags: ["Kubernetes", "Open Source", "Cloud Native", "Platform Engineering"],
   },
   {
@@ -84,6 +89,7 @@ export const talks: Talk[] = [
     },
     imageUrl: "/azure-usergroup.jpg",
     slides: "https://speakerdeck.com/jherreros/azure-landing-zones-as-a-service",
+    speakerdeckId: "75d3db9b86a349fdb88d24f8514dcbb4",
     tags: ["Azure", "Landing Zones", "Cloud Native", "Platform Engineering"],
   },
   {
@@ -111,6 +117,7 @@ export const talks: Talk[] = [
     },
     videoUrl: "https://www.youtube.com/watch?v=HWG7fSMQd9I",
     slides: "https://speakerdeck.com/jherreros/infrastructure-as-code-from-templates-to-apis-a-platform-engineering-story",
+    speakerdeckId: "43684923fce04e4b956f2664aa65de1e",
     tags: ["Terraform", "Infrastructure as Code", "Cloud Native", "Platform Engineering"],
   },
   {
@@ -125,6 +132,7 @@ export const talks: Talk[] = [
     },
     imageUrl: "/cloudnativos.png",
     slides: "https://speakerdeck.com/jherreros/20251028-helm-crossplane-juntos-revueltos-mezclados-agitados",
+    speakerdeckId: "64bafa800fa5436a9831c9815c053201",
     tags: ["Crossplane", "Helm",  "Kubernetes", "Infrastructure as Code", "Cloud Native", "Platform Engineering"],
   },
 ];
