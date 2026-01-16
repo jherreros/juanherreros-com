@@ -130,7 +130,7 @@ export const talks: Talk[] = [
       es: "Combinado Crossplane y Helm para gestionar aplicaciones incluyendo todo lo que necesitan, tanto en Kubernetes como en la nube, de manera nativa.",
       da: "Kombinere Crossplane og Helm for at administrere applikationer, herunder alt hvad de har brug for, både i Kubernetes og i skyen, nativt."
     },
-    imageUrl: "/cloudnativos.png",
+    videoUrl: "https://www.youtube.com/watch?v=JAD5avWGXao",
     slides: "https://speakerdeck.com/jherreros/20251028-helm-crossplane-juntos-revueltos-mezclados-agitados",
     speakerdeckId: "64bafa800fa5436a9831c9815c053201",
     tags: ["Crossplane", "Helm",  "Kubernetes", "Infrastructure as Code", "Cloud Native", "Platform Engineering"],
