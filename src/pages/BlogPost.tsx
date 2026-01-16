@@ -18,24 +18,24 @@ const BlogPost = () => {
   const [availableLanguages, setAvailableLanguages] = useState<string[]>([]);
   const { language, setLanguage } = useLanguage();
   const t = useTranslation(language);
-  
+
   useEffect(() => {
     async function loadPost() {
       if (slug) {
         try {
           console.log(`Loading post with slug: ${slug} for language: ${language}`);
           setIsLoading(true);
-          
+
           // Load the post for the current language
           const foundPost = await getPostBySlug(slug, language);
           console.log("Post found:", foundPost?.title);
           setPost(foundPost || null);
-          
+
           // Load available languages for this post
           const languages = await getAvailableLanguagesForPost(slug);
           setAvailableLanguages(languages);
           console.log("Available languages:", languages);
-          
+
         } catch (error) {
           console.error("Failed to load post:", error);
           toast.error("Failed to load blog post");
@@ -44,7 +44,7 @@ const BlogPost = () => {
         }
       }
     }
-    
+
     loadPost();
   }, [slug, language]); // Re-load when slug or language changes
 
@@ -101,7 +101,7 @@ const BlogPost = () => {
             {t('backToAllPosts')}
           </Link>
         </Button>
-        
+
         {/* Language switcher for this post */}
         {availableLanguages.length > 1 && (
           <div className="flex gap-2">
@@ -110,6 +110,7 @@ const BlogPost = () => {
                 key={lang}
                 variant={lang === language ? "default" : "outline"}
                 size="sm"
+                // eslint-disable-next-line @typescript-eslint/no-explicit-any
                 onClick={() => setLanguage(lang as any)}
               >
                 {lang.toUpperCase()}
@@ -118,7 +119,7 @@ const BlogPost = () => {
           </div>
         )}
       </div>
-      
+
       <article>
         <header className="mb-8">
           <h1 className="text-3xl md:text-4xl font-bold mb-4 text-primary">{post.title}</h1>
@@ -129,7 +130,7 @@ const BlogPost = () => {
             <span className="text-muted-foreground">•</span>
             <time dateTime={post.date}>{formattedDate}</time>
           </div>
-          
+
           {post.tags && post.tags.length > 0 && (
             <div className="flex flex-wrap gap-2 mt-4">
               <Tag className="h-4 w-4 text-muted-foreground" />
@@ -139,15 +140,15 @@ const BlogPost = () => {
             </div>
           )}
         </header>
-        
+
         <div className="prose dark:prose-invert max-w-none">
           <ReactMarkdown components={{
-            h1: ({node, ...props}) => <h1 className="text-primary" {...props} />,
-            h2: ({node, ...props}) => <h2 className="text-primary" {...props} />,
-            h3: ({node, ...props}) => <h3 className="text-primary" {...props} />,
-            h4: ({node, ...props}) => <h4 className="text-primary" {...props} />,
-            h5: ({node, ...props}) => <h5 className="text-primary" {...props} />,
-            h6: ({node, ...props}) => <h6 className="text-primary" {...props} />
+            h1: ({ node, ...props }) => <h1 className="text-primary" {...props} />,
+            h2: ({ node, ...props }) => <h2 className="text-primary" {...props} />,
+            h3: ({ node, ...props }) => <h3 className="text-primary" {...props} />,
+            h4: ({ node, ...props }) => <h4 className="text-primary" {...props} />,
+            h5: ({ node, ...props }) => <h5 className="text-primary" {...props} />,
+            h6: ({ node, ...props }) => <h6 className="text-primary" {...props} />
           }}>
             {post.content}
           </ReactMarkdown>

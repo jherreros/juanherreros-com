@@ -18,6 +18,42 @@ const TalkDetail = () => {
 
   const talk = talks.find(t => t.id === id);
 
+  useEffect(() => {
+    const fetchSlidesEmbed = async () => {
+      if (!talk || !talk.slides || !talk.slides.includes('speakerdeck.com')) return;
+
+      setIsLoadingSlides(true);
+      try {
+        // If we have the speakerdeck ID, use it directly
+        if (talk.speakerdeckId) {
+          const embedHtml = `<iframe class="speakerdeck-iframe" src="//speakerdeck.com/player/${talk.speakerdeckId}" width="710" height="399" style="aspect-ratio:710/399; border:0; padding:0; margin:0; background:transparent;" frameborder="0" allowtransparency="true" allowfullscreen="allowfullscreen"></iframe>`;
+          setSlidesEmbed(embedHtml);
+        } else {
+          // Fallback: try oEmbed API (works locally with proxy, not in production)
+          const oembedUrl = `https://speakerdeck.com/oembed.json?url=${encodeURIComponent(talk.slides)}`;
+
+          const response = await fetch(oembedUrl);
+
+          if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+          }
+
+          const data = await response.json();
+
+          if (data.html) {
+            setSlidesEmbed(data.html);
+          }
+        }
+      } catch (error) {
+        console.error("Error fetching Speakerdeck embed:", error);
+      } finally {
+        setIsLoadingSlides(false);
+      }
+    };
+
+    fetchSlidesEmbed();
+  }, [talk]);
+
   if (!talk) {
     return (
       <div className="min-h-screen py-12 px-4 sm:px-6 lg:px-8 max-w-4xl mx-auto">
@@ -47,42 +83,6 @@ const TalkDetail = () => {
 
   const formattedDate = talk.date ? formatDate(talk.date) : t('dateUnavailable');
   const description = talk.description[language] || talk.description.en;
-
-  useEffect(() => {
-    const fetchSlidesEmbed = async () => {
-      if (talk.slides && talk.slides.includes('speakerdeck.com')) {
-        setIsLoadingSlides(true);
-        try {
-          // If we have the speakerdeck ID, use it directly
-          if (talk.speakerdeckId) {
-            const embedHtml = `<iframe class="speakerdeck-iframe" src="//speakerdeck.com/player/${talk.speakerdeckId}" width="710" height="399" style="aspect-ratio:710/399; border:0; padding:0; margin:0; background:transparent;" frameborder="0" allowtransparency="true" allowfullscreen="allowfullscreen"></iframe>`;
-            setSlidesEmbed(embedHtml);
-          } else {
-            // Fallback: try oEmbed API (works locally with proxy, not in production)
-            const oembedUrl = `https://speakerdeck.com/oembed.json?url=${encodeURIComponent(talk.slides)}`;
-            
-            const response = await fetch(oembedUrl);
-
-            if (!response.ok) {
-              throw new Error(`HTTP error! status: ${response.status}`);
-            }
-
-            const data = await response.json();
-
-            if (data.html) {
-              setSlidesEmbed(data.html);
-            }
-          }
-        } catch (error) {
-          console.error("Error fetching Speakerdeck embed:", error);
-        } finally {
-          setIsLoadingSlides(false);
-        }
-      }
-    };
-
-    fetchSlidesEmbed();
-  }, [talk.slides, talk.speakerdeckId]);
 
   return (
     <div className="min-h-screen py-12 px-4 sm:px-6 lg:px-8 max-w-4xl mx-auto">
@@ -130,9 +130,9 @@ const TalkDetail = () => {
                 <p className="text-muted-foreground">Loading slides...</p>
               </div>
             ) : slidesEmbed ? (
-              <div 
+              <div
                 className="w-full [&_iframe]:w-full [&_iframe]:h-auto [&_iframe]:aspect-[710/399]"
-                dangerouslySetInnerHTML={{ __html: slidesEmbed }} 
+                dangerouslySetInnerHTML={{ __html: slidesEmbed }}
               />
             ) : null}
           </div>

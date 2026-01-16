@@ -6,17 +6,19 @@ import path from 'path';
 import { plugin as markdown, Mode } from 'vite-plugin-markdown';
 import { componentTagger } from 'lovable-tagger';
 // Import the content plugin with type assertion to avoid TypeScript errors
-// @ts-ignore - Using type declaration from src/types.d.ts
+// @ts-expect-error - Using type declaration from src/types.d.ts
 import contentPlugin from '@originjs/vite-plugin-content';
+import tailwindcss from '@tailwindcss/vite';
 
 // https://vitejs.dev/config/
 export default defineConfig(({ mode }) => ({
   plugins: [
     react(),
+    tailwindcss(),
     markdown({ mode: [Mode.REACT] }),
     // Use the plugin directly - TypeScript should now recognize it
     contentPlugin,
-    mode === 'development' && componentTagger(),
+    // mode === 'development' && componentTagger(),
   ].filter(Boolean),
   resolve: {
     alias: {

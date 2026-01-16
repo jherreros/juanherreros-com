@@ -10,13 +10,14 @@ import { BlogPost } from "@/lib/types";
 import { getRecentPosts } from "@/lib/blog";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { useTranslation } from "@/lib/translations";
+import { ArrowRight } from "lucide-react";
 
 const Index = () => {
   const [latestPosts, setLatestPosts] = useState<BlogPost[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const { language } = useLanguage();
   const t = useTranslation(language);
-  
+
   // Sort talks by date and get the 2 most recent ones
   const latestTalks = useMemo(() => {
     return [...talks]
@@ -38,26 +39,33 @@ const Index = () => {
         setIsLoading(false);
       }
     }
-    
+
     loadPosts();
   }, [language]); // Re-load posts when language changes
 
   return (
     <div className="min-h-screen flex flex-col">
-      <Hero />
-      
-      <section className="py-12 px-4 sm:px-6 lg:px-8 max-w-6xl mx-auto">
-        <div className="flex justify-between items-center mb-6">
-          <h2 className="text-2xl font-bold">{t('latestBlogPosts')}</h2>
-          <Button variant="ghost" asChild>
-            <Link to="/blog">{t('viewAllPosts')}</Link>
+      <div className="animate-fade-in">
+        <Hero />
+      </div>
+
+      <section className="py-16 px-4 sm:px-6 lg:px-8 max-w-6xl mx-auto animate-fade-in-delayed">
+        <div className="flex justify-between items-end mb-10">
+          <div>
+            <h2 className="text-3xl font-bold tracking-tight mb-2">{t('latestBlogPosts')}</h2>
+            <p className="text-muted-foreground">Thoughts and insights on engineering</p>
+          </div>
+          <Button variant="ghost" asChild className="group text-primary hover:text-primary/80">
+            <Link to="/blog" className="flex items-center gap-1">
+              {t('viewAllPosts')} <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform" />
+            </Link>
           </Button>
         </div>
-        <div className="grid gap-6 md:grid-cols-3">
+        <div className="grid gap-8 md:grid-cols-3">
           {isLoading ? (
             // Loading skeleton for posts
             Array.from({ length: 3 }).map((_, index) => (
-              <div key={index} className="border rounded-lg p-6 animate-pulse">
+              <div key={index} className="border rounded-lg p-6 animate-pulse bg-muted/20">
                 <div className="h-6 bg-muted rounded w-3/4 mb-4"></div>
                 <div className="h-4 bg-muted rounded w-1/4 mb-6"></div>
                 <div className="h-4 bg-muted rounded w-full mb-2"></div>
@@ -72,17 +80,24 @@ const Index = () => {
           )}
         </div>
       </section>
-      
-      <Separator className="max-w-6xl mx-auto" />
-      
-      <section className="py-12 px-4 sm:px-6 lg:px-8 max-w-6xl mx-auto">
-        <div className="flex justify-between items-center mb-6">
-          <h2 className="text-2xl font-bold">{t('recentTalks')}</h2>
-          <Button variant="ghost" asChild>
-            <Link to="/talks">{t('viewAllTalks')}</Link>
+
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+        <Separator className="bg-border/60" />
+      </div>
+
+      <section className="py-16 px-4 sm:px-6 lg:px-8 max-w-6xl mx-auto animate-fade-in-delayed" style={{ animationDelay: '0.4s' }}>
+        <div className="flex justify-between items-end mb-10">
+          <div>
+            <h2 className="text-3xl font-bold tracking-tight mb-2">{t('recentTalks')}</h2>
+            <p className="text-muted-foreground">Speaking engagements and workshops</p>
+          </div>
+          <Button variant="ghost" asChild className="group text-primary hover:text-primary/80">
+            <Link to="/talks" className="flex items-center gap-1">
+              {t('viewAllTalks')} <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform" />
+            </Link>
           </Button>
         </div>
-        <div className="grid gap-6 md:grid-cols-2">
+        <div className="grid gap-8 md:grid-cols-2">
           {latestTalks.map((talk) => (
             <TalkCard key={talk.id} talk={talk} />
           ))}

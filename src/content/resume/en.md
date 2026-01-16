@@ -20,7 +20,7 @@ Atlas is the foundation our engineering teams build on. It gives developers a po
 - **Atlas Infra**: Built on Azure and following the Landing Zone paradigm, it provides the supporting infrastructure developers need—mainly for configuration and state management.
 
 ### Principal Platform Engineer
-*October 2024 - April 2025*
+*October 2024 - Present*
 
 - Design and implementation of our compute, messaging and infrastructure platforms
 - Product management of those platforms: handling backlog, gathering user feedback, internal communication, driving adoption

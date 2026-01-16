@@ -22,7 +22,7 @@ Atlas es la base sobre la que construyen nuestros equipos de ingeniería. Ofrece
 
 ### Principal Platform Engineer
 
-*Octubre 2024 - Abril 2025*
+*Octubre 2024 - Actualidad*
 
 * Diseño e implementación de nuestras plataformas de compute, messaging e infraestructura
 * Gestión de producto de dichas plataformas: gestión del backlog, recogida de feedback de usuarios, comunicación interna, promoción de la adopción

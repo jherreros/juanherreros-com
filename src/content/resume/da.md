@@ -20,7 +20,7 @@ Atlas er fundamentet vores engineering teams bygger på. Det giver udviklere en 
 - **Atlas Infra**: Bygget på Azure og følger Landing Zone paradigmet, leverer den den understøttende infrastruktur udviklere har brug for—hovedsageligt til konfiguration og tilstandsstyring.
 
 ### Principal Platform Engineer
-*Oktober 2024 - April 2025*
+*Oktober 2024 - Nuværende*
 
 - Design og implementering af vores compute-, messaging- og infrastrukturplatforme
 - Produktstyring af disse platforme: håndtering af backlog, indsamling af brugerfeedback, intern kommunikation, drivkraft for adoption
