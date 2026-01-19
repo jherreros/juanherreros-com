@@ -49,7 +49,7 @@ export function Navbar() {
               to="/"
               className="text-primary hover:text-primary/80 transition-colors flex items-center gap-2"
             >
-              <span className="hidden sm:inline-block">Juan Herreros</span>
+              <span className="font-bold">Juan Herreros</span>
             </Link>
           </div>
 
