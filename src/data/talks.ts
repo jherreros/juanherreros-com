@@ -160,7 +160,7 @@ export const talks: Talk[] = [
       es: "Las interfaces de autoservicio, APIs bien definidas con esquemas y documentación, flujos de trabajo locales y observabilidad con detalle siempre han sido elementos importantes de una buena plataforma. Ahora son requisitos para agentes que pueden construir, depurar y enviar software de manera autónoma.",
       da: "Selvbetjeningsgrænseflader, veldefinerede API'er med skemaer og dokumentation, lokale arbejdsprocesser og rig observabilitet har altid været vigtige elementer i en god platform. Nu er de forudsætninger for agenter, der kan bygge, fejlfinde og levere software autonomt."
     },
-    videoUrl: "https://www.youtube.com/watch?v=cCRO3ChaYhM",
+    videoUrl: "https://www.youtube.com/watch?v=ewQeX67P6CA",
     slides: "https://speakerdeck.com/jherreros/platforms-for-humans-and-machines-engineering-for-the-age-of-agents-daf66ef5-42f2-47a3-88db-a304e613444e",
     speakerdeckId: "bc3c25a9aee442fbaffc77dc87dd08ed",
     tags: ["AI", "Self-Service", "Platform Engineering", "Automation", "Observability", "APIs"],
